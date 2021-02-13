@@ -1,66 +1,104 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import Head from 'next/head';
+import {
+  BackroundGradient,
+  Bag,
+  BitcoinIcon,
+  DeliveryIcon,
+  DevicesIcon,
+  DevicesIconMobile,
+  SellSwapPhone,
+  Tickets,
+} from '../svg';
+import Button from '../components/Button';
+import Logo from '../components/Logo';
+import Footer from '../components/Footer';
+import SpotlightCard from '../components/SpotlightCard';
 
 export default function Home() {
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>Safelybuy - Home</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel='icon' href='/favicon.ico' />
       </Head>
-
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-          <p className="text-red-600">Yusuf Abdullah</p>
-        </h1>
-
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+      <div className='relative justify-between flex flex-col min-h-screen text-center'>
+        <div>
+          <header className='flex tracking-wide justify-between mx-12 my-6 md:mx-6 md:my-3'>
+            <Logo color='black' text='transact with no regret' />
+            <div className='flex items-center'>
+              <Button text='Sign up' underlined />
+              <Button text='Login' primary roundedFull />
+            </div>
+          </header>
+          <h1 className='pt-8 pb-2 font-bold px-12 text-6xl z-10 md:px-8 md:text-4xl'>
+            Shop . Trade . Delivery . Events
+          </h1>
+          <p className='font-medium'>All in one place</p>
         </div>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
+        <div className='flex relative justify-center full-width z-10 px-12 md:mx-2 md:px-1'>
+          <div
+            className='px-20 w-ful top-0 absolute flex justify-center md:hidden'
+            style={{ filter: 'blur(80px)' }}
+          >
+            {<BackroundGradient />}
+          </div>
+          <div
+            className='px-0 w-full top-0 absolute hidden justify-center md:flex'
+            style={{ filter: 'blur(40px)' }}
+          >
+            {<BackroundGradient />}
+          </div>
+          <div className='flex md:hidden justify-center w-full flex-wrap'>
+            <SpotlightCard text='Shopping' svg={<Bag />} />
+            <SpotlightCard
+              tag
+              tagText='PROMO'
+              text='Delivery'
+              svg={<DeliveryIcon />}
+            />
+            <SpotlightCard text='Tickets' svg={<Tickets />} />
+            <SpotlightCard text='Bitcoin & Gift Cards' svg={<BitcoinIcon />} />
+            <SpotlightCard
+              tag
+              tagText='50% OFF'
+              text='Sell or Swap Phone'
+              svg={<SellSwapPhone />}
+            />
+          </div>
+          <div className='hidden md:flex justify-center w-full flex-wrap'>
+            <SpotlightCard text='Shopping' small svg={<Bag />} />
+            <SpotlightCard
+              tag
+              tagText='50% OFF'
+              text='Sell or Swap Phone'
+              svg={<SellSwapPhone />}
+              small
+            />
+            <SpotlightCard
+              small
+              text='Bitcoin & Gift Cards'
+              svg={<BitcoinIcon />}
+            />
+            <SpotlightCard
+              tag
+              tagText='PROMO'
+              text='Delivery'
+              svg={<DeliveryIcon />}
+              small
+            />
+            <SpotlightCard small text='Tickets' svg={<Tickets />} />
+          </div>
+        </div>
+        <div className='relative z-10'>
+          <div className='relative hidden justify-center mt-10 md:flex'>
+            {<DevicesIconMobile />}
+          </div>
+          <div className='px-12 relative flex justify-center mt-10 md:hidden'>
+            {<DevicesIcon />}
+          </div>
+          <Footer />
+        </div>
+      </div>
     </div>
-  )
+  );
 }
