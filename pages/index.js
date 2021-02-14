@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Link from 'next/link';
 import {
   BackroundGradient,
   Bag,
@@ -27,7 +28,11 @@ export default function Home() {
             <Logo color='black' text='transact with no regret' />
             <div className='flex items-center'>
               <Button text='Sign up' underlined />
-              <Button text='Login' primary roundedFull />
+              <Link href='/login'>
+                <a>
+                  <Button text='Login' primary roundedFull />
+                </a>
+              </Link>
             </div>
           </header>
           <h1 className='pt-8 pb-2 font-bold px-12 text-6xl z-10 md:px-8 md:text-4xl'>
