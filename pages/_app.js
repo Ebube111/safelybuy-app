@@ -2,8 +2,11 @@ import React, { useReducer } from 'react';
 import { ToastProvider } from 'react-toast-notifications';
 import { ContextUser } from '../context';
 import userReducer from '../reducers/auth';
-import { auth } from "../reducers/initialState";
+import { auth } from '../reducers/initialState';
 import '../styles/globals.css';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import '../styles/extra.scss';
 
 function MyApp({ Component, pageProps }) {
   const [state, dispatch] = useReducer(userReducer, auth);
@@ -11,7 +14,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <ToastProvider>
       <ContextUser.Provider value={[state, dispatch]}>
-        <Component {...pageProps} />
+          <Component {...pageProps} />
       </ContextUser.Provider>
     </ToastProvider>
   );

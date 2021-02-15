@@ -7,7 +7,7 @@ import Logo from '../components/Logo';
 import Footer from '../components/Footer';
 import Button from '../components/Button';
 import { ContextUser } from '../context';
-import { useHistory } from 'react-router-dom';
+import { useRouter } from 'next/router';
 import { login } from '../actions/auth';
 import { useToasts } from 'react-toast-notifications';
 
@@ -18,7 +18,7 @@ const isValidEmail = (email) =>
   );
 
 const CheckMark = ({ id, name }) => (
-  <div className='relative inline-flex my-4 items-center'>
+  <div className='relative inline-flex my-4 items-center text-gray-500'>
     <input type='checkbox' id={id} className='h-4 w-4 mr-2' />
     <label htmlFor={id} className='leading-none'>
       {name}
@@ -27,11 +27,11 @@ const CheckMark = ({ id, name }) => (
 );
 
 const SamplePage = () => {
-  const history = useHistory();
+  const router = useRouter();
   const { addToast } = useToasts();
   const [state, dispatch] = useContext(ContextUser);
   const { register, errors, handleSubmit } = useForm();
-  const onSubmit = (data) => login(dispatch, data, history, addToast);
+  const onSubmit = (data) => login(dispatch, data, router, addToast);
   const handleEmailValidation = (email) => {
     const isValid = isValidEmail(email);
     return isValid;
@@ -54,7 +54,7 @@ const SamplePage = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <div className='relative justify-between flex flex-col min-h-screen text-center'>
-        <div>
+        <div className='pb-48'>
           <header className='flex tracking-wide justify-center mx-12 my-8 md:mx-6 md:my-3'>
             <Logo color='black' text='transact with no regret' />
           </header>
@@ -174,7 +174,12 @@ const SamplePage = () => {
                         submit
                       />
                     </div>
-                    
+                    <p className='text-center pt-4'>
+                      Don't have an account?{' '}
+                      <span className='link'>
+                        <Link href='/signup'>Sign up</Link>
+                      </span>
+                    </p>
                   </div>
                 </>
               )}

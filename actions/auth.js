@@ -21,7 +21,7 @@ export const login = (dispatch, data, history, toast) => {
       });
       localStorage.setItem("safely_buy_token", res.data.token);
       localStorage.setItem("safely_buy_id", res.data.user.id);
-      history.push("/shopping");
+      history.push("/");
     },
     (err) => {
       if (err.response) {

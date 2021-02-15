@@ -54,7 +54,7 @@ export default function Home() {
             {<BackroundGradient />}
           </div>
           <div className='flex md:hidden justify-center w-full flex-wrap'>
-            <SpotlightCard text='Shopping' svg={<Bag />} />
+            <SpotlightCard text='Shopping' link='shopping' svg={<Bag />} />
             <SpotlightCard
               tag
               tagText='PROMO'
