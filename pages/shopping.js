@@ -53,7 +53,6 @@ const TitleTab = ({ text, color, colorShade, img }) => {
 };
 
 const SectionalTab = ({ text, icon, color, url }) => {
-  console.log(url);
   return (
     <Link href={`/${url}`}>
       <a>
@@ -72,6 +71,40 @@ const SectionalTab = ({ text, icon, color, url }) => {
         </div>
       </a>
     </Link>
+  );
+};
+
+const Product = ({ title, img, price, rating }) => {
+  return (
+    <div className='w-48'>
+      <div className='relative h-48 w-48'>
+        <Image className='rounded-lg object-cover' src={img} layout='fill' />
+      </div>
+      <div className='py-4 px-3'>
+        <p className='font-medium'>{title}</p>
+        <div className='flex justify-between'>
+          <span className='text-lg font-bold text-purple-600'>&#8358;{price.toLocaleString()}</span>
+          <span className='flex items-center rating text-xs'>
+            <svg
+              width='12'
+              height='12'
+              className='inline-block mr-1'
+              viewBox='0 0 12 12'
+              fill='none'
+              xmlns='http://www.w3.org/2000/svg'
+            >
+              <path
+                fillRule='evenodd'
+                clipRule='evenodd'
+                d='M5.99968 10.0649L2.39669 11.9591L3.0848 7.94712L0.169922 5.10581L4.19819 4.52047L5.99968 0.870239L7.80118 4.52047L11.8294 5.10581L8.91457 7.94712L9.60268 11.9591L5.99968 10.0649Z'
+                fill='#F2C94C'
+              />
+            </svg>
+            {rating} rating
+          </span>
+        </div>
+      </div>
+    </div>
   );
 };
 
@@ -317,10 +350,62 @@ export default function Home() {
             </Slider>
           </div>
         </div>
-        banners products
+        {/* banners  */}
+        <div className='bg-gray-100 p-2 flex h-80 m-20 rounded-md'>
+          <div className='h-full text-3xl font-bold flex justify-center items-center w-1/2 bg-violet-400 rounded-md ml-1'>
+            Banner 2
+          </div>
+          <div className='h-full text-3xl font-bold flex justify-center items-center w-1/2 bg-violet-400 rounded-md ml-1'>
+            Banner 3
+          </div>
+        </div>
+        {/* our products */}
+        <div className='m-20'>
+          <h2 className='text-4xl mb-8 font-bold'>Our Products</h2>
+          <div className='flex justify-between'>
+            {[
+              {
+                src: '/images/samsung-tab.png',
+                name: 'Samsung Galaxy Tab A 10.1',
+                rating: 3.5,
+                price: 63000
+              },
+              {
+                src: '/images/iPad.png',
+                name: 'Apple iPad Air 2 - 128GB - Cellular + Wifi Gray',
+                rating: 4.7,
+                price: 187000
+              },
+              {
+                src: '/images/iphone-x.png',
+                name: 'iPhone XMax - 128GB',
+                rating: 4.5,
+                price: 350000
+              },
+              {
+                src: '/images/airpod2.png',
+                name: 'Apple Earpod 5.0',
+                rating: 4.5,
+                price: 119000
+              },
+              {
+                src: '/images/android2.png',
+                name: 'Xaomi Pocophone f1 - 8GB RAM 128GB ROM',
+                rating: 3.8,
+                price: 129000
+              },
+            ].map((e) => (
+              <Product
+                img={e.src}
+                title={e.name}
+                rating={e.rating}
+                price={e.price}
+              />
+            ))}
+          </div>
+        </div>
         <Footer />
       </div>
     </div>
   );
-  3;
 }

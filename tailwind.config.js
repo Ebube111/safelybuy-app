@@ -31,6 +31,7 @@ module.exports = {
       blue: colors.blue,
       indigo: colors.indigo,
       purple: colors.violet,
+      violet: colors.purple,
       pink: colors.pink,
       lime: colors.lime,
       teal: colors.teal,
