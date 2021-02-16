@@ -11,7 +11,15 @@ import Logo from '../components/Logo';
 import Footer from '../components/Footer';
 import User from '../components/User';
 import { useComponentVisible } from '../hooks';
-import { Cart, HambugerSkewed, SearchIcon, AngleRight } from '../svg';
+import {
+  Cart,
+  HambugerSkewed,
+  SearchIcon,
+  AngleRight,
+  DeliveryIcon,
+  Tickets,
+  Phones,
+} from '../svg';
 
 const TitleTab = ({ text, color, colorShade, img }) => {
   const router = useRouter();
@@ -44,6 +52,29 @@ const TitleTab = ({ text, color, colorShade, img }) => {
   );
 };
 
+const SectionalTab = ({ text, icon, color, url }) => {
+  console.log(url);
+  return (
+    <Link href={`/${url}`}>
+      <a>
+        <div
+          className={`flex border-2 items-center p-3 border-${color}-200 w-52 rounded-md hover:shadow-inner`}
+        >
+          <div className={`bg-${color}-100 p-1 mr-4 rounded-md`}>
+            <div className={`bg-${color}-200 p-2 rounded-md`}>{icon}</div>
+          </div>
+          <div className='leading-none'>
+            <h4 className='uppercase tracking-widest font-bold text-sm'>
+              {text}
+            </h4>
+            <small className='text-xs font-medium'>from Safelybuy</small>
+          </div>
+        </div>
+      </a>
+    </Link>
+  );
+};
+
 export default function Home() {
   const [state, dispatch] = useContext(ContextUser);
   useEffect(() => {
@@ -54,7 +85,7 @@ export default function Home() {
     dots: true,
     infinite: true,
     slidesToScroll: 1,
-    autoplay: true,
+    // autoplay: true,
     speed: 2000,
     autoplaySpeed: 2000,
     pauseOnHover: true,
@@ -70,7 +101,7 @@ export default function Home() {
         <title>Safelybuy - Shopping</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <div className='relative flex flex-col min-h-screen'>
+      <div className='relative pb-48 flex flex-col min-h-screen'>
         {/* navigation */}
         <nav className='flex items-center mx-20 tracking-wide justify-between my-12 md:mx-6 md:my-3'>
           <div className='flex'>
@@ -185,7 +216,28 @@ export default function Home() {
             </div>
           </div>
         </div>
-        section tabs recomended carousels banners products
+        {/* section tabs  */}
+        <div className='flex my-20 mx-20 justify-around'>
+          <SectionalTab
+            text='sell a phone'
+            color='blue'
+            icon={<Phones scale={0.8} color='rgb(59, 130, 246)' />}
+            url='sell-phone'
+          />
+          <SectionalTab
+            text='delivery'
+            color='green'
+            icon={<DeliveryIcon color='rgba(16, 185, 129, 1)' scale={0.6} />}
+            url='delivery'
+          />
+          <SectionalTab
+            text='tickets'
+            color='purple'
+            icon={<Tickets scale={0.6} />}
+            url='tickets'
+          />
+        </div>
+        recomended carousels banners products
         <Footer />
       </div>
     </div>
