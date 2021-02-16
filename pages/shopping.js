@@ -75,21 +75,71 @@ const SectionalTab = ({ text, icon, color, url }) => {
   );
 };
 
+function NextArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={
+        className + ' bg-purple-100 justify-center items-center rounded-sm'
+      }
+      style={{ ...style, display: 'flex' }}
+      onClick={onClick}
+    >
+      <AngleRight
+        scale={1}
+        className='align-baseline inline-block'
+        color='#8661FF'
+      />
+    </div>
+  );
+}
+
+function PrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={
+        className + ' bg-purple-100 justify-center items-center rounded-sm'
+      }
+      style={{ ...style, display: 'flex' }}
+      onClick={onClick}
+    >
+      <AngleRight
+        scale={1}
+        className='align-baseline transform rotate-180 inline-block'
+        color='#8661FF'
+      />
+    </div>
+  );
+}
+
+const settings = {
+  dots: true,
+  infinite: true,
+  slidesToScroll: 1,
+  autoplay: true,
+  speed: 1000,
+  autoplaySpeed: 3000,
+  pauseOnHover: true,
+};
+
+const settingsRecommended = {
+  dots: true,
+  infinite: true,
+  slidesToShow: 6,
+  autoplay: true,
+  slidesToScroll: 3,
+  pauseOnHover: true,
+  nextArrow: <NextArrow />,
+  prevArrow: <PrevArrow />,
+};
+
 export default function Home() {
   const [state, dispatch] = useContext(ContextUser);
   useEffect(() => {
     if (state.user.firstname) return;
     fetchUser(dispatch);
   }, [dispatch, state.user.firstname]);
-  const settings = {
-    dots: true,
-    infinite: true,
-    slidesToScroll: 1,
-    // autoplay: true,
-    speed: 2000,
-    autoplaySpeed: 2000,
-    pauseOnHover: true,
-  };
   const {
     ref: userRef,
     isComponentVisible: userIsVisible,
@@ -152,7 +202,7 @@ export default function Home() {
           <span className='font-bold'>Safelybuy</span>
         </h1>
         {/* banner  */}
-        <div className='mx-20 flex h-96'>
+        <div id='main-banner' className='mx-20 flex h-96'>
           <div className='banner w-7/12'>
             <Slider {...settings}>
               <div className='h-96 w-full bg-purple-500 rounded-2xl'>
@@ -237,9 +287,40 @@ export default function Home() {
             url='tickets'
           />
         </div>
-        recomended carousels banners products
+        {/* recomended carousels  */}
+        <div className='mx-20 mb-10'>
+          <h3 className='text-2xl mb-8 font-bold'>Recommended Picks</h3>
+          <div className='recommended-carousels mx-10'>
+            <Slider {...settingsRecommended}>
+              {[
+                { src: '/images/airpod.png', name: 'Airpods' },
+                { src: '/images/android.png', name: 'Phones' },
+                { src: '/images/iwatch.png', name: 'Apple Watches' },
+                { src: '/images/iphone11.png', name: 'Apple Phones' },
+                { src: '/images/ps5.png', name: 'PlayStations' },
+                { src: '/images/xbox.png', name: 'X-boxes' },
+                { src: '/images/samsung.png', name: 'Samsung Phones' },
+                { src: '/images/laptop.png', name: 'Laptops' },
+                { src: '/images/iphone.png', name: 'iPhones' },
+              ].map((e) => (
+                <div className='h-48'>
+                  <div className='h-40 m-auto relative w-36 rounded-lg bg-gray-100'>
+                    <Image
+                      className='rounded-lg object-cover'
+                      src={e.src}
+                      layout='fill'
+                    />
+                  </div>
+                  <p className='font-medium mt-2 text-center'>{e.name}</p>
+                </div>
+              ))}
+            </Slider>
+          </div>
+        </div>
+        banners products
         <Footer />
       </div>
     </div>
   );
+  3;
 }

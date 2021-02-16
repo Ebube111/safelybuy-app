@@ -966,4 +966,5 @@ module.exports = {
     zIndex: ['responsive', 'focus-within', 'focus'],
   },
   plugins: [],
+  // important: '#app',
 };

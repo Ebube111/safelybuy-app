@@ -3,9 +3,9 @@ import { ToastProvider } from 'react-toast-notifications';
 import { ContextUser } from '../context';
 import userReducer from '../reducers/auth';
 import { auth } from '../reducers/initialState';
-import '../styles/globals.css';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import '../styles/globals.css';
 import '../styles/extra.scss';
 
 function MyApp({ Component, pageProps }) {

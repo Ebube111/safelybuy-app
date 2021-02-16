@@ -1,13 +1,26 @@
-.slick-dots {
+#main-banner .slick-dots {
   bottom: 1rem;
   li {
     button:before {
       font-size: 10px;
       opacity: 0.2;
-      color: #fff;
+      color: white;
     }
   }
   li.slick-active button:before {
     color: white;
+    opacity: 1
+  }
+}
+
+.slick-next {
+  &:before {
+    content: '';
+  }
+}
+
+.slick-prev {
+  &:before {
+    content: '';
   }
 }
