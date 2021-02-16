@@ -12,7 +12,6 @@ const User = ({ userIsVisible, setUserIsVisible, userRef }) => {
   // const history = useHistory();
   const [state, dispatch] = useContext(ContextUser);
   useEffect(() => {
-    console.log(state.user);
     if (state.user.firstname) return;
     fetchUser(dispatch);
   }, [dispatch, state.user.firstname]);
