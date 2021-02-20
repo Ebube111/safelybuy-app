@@ -1,5 +1,5 @@
-import Link from 'next/link';
 import React from 'react';
+import Link from 'next/link';
 import { SafelyBuyLogo } from '../svg';
 
 export default function Logo({ text, color, allowSub }) {

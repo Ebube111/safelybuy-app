@@ -9,7 +9,7 @@
   }
   li.slick-active button:before {
     color: white;
-    opacity: 1
+    opacity: 1;
   }
 }
 
@@ -22,5 +22,49 @@
 .slick-prev {
   &:before {
     content: '';
+  }
+}
+
+.filter {
+  .noUi-horizontal {
+    height: 4px;
+    .noUi-handle {
+      width: 14px;
+      height: 14px;
+      right: -6px;
+      top: -5px;
+      border: 1px solid #d9d9d9;
+      border-radius: 3px;
+      background: #fff;
+      cursor: default;
+      @apply border-0 rounded-full bg-purple-500 cursor-move shadow-sm;
+    }
+
+    .noUi-tooltip {
+      transform: translate(-50%, 0);
+      left: 50%;
+      bottom: -150%;
+      border: none;
+      border-radius: 3px;
+      background: transparent;
+      color: #000;
+      padding: 0px;
+      text-align: center;
+      white-space: nowrap;
+      @apply text-xs text-gray-500
+    }
+  }
+
+  .noUi-target {
+    @apply border-0 bg-gray-200 shadow-inner;
+  }
+
+  .noUi-connect {
+    @apply bg-purple-500;
+  }
+
+  .noUi-handle:before,
+  .noUi-handle:after {
+    display: none;
   }
 }
