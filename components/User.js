@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react';
 import Link from 'next/link';
-import { ArrowDown, ArrowUp, AngleRight, UserAvatar } from '../svg';
+import { ArrowDown } from '../svg';
 import { UserMenuMobile } from './UserMenuMobile';
 import { ContextUser } from '../context';
 import { fetchUser } from '../actions/auth';
