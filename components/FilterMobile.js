@@ -184,7 +184,7 @@ export default ({
                           xmlns='http://www.w3.org/2000/svg'
                         >
                           <path
-                            fill-rule='evenodd'
+                            fillRule='evenodd'
                             clipRule='evenodd'
                             d='M7.99958 12.7532L3.19559 15.2788L4.11307 9.92949L0.226562 6.14108L5.59759 5.36063L7.99958 0.493652L10.4016 5.36063L15.7726 6.14108L11.8861 9.92949L12.8036 15.2788L7.99958 12.7532Z'
                             fill='#F2C94C'

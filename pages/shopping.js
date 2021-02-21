@@ -7,11 +7,7 @@ import Navigation from '../subviews/header';
 import Footer from '../components/Footer';
 import Product from '../components/Product';
 import SectionalTab from '../components/SectionalTab';
-import {
-  DeliveryIcon,
-  Tickets,
-  Phones,
-} from '../svg';
+import { DeliveryIcon, Tickets, Phones } from '../svg';
 import RecommendedSection from '../subviews/RecommendedSection';
 import MainBanner from '../subviews/MainBanner';
 
@@ -60,7 +56,10 @@ export default function Home() {
           />
         </div>
         {/* recomended carousels  */}
-        <RecommendedSection />
+        <div className='mx-20 mb-10 md:mx-1'>
+          <h3 className='text-2xl mb-8 font-bold md:mx-6'>Recommended Picks</h3>
+          <RecommendedSection />
+        </div>
         {/* banners  */}
         <div className='bg-gray-100 md:bg-white p-2 flex h-80 md:h-28 m-20 md:my-8 rounded-md md:mx-6'>
           <div className='h-full text-3xl md:text-lg font-bold flex justify-center md:text-white items-center w-1/2 bg-violet-400 rounded-md ml-1'>

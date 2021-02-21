@@ -79,36 +79,33 @@ function PrevArrow(props) {
 
 const RecommendedSection = () => {
   return (
-    <div className='mx-20 mb-10 md:mx-1'>
-      <h3 className='text-2xl mb-8 font-bold md:mx-6'>Recommended Picks</h3>
-      <div className='recommended-carousels mx-10 md:mx-0'>
-        <Slider {...settings}>
-          {[
-            { src: '/images/airpod.png', name: 'Airpods' },
-            { src: '/images/android.png', name: 'Phones' },
-            { src: '/images/iwatch.png', name: 'Apple Watches' },
-            { src: '/images/iphone11.png', name: 'Apple Phones' },
-            { src: '/images/ps5.png', name: 'PlayStations' },
-            { src: '/images/xbox.png', name: 'X-boxes' },
-            { src: '/images/samsung.png', name: 'Samsung Phones' },
-            { src: '/images/laptop.png', name: 'Laptops' },
-            { src: '/images/iphone.png', name: 'iPhones' },
-          ].map((e) => (
-            <div key={Math.random()} className='h-48 md:h-24'>
-              <div className='h-40 md:h-20 m-auto relative w-36 md:w-24 rounded-lg bg-gray-100'>
-                <Image
-                  className='rounded-lg object-cover'
-                  src={e.src}
-                  layout='fill'
-                />
-              </div>
-              <p className='font-medium md:font-normal mt-2 md:mt-1 text-center md:text-xs'>
-                {e.name}
-              </p>
+    <div className='recommended-carousels mx-10 md:mx-0'>
+      <Slider {...settings}>
+        {[
+          { src: '/images/airpod.png', name: 'Airpods' },
+          { src: '/images/android.png', name: 'Phones' },
+          { src: '/images/iwatch.png', name: 'Apple Watches' },
+          { src: '/images/iphone11.png', name: 'Apple Phones' },
+          { src: '/images/ps5.png', name: 'PlayStations' },
+          { src: '/images/xbox.png', name: 'X-boxes' },
+          { src: '/images/samsung.png', name: 'Samsung Phones' },
+          { src: '/images/laptop.png', name: 'Laptops' },
+          { src: '/images/iphone.png', name: 'iPhones' },
+        ].map((e) => (
+          <div key={Math.random()} className='h-48 md:h-24'>
+            <div className='h-40 md:h-20 m-auto relative w-36 md:w-24 rounded-lg bg-gray-100'>
+              <Image
+                className='rounded-lg object-cover'
+                src={e.src}
+                layout='fill'
+              />
             </div>
-          ))}
-        </Slider>
-      </div>
+            <p className='font-medium md:font-normal mt-2 md:mt-1 text-center md:text-xs'>
+              {e.name}
+            </p>
+          </div>
+        ))}
+      </Slider>
     </div>
   );
 };
