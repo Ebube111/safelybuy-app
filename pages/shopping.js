@@ -32,7 +32,7 @@ export default function Home() {
       <div className='relative pb-48 flex flex-col min-h-screen md:pb-72'>
         <Navigation />
         {/* title  */}
-        <h1 className='text-center my-8 mx-20 font-medium text-5xl tracking-wider md:mx-6 md:hidden'>
+        <h1 className='text-center pt-28 my-8 mx-20 font-medium text-5xl tracking-wider md:mx-6 md:hidden'>
           <span className='uppercase font-bold'>Shopping</span> from{' '}
           <span className='font-bold'>Safelybuy</span>
           <sup className='inline-block text-base font-bold -top-6'>TM</sup>

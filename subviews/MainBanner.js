@@ -14,7 +14,7 @@ const settings = {
 
 const MainBanner = () => {
   return (
-    <div id='main-banner' className='mx-20 flex flex-wrap md:mx-6'>
+    <div id='main-banner' className='mx-20 flex flex-wrap md:mx-6 md:pt-32'>
       <div className='banner h-96 md:h-48 w-7/12 md:my-8 md:w-full'>
         <Slider {...settings}>
           <div className='h-96 md:h-48 w-full bg-purple-500 rounded-2xl md:rounded-lg'>

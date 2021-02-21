@@ -1,9 +1,7 @@
 import React from 'react';
 import Slider from 'react-slick';
 import Image from 'next/image';
-import {
-  AngleRight,
-} from '../svg';
+import { AngleRight } from '../svg';
 
 const settings = {
   dots: true,
@@ -14,6 +12,7 @@ const settings = {
   swipeToSlide: true,
   speed: 2000,
   autoplaySpeed: 3000,
+  arrows: false,
   cssEase: 'linear',
   pauseOnHover: true,
   nextArrow: <NextArrow />,

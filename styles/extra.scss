@@ -41,9 +41,10 @@
     }
 
     .noUi-tooltip {
+      display: none;
       transform: translate(-50%, 0);
       left: 50%;
-      bottom: -150%;
+      bottom: 150%;
       border: none;
       border-radius: 3px;
       background: transparent;
@@ -51,7 +52,11 @@
       padding: 0px;
       text-align: center;
       white-space: nowrap;
-      @apply text-xs text-gray-500
+      @apply text-xs text-gray-500;
+    }
+
+    .noUi-active .noUi-tooltip {
+      display: block;
     }
   }
 

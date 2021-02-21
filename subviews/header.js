@@ -16,9 +16,9 @@ const header = () => {
     setIsComponentVisible: setUserIsVisible,
   } = useComponentVisible(false);
   return (
-    <div>
+    <div className='fixed w-full bg-white z-20 shadow-lg px-20 py-6 md:px-6 md:py-3'>
       {/* navigation */}
-      <nav className='flex items-center mx-20 tracking-wide justify-between my-12 md:mx-6 md:my-3'>
+      <nav className='flex w-full items-center tracking-wide justify-between'>
         <div className='flex md:hidden'>
           <Logo
             color='purple'
@@ -80,7 +80,7 @@ const header = () => {
           </div>
         </div>
       </nav>
-      <div className='relative hidden md:flex ml-10 md:ml-6 md:mx-6 mt-8'>
+      <div className='relative hidden md:flex ml-10 md:ml-6 md:mx-6 mt-3'>
         <input
           className='w-72 md:w-full bg-gray-100 focus:outline-none px-12 py-2 rounded-full'
           type='search'
