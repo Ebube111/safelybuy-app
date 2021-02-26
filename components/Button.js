@@ -22,7 +22,7 @@ const Button = ({
   preTagText,
   submit,
 }) => (
-  <div className={`relative inline-block ${full ? `w-full` : ""}`}>
+  <div className={`relative inline-block ${full ? `w-full` : ""} transform hover:shadow-2xl hover:-translate-y-0.5 active:shadow:sm active:translate-y-0`}>
     {preTagText && (
       <div
         className={`absolute top-2 rounded-full left-4 px-2 text-white text-xs py-1 ${
@@ -54,13 +54,13 @@ const Button = ({
         dangerOutline
           ? `border-2 border-red-500 text-red-500 bg-white  px-8 py-2`
           : ""
-      } transform hover:shadow-2xl hover:-translate-y-0.5 active:shadow:sm active:translate-y-0 focus:outline-none`}
+      } focus:outline-none`}
       disabled={disabled}
       style={{ [xSmall && "fontSize"]: "7px" }}
     >
       {text || children}
     </button>
-    <div style={{ top: 9, right: 24 }} className="absolute ">
+    <div style={{ top: 13, right: 24 }} className="absolute ">
       {icon}
     </div>
   </div>

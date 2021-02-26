@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^2.0.0-beta.3",
+    "@tailwindcss/aspect-ratio": "^0.2.0",
     "autoprefixer": "^10.2.4",
     "axios": "^0.21.1",
     "jwt-decode": "^3.1.2",
@@ -21,6 +22,7 @@
     "react-ion-slider": "^1.0.9",
     "react-router-dom": "^5.2.0",
     "react-slick": "^0.28.0",
+    "react-tabs": "^3.2.0",
     "react-toast-notifications": "^2.4.3",
     "sass": "^1.32.7",
     "slick-carousel": "^1.8.1",
