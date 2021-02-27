@@ -9,7 +9,6 @@ import Back from 'components/Back';
 import { shoppingItems } from 'data';
 import { Facebook, Twitter } from 'svg';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-
 import Head from 'next/head';
 import Button from 'components/Button';
 import Comment from 'components/Comment';
