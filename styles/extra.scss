@@ -80,7 +80,7 @@
 
     .react-tabs__tab {
       bottom: -2px;
-      @apply px-6;
+      @apply px-6 md:px-2;
 
       &:focus {
         box-shadow: none;

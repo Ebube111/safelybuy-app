@@ -72,12 +72,14 @@ const header = () => {
             setUserIsVisible={setUserIsVisible}
             userIsVisible={userIsVisible}
           />
-          <div className='bg-green-500 cursor-pointer px-4 md:px-2 py-3 md:py-2 rounded-md shadow-lg relative transform hover:shadow-2xl hover:-translate-y-0.5 active:shadow:sm active:translate-y-0 focus:outline-none'>
-            <Cart />
-            <div className='absolute bg-red-500 rounded-full px-2 py-1 md:px-1 md:py-px text-xs -right-2 -top-2 text-white '>
-              2
+          <Link href='/shopping/cart/'>
+            <div className='bg-green-500 cursor-pointer px-4 md:px-2 py-3 md:py-2 rounded-md shadow-lg relative transform hover:shadow-2xl hover:-translate-y-0.5 active:shadow:sm active:translate-y-0 focus:outline-none'>
+              <Cart />
+              <div className='absolute bg-red-500 rounded-full px-2 py-1 md:px-1 md:py-px text-xs -right-2 -top-2 text-white '>
+                2
+              </div>
             </div>
-          </div>
+          </Link>
         </div>
       </nav>
       <div className='relative hidden md:flex ml-10 md:ml-6 md:mx-6 mt-3'>

@@ -1,8 +1,10 @@
 import { useState } from 'react';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import Navigation from 'subviews/header';
 import Footer from 'components/Footer';
+import Product from 'components/Product';
 import Back from 'components/Back';
 import { shoppingItems } from 'data';
 import { Facebook, Twitter } from 'svg';
@@ -10,6 +12,8 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 import Head from 'next/head';
 import Button from 'components/Button';
+import Comment from 'components/Comment';
+import SellerDetail from 'components/SellerDetail';
 
 const ProductDetail = ({}) => {
   const [favourite, setFavourite] = useState(false);
@@ -29,11 +33,11 @@ const ProductDetail = ({}) => {
       </Head>
       <div className='relative pb-48 flex flex-col min-h-screen md:pb-72'>
         <Navigation />
-        <div className='pt-28 my-8 mx-20'>
+        <div className='pt-28 my-8 mx-20 md:mx-6'>
           <Back />
-          <div className='flex'>
-            <div className='w-1/2 mr-6 flex md:w-full'>
-              <div className='relative h-96 w-9/12'>
+          <div className='flex md:flex-wrap'>
+            <div className='w-1/2 mr-6 md:mr-0 flex md:w-full'>
+              <div className='relative h-96 md:h-80 w-9/12 md:w-full'>
                 <Image
                   className='rounded-lg object-cover'
                   src={src || '/image/yusuf.png'}
@@ -58,7 +62,7 @@ const ProductDetail = ({}) => {
                   />
                 </svg>
               </div>
-              <div className='flex w-3/12 flex-col h-96 overflow-auto ml-4'>
+              <div className='flex w-3/12 md:hidden flex-col h-96 overflow-auto ml-4'>
                 <div className='flex w-20 m-auto justify-between items-center leading-none'>
                   <span className='bg-purple-100 border py-1 text-purple-600 font-medium rounded-md px-2 border-puple-300'>
                     &lt;
@@ -75,9 +79,9 @@ const ProductDetail = ({}) => {
                 </div>
               </div>
             </div>
-            <div className='w-1/2 ml-6 md:w-full'>
+            <div className='w-1/2 ml-6 md:mt-6 md:ml-2 md:w-full'>
               <p className='font-medium text-gray-400'>{name.split(' ')[0]}</p>
-              <h1 className='font-bold text-4xl'>{name}</h1>
+              <h1 className='font-bold text-4xl md:text-2xl'>{name}</h1>
               <span className='inline-flex items-center text-gray-500'>
                 {new Array(Number(parseInt(rating))).fill('star').map((e) => (
                   <svg
@@ -122,11 +126,11 @@ const ProductDetail = ({}) => {
                 </span>
               </span>
               <div className='font-medium pt-2'>Variation: White </div>
-              <div className='text-3xl mt-3 mb-6 font-bold text-purple-500 md:text-sm'>
+              <div className='text-3xl mt-3 md:mt-1 mb-6 md:mb-3 font-bold text-purple-500 md:text-lg'>
                 &#8358;{price.toLocaleString()}
               </div>
               <div className='flex flex-col items-start'>
-                <div className='flex mb-12 items-end'>
+                <div className='flex mb-12 md:mb-6 items-end flex-wrap md:w-full'>
                   <div className='flex-col w-24'>
                     <span className='font-medium mb-2 inline-block'>
                       Quantity
@@ -141,7 +145,7 @@ const ProductDetail = ({}) => {
                       </span>
                     </div>
                   </div>
-                  <div className='w-48 ml-8'>
+                  <div className='w-48 ml-8 md:w-full md:m-auto md:mt-4'>
                     <Button
                       full
                       primary
@@ -167,7 +171,7 @@ const ProductDetail = ({}) => {
                     </Button>
                   </div>
                 </div>
-                <div className='flex items-end'>
+                <div className='flex items-end flex-wrap md:w-full'>
                   <div className='flex-col w-24'>
                     <span className='font-medium text-gray-500 mb-2 inline-block'>
                       Share Product
@@ -177,7 +181,7 @@ const ProductDetail = ({}) => {
                       {<Twitter />}
                     </div>
                   </div>
-                  <div className='flex w-48 ml-8'>
+                  <div className='flex w-48 ml-8 md:w-full md:m-auto md:mt-4'>
                     <Button full secondary roundedLg>
                       <span className='font-medium'>Message Seller</span>
                     </Button>
@@ -193,14 +197,14 @@ const ProductDetail = ({}) => {
                   </TabList>
 
                   <TabPanel>
-                    <h2 className='font-medium text-xl'>
+                    <div className='flex'>
                       <svg
                         width='25'
                         height='25'
                         viewBox='0 0 25 25'
                         fill='none'
                         xmlns='http://www.w3.org/2000/svg'
-                        className='inline-block mr-2'
+                        className='inline-block mr-2 mt-4'
                       >
                         <circle
                           opacity='0.15'
@@ -218,17 +222,142 @@ const ProductDetail = ({}) => {
                           fill='#F2994A'
                         />
                       </svg>
-                      Key Features
-                    </h2>
+                      <div className=''>
+                        <div className=''>
+                          <h2 className='font-medium text-xl pt-3'>
+                            Key Features
+                          </h2>
+                          <ul className='list-disc pl-4 text-gray-700 pt-1 pb-6 border-b border-gray-200'>
+                            <li>Memory: (4GB ROM, 128GB RAM)</li>
+                            <li>
+                              Display: 6.5 Inches Super Retina OLED capacitive
+                              touchscreen, 16M colors
+                            </li>
+                            <li>Camera: 7MP (selfie), 12MP (rear)</li>
+                            <li>OS: iOS 12, upgradable to iOS 13.6.1</li>
+                            <li>Chipset: Apple A12 Bionic (7 nm)</li>
+                            <li>Face Unlock</li>
+                          </ul>
+                        </div>
+                        <div className=''>
+                          <h2 className='font-medium text-xl pt-3'>Camera</h2>
+                          <ul className='list-disc pl-4 text-gray-700 pt-1 pb-6 border-b border-gray-200'>
+                            <li>Memory: (4GB ROM, 128GB RAM)</li>
+                            <li>Camera: 7MP (selfie), 12MP (rear)</li>
+                            <li>OS: iOS 12, upgradable to iOS 13.6.1</li>
+                            <li>Face Unlock</li>
+                          </ul>
+                        </div>
+                        <div className=''>
+                          <h2 className='font-medium text-xl pt-3'>Display</h2>
+                          <ul className='list-disc pl-4 text-gray-700 pt-1 pb-6'>
+                            <li>Lorem ipsum dolor sit amet.</li>
+                            <li>
+                              Lorem ipsum dolor sit amet, consectetur
+                              adipisicing.
+                            </li>
+                            <li>Lorem ipsum dolor sit amet consectetur.</li>
+                            <li>Face Unlock</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
                   </TabPanel>
                   <TabPanel>
-                    <h2>Any content 2</h2>
+                    {[
+                      {
+                        rating: 4,
+                        title: 'Awesome Phone',
+                        body:
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
+                        date: Date.now(),
+                        name: 'Jessica Jones',
+                      },
+                      {
+                        rating: 2,
+                        title: 'Awesome Phone',
+                        body:
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
+                        date: Date.now(),
+                        name: 'Jessica Jones',
+                      },
+                      {
+                        rating: 3,
+                        title: 'Awesome Phone',
+                        body:
+                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
+                        date: Date.now(),
+                        name: 'Jessica Jones',
+                      },
+                    ].map((e) => (
+                      <Comment
+                        key={Math.random()}
+                        rating={e.rating}
+                        title={e.title}
+                        date={e.date}
+                        body={e.body}
+                        name={e.name}
+                      />
+                    ))}
                   </TabPanel>
                   <TabPanel>
-                    <h2>Any content 3</h2>
+                    <SellerDetail
+                      name='Chesco Phones LTD'
+                      image='/images/seller.jpeg'
+                      percentReview={86}
+                    />
                   </TabPanel>
                 </Tabs>
               </div>
+            </div>
+          </div>
+          <div className='mb-10 md:mt-8'>
+            <h2 className='text-3xl md:text-2xl mb-8 font-bold'>
+              <Link href='/shopping/products'>
+                <a>More Like This</a>
+              </Link>
+            </h2>
+            <div className='flex flex-wrap justify-between md:justify-around'>
+              {[
+                {
+                  src: '/images/samsung-tab.png',
+                  name: 'Samsung Galaxy Tab A 10.1',
+                  rating: 3.5,
+                  price: 63000,
+                },
+                {
+                  src: '/images/iPad.png',
+                  name: 'Apple iPad Air 2 - 128GB - Cellular + Wifi Gray',
+                  rating: 4.7,
+                  price: 187000,
+                },
+                {
+                  src: '/images/iphone-x.png',
+                  name: 'iPhone XMax - 128GB',
+                  rating: 4.5,
+                  price: 350000,
+                },
+                {
+                  src: '/images/airpod2.png',
+                  name: 'Apple Earpod 5.0',
+                  rating: 4.5,
+                  price: 119000,
+                },
+                {
+                  src: '/images/android2.png',
+                  name: 'Xaomi Pocophone f1 - 8GB RAM 128GB ROM',
+                  rating: 3.8,
+                  price: 129000,
+                },
+              ].map((e) => (
+                <Product
+                  key={Math.random()}
+                  img={e.src}
+                  title={e.name}
+                  rating={e.rating}
+                  price={e.price}
+                />
+              ))}
             </div>
           </div>
         </div>
