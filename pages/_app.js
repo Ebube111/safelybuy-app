@@ -5,9 +5,9 @@ import userReducer from '../reducers/auth';
 import { auth } from '../reducers/initialState';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import 'react-tabs/style/react-tabs.css';
 import '../styles/globals.css';
 import '../styles/extra.scss';
+import 'react-tabs/style/react-tabs.css';
 
 function MyApp({ Component, pageProps }) {
   const [state, dispatch] = useReducer(userReducer, auth);

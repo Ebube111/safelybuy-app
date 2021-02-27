@@ -73,3 +73,39 @@
     display: none;
   }
 }
+
+.react-tabs {
+  .react-tabs__tab-list {
+    @apply border-b-2 border-gray-300 font-medium;
+
+    .react-tabs__tab {
+      bottom: -2px;
+      @apply px-6;
+
+      &:focus {
+        box-shadow: none;
+        outline: none;
+        background: #fff;
+        color: black;
+        border-bottom: 3px solid black;
+        @apply border-t-0 border-r-0 border-l-0 border-purple-500;
+
+        &:after {
+          box-shadow: none;
+          outline: none;
+          background: #fff;
+          color: black;
+          border-bottom: 3px solid black;
+          @apply border-t-0 border-r-0 border-l-0 border-purple-500;
+        }
+      }
+
+      &--selected {
+        background: #fff;
+        color: black;
+        border-bottom: 3px solid black;
+        @apply border-t-0 border-r-0 border-l-0 border-purple-500;
+      }
+    }
+  }
+}
