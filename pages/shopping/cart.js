@@ -16,19 +16,21 @@ const cart = ({ cartItems = shoppingItems.slice(0, 3) }) => {
         <title>Safelybuy - Shopping</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <div className='relative pb-48 flex flex-col min-h-screen md:pb-72'>
+      <div className='relative pb-48 flex flex-col min-h-screen md:pb-80'>
         <Navigation />
         <div className='pt-28 my-8 mx-20 md:mx-6'>
           <Back />
-          <div className='flex mb-10 md:mt-8'>
-            <div className='w-2/3 mr-8'>
-              <h2 className='text-4xl tracking-wider font-bold'>Your Cart</h2>
-              <div className='mt-8'>
+          <div className='flex mb-10 md:mb-4 md:flex-wrap'>
+            <div className='w-2/3 mr-8 md:w-full'>
+              <h2 className='text-4xl tracking-wider font-bold md:text-2xl'>
+                Your Cart
+              </h2>
+              <div className='mt-8 md:mt-4'>
                 {cartItems.map((e) => (
                   <CartItem product={e} quantity={3} />
                 ))}
               </div>
-              <div className='flex mt-8 justify-end leading-none'>
+              <div className='flex mt-8 md:hidden justify-end leading-none'>
                 <Button
                   primary
                   roundedLg
@@ -39,9 +41,18 @@ const cart = ({ cartItems = shoppingItems.slice(0, 3) }) => {
               </div>
             </div>
             <OrderDetails />
+            <div className='hidden mt-8 md:flex w-full leading-none'>
+              <Button
+                full
+                primary
+                roundedLg
+                icon={<ArrowRight color='white' scale={0.9} />}
+              >
+                <p className='font-medium text-lg'>Proceed to Checkout</p>
+              </Button>
+            </div>
           </div>
         </div>
-
         <Footer />
       </div>
     </div>

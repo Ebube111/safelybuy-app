@@ -2,7 +2,7 @@ import React from 'react';
 
 const OrderDetails = () => {
   return (
-    <div className='w-1/3 ml-8 shadow-2xl p-8 rounded-3xl min-h-80'>
+    <div className='w-1/3 ml-8 md:ml-0 shadow-2xl p-8 rounded-3xl min-h-80 md:w-full'>
       <div className='step-indicator flex relative'>
         <div className='absolute w-full h-2 border-b-2 border-dashed top-4'></div>
         <div className='flex w-full z-10 justify-between'>

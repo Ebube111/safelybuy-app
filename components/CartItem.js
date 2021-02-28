@@ -6,7 +6,7 @@ const CartItem = ({ product, quantity }) => {
   const { id, name, src, price, rating } = product;
   return (
     <div className='border-b-2 border-gray-50 py-6 last:border-0 relative'>
-      <div className='w-full flex'>
+      <div className='w-full flex items-center'>
         <Link href={`/shopping/products/${id}`}>
           <div className='relative cursor-pointer h-20 w-20 md:w-16 md:h-16'>
             <Image
@@ -16,8 +16,8 @@ const CartItem = ({ product, quantity }) => {
             />
           </div>
         </Link>
-        <div className='flex ml-5 w-full items-center'>
-          <div className='w-5/12'>
+        <div className='flex md:flex-wrap ml-5 w-full items-center'>
+          <div className='w-5/12 md:w-full'>
             <p className='font-medium md:text-xs'>{name}</p>
             <div className='flex justify-between'>
               <span className='flex items-center rating text-xs'>
@@ -63,8 +63,8 @@ const CartItem = ({ product, quantity }) => {
               </span>
             </div>
           </div>
-          <div className='w-2/12'>
-            <div className='w-24 flex m-auto justify-between items-center leading-none'>
+          <div className='w-2/12 md:w-full md:order-last'>
+            <div className='w-24 flex m-auto md:m-0 justify-between items-center leading-none'>
               <span className='bg-purple-100 border py-1 text-purple-600 font-medium rounded-md px-2 border-puple-300'>
                 -
               </span>
@@ -74,7 +74,7 @@ const CartItem = ({ product, quantity }) => {
               </span>
             </div>
           </div>
-          <div className='text-2xl m-auto w-3/12 font-bold md:text-sm'>
+          <div className='text-2xl m-auto md:my-1 w-3/12 md:w-full font-bold md:text-sm'>
             &#8358;{price.toLocaleString()}
           </div>
         </div>
@@ -86,7 +86,7 @@ const CartItem = ({ product, quantity }) => {
         fill='none'
         xmlns='http://www.w3.org/2000/svg'
         className='absolute right-0 transform translate-y-1/2'
-        style={{bottom:'50%'}}
+        style={{ bottom: '50%' }}
       >
         <rect opacity='0.1' width='91' height='28' rx='14' fill='#EB5757' />
         <path
