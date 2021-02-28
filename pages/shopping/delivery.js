@@ -45,7 +45,7 @@ const cart = ({ cartItems = shoppingItems.slice(0, 3) }) => {
                 </Link>
               </div>
             </div>
-            <OrderDetails />
+            <OrderDetails active='delivery' />
             <div className='hidden mt-8 md:flex w-full leading-none'>
               <Link href='/shopping/delivery'>
                 <Button
