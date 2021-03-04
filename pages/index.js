@@ -60,6 +60,7 @@ export default function Home() {
               tagText='PROMO'
               text='Delivery'
               svg={<DeliveryIcon />}
+              link='delivery'
             />
             <SpotlightCard text='Tickets' svg={<Tickets />} />
             <SpotlightCard text='Bitcoin & Gift Cards' svg={<BitcoinIcon />} />

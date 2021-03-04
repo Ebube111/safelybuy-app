@@ -483,3 +483,30 @@ export const shoppingItems = [
     id: '3107151794382199',
   },
 ];
+
+export const addressItemsData = [
+  {
+    name: 'Adegoke Aramide',
+    address:
+      '123, Shapely Grove, Emperial Courtyards, Lekki Phase 1, Lagos State.',
+    phone: '+234 8123 343 3243',
+    selected: true,
+    id: '3436728'
+  },
+  {
+    name: 'Jessica Jones',
+    address:
+      '123, Shapely Grove, Emperial Courtyards, Lekki Phase 1, Lagos State.',
+    phone: '+234 8123 343 3243',
+    selected: false,
+    id: '887946'
+  },
+  {
+    name: 'Shade Olamide',
+    address:
+      '123, Shapely Grove, Emperial Courtyards, Lekki Phase 1, Lagos State.',
+    phone: '+234 8123 343 3243',
+    selected: false,
+    id: '2334476'
+  },
+];
