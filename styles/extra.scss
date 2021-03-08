@@ -110,3 +110,29 @@
   }
 }
 
+#ticket-banner {
+
+  .slick-dots {
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex !important;
+    flex-direction: column;
+    right: 1rem;
+    @apply rounded-md py-4 px-1 transform;
+    --tw-translate-y: -50%;
+    bottom: unset;
+    top: 50%;
+    width: unset;
+    li {
+      button:before {
+        font-size: 10px;
+        color: white;
+        opacity: 1;
+      }
+    }
+    li.slick-active button:before {
+      @apply border rounded-full pl-px;
+      color: white;
+      opacity: 1;
+    }
+  }
+}

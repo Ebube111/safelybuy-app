@@ -62,37 +62,45 @@ export default function Home() {
               svg={<DeliveryIcon />}
               link='delivery'
             />
-            <SpotlightCard text='Tickets' svg={<Tickets />} />
-            <SpotlightCard text='Bitcoin & Gift Cards' svg={<BitcoinIcon />} />
+            <SpotlightCard text='Tickets' svg={<Tickets />} link='tickets' />
+            {/* <SpotlightCard text='Bitcoin & Gift Cards' svg={<BitcoinIcon />} /> */}
             <SpotlightCard
               tag
               tagText='50% OFF'
               text='Sell or Swap Phone'
               svg={<SellSwapPhone />}
+              link='tickets'
             />
           </div>
           <div className='hidden md:flex justify-center w-full flex-wrap'>
-            <SpotlightCard text='Shopping' small svg={<Bag />} />
+            <SpotlightCard text='Shopping' link='shopping' small svg={<Bag />} />
             <SpotlightCard
               tag
               tagText='50% OFF'
               text='Sell or Swap Phone'
               svg={<SellSwapPhone />}
               small
+              
             />
-            <SpotlightCard
+            {/* <SpotlightCard
               small
               text='Bitcoin & Gift Cards'
               svg={<BitcoinIcon />}
-            />
+            /> */}
             <SpotlightCard
               tag
               tagText='PROMO'
               text='Delivery'
               svg={<DeliveryIcon />}
               small
+              link='delivery'
             />
-            <SpotlightCard small text='Tickets' svg={<Tickets />} />
+            <SpotlightCard
+              small
+              text='Tickets'
+              svg={<Tickets />}
+              link='tickets'
+            />
           </div>
         </div>
         <div className='relative z-10'>

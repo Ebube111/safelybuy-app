@@ -1,9 +1,12 @@
 import { useContext, useEffect } from 'react';
+import { useRouter } from 'next/router';
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ContextUser } from 'context';
 import { fetchUser } from 'actions/auth';
+import SectionalTab from 'components/SectionalTab';
+import { ArrowRight } from 'svg';
 import Navigation from 'subviews/header';
 import TicketBanner from 'subviews/TicketBanner';
 import Button from 'components/Button';
@@ -12,7 +15,7 @@ import TicketCard from 'components/TicketCard';
 
 export default function Home() {
   const [state, dispatch] = useContext(ContextUser);
-
+  const router = useRouter();
   useEffect(() => {
     if (state.error) return;
     if (state.user.firstname) return;
@@ -33,18 +36,24 @@ export default function Home() {
         />
         {/* title  */}
         <div style={{ maxWidth: '1280px' }} className='container'>
-          <h1 className='text-center pt-28 my-8 mx-20 font-medium text-5xl tracking-wider md:mx-6 md:hidden'>
+          <h1 className='text-center pt-32 my-8 mx-20 font-medium text-5xl tracking-wider md:mx-6 md:hidden'>
             <span className='uppercase font-bold'>Tickets</span> from{' '}
             <span className='font-bold'>Safelybuy</span>
             <sup className='inline-block text-base font-bold -top-6'>TM</sup>
           </h1>
-
-          {/* Banner */}
-          <div className='relative'>
-            <TicketBanner />
-            <div className='absolute md:static w-full -bottom-24 z-10 md:z-1 flex justify-center'>
-              <div className='rounded-2xl shadow-2xl w-8/12 md:w-full py-6 px-16 md:px-5 md:mx-6 font-base m-auto flex bg-white md:flex-wrap'>
-                <div className='w-5/12 md:w-full mr-12 md:mr-0'>
+          <div className='my-20 md:pt-16 mt-20 md:my-8 mx-20 md:mx-6'>
+            <div className='flex justify-between items-center md:flex-wrap'>
+              <div
+                onClick={() => router.back()}
+                className='pb-4 z-10 bg-white cursor-pointer text-black font-bold'
+              >
+                <span className='transform inline-block mr-2 rotate-180'>
+                  <ArrowRight color='rgb(75, 85, 99)' scale={1} />
+                </span>{' '}
+                Search Results (3)
+              </div>
+              <div className='flex w-2/3 md:w-full md:flex-wrap'>
+                <div className='w-5/12 mr-12 md:w-full md:mr-0'>
                   <label className='block text-sm' htmlFor='tickets-cat-select'>
                     Categories
                   </label>
@@ -91,36 +100,54 @@ export default function Home() {
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* section tabs  */}
-          <div className='my-20 mt-40 md:my-8 mx-20 md:mx-6'>
-            <h2 className='text-4xl font-bold md:text-2xl'>Events just for you</h2>
-            <div className='flex mt-12 md:mt-6 -ml-12 md:-ml-4 flex-wrap'>
-              <div className='h-96 md:h-48 relative flex-grow flex-shrink-0 w-2/4 md:w-2/3 ml-12 md:ml-4 mb-12 bg-yellow-500 rounded-2xl md:rounded-lg'>
-                .
-                <Image
-                  className='object-cover rounded-2xl md:rounded-lg'
-                  src='/images/burna.jpeg'
-                  layout='fill'
-                />
-                <div className='absolute h-96 md:h-48 bottom-0 p-16 pt-16 pr-10 md:p-6 md:pb-6 md:pt-6 leading-2 md:leading-none text-overlay w-6/12 md:w-8/12 text-white bg-gradient-to-r from-black rounded-xl md:rounded-lg'>
-                  <h2 className='text-3xl tracking-wide md:tracking-normal md:text-xl font-bold'>
-                    Burna Boy Live Concert
-                  </h2>
-                  <div className='my-6 md:my-2'>29 Sept 2020, Onikan Phase 2 Lagos</div>
-                  <Link href='/tickets/search'>
-                    <a className='leading-none'>
-                      <Button primary roundedFull>
-                        <p className='font-medium text-lg md:text-base'>
-                          See Tickets
-                        </p>
-                      </Button>
-                    </a>
-                  </Link>
-                </div>
-              </div>
+            <div className='flex mt-12 -ml-12 md:-ml-4 flex-wrap'>
               {[
+                {
+                  text: 'Fireboy’s Apollo live-in concert',
+                  venue: 'The Muson Center Lagos',
+                  month: 'Sept',
+                  date: '29',
+                },
+                {
+                  text: 'Fireboy’s Apollo live-in concert',
+                  venue: 'The Muson Center Lagos',
+                  month: 'Sept',
+                  date: '29',
+                },
+                {
+                  text: 'Fireboy’s Apollo live-in concert',
+                  venue: 'The Muson Center Lagos',
+                  month: 'Sept',
+                  date: '29',
+                },
+              ].map((e) => (
+                <TicketCard
+                  key={Math.random()}
+                  text={e.text}
+                  venue={e.venue}
+                  month={e.month}
+                  date={e.date}
+                />
+              ))}
+            </div>
+          </div>
+          {/* section tabs  */}
+          <div className='my-20 md:my-8 mx-20 md:mx-6'>
+            <h2 className='text-4xl font-bold md:text-2xl'>People also searched</h2>
+            <div className='flex mt-12 -ml-12 md:-ml-4 flex-wrap'>
+              {[
+                {
+                  text: 'Fireboy’s Apollo live-in concert',
+                  venue: 'The Muson Center Lagos',
+                  month: 'Sept',
+                  date: '29',
+                },
+                {
+                  text: 'Fireboy’s Apollo live-in concert',
+                  venue: 'The Muson Center Lagos',
+                  month: 'Sept',
+                  date: '29',
+                },
                 {
                   text: 'Fireboy’s Apollo live-in concert',
                   venue: 'The Muson Center Lagos',
