@@ -3,17 +3,17 @@ import Link from 'next/link';
 import {
   BackroundGradient,
   Bag,
-  BitcoinIcon,
+  // BitcoinIcon,
   DeliveryIcon,
   DevicesIcon,
   DevicesIconMobile,
   SellSwapPhone,
   Tickets,
-} from '../svg';
-import Button from '../components/Button';
-import Logo from '../components/Logo';
-import Footer from '../components/Footer';
-import SpotlightCard from '../components/SpotlightCard';
+} from 'svg';
+import Button from 'components/Button';
+import Logo from 'components/Logo';
+import Footer from 'components/Footer';
+import SpotlightCard from 'components/SpotlightCard';
 
 export default function Home() {
   return (
@@ -24,7 +24,7 @@ export default function Home() {
       </Head>
       <div className='relative justify-between flex flex-col min-h-screen text-center'>
         <div>
-          <header className='flex tracking-wide justify-between mx-12 my-6 md:mx-6 md:my-3'>
+          <header style={{maxWidth: 1280, margin: '0 auto'}} className='flex tracking-wide justify-between mx-12 my-6 md:mx-6 md:my-3'>
             <Logo color='black' text='transact with no regret' />
             <div className='flex items-center'>
               <Button text='Sign up' underlined />

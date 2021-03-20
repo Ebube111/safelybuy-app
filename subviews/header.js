@@ -1,4 +1,5 @@
 import { useContext, useState } from 'react';
+import ReactModal from 'react-modal';
 import Link from 'next/link';
 import Button from '../components/Button';
 import Logo from '../components/Logo';
@@ -9,6 +10,7 @@ import { Cart, HambugerSkewed, SearchIcon, Hamburger, CloseIcon } from '../svg';
 
 const header = ({ text, color, noSearch, notification }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [state, dispatch] = useContext(ContextUser);
   const {
     ref: userRef,
@@ -17,14 +19,28 @@ const header = ({ text, color, noSearch, notification }) => {
   } = useComponentVisible(false);
   return (
     <div className='fixed w-full bg-white z-20 shadow-lg px-20 py-6 md:px-6 md:py-3'>
+      <ReactModal
+        isOpen={isCategoryOpen}
+        contentLabel='onRequestClose Example'
+        onRequestClose={() => setIsCategoryOpen(false)}
+        shouldCloseOnOverlayClick={true}
+        overlayClassName='fixed z-50 inset-0 bg-black bg-opacity-20'
+        className='fixed border border-black outline-none overflow-auto bg-white opacity-100'
+      >
+        <p>Modal text!</p>
+        <button onClick={() => setIsCategoryOpen(false)}>Close Modal</button>
+      </ReactModal>
       {/* navigation */}
-      <nav className='flex w-full items-center tracking-wide justify-between'>
-        <div className='flex md:hidden'>
+      <nav style={{ maxWidth: '1280px' }} className='container flex w-full items-center tracking-wide justify-between'>
+        <div className='flex items-center md:hidden'>
           <Logo
             color={color || 'purple'}
             text={
               text || (
-                <div className='flex items-center'>
+                <div
+                  onClick={() => setIsCategoryOpen(true)}
+                  className='flex items-center cursor-pointer'
+                >
                   <HambugerSkewed />
                   <p className='capitalize font-bold tracking-widest ml-3 text-lg text-black'>
                     All Categories

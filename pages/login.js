@@ -2,13 +2,13 @@ import React, { useContext } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
-import { ArrowRight } from '../svg';
-import Logo from '../components/Logo';
-import Footer from '../components/Footer';
-import Button from '../components/Button';
-import { ContextUser } from '../context';
+import { ArrowRight } from 'svg';
+import Logo from 'components/Logo';
+import Footer from 'components/Footer';
+import Button from 'components/Button';
+import { ContextUser } from 'context';
 import { useRouter } from 'next/router';
-import { login } from '../actions/auth';
+import { login } from 'actions/auth';
 import { useToasts } from 'react-toast-notifications';
 
 const isValidEmail = (email) =>

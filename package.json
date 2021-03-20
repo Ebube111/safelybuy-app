@@ -21,6 +21,7 @@
     "react-dom": "17.0.1",
     "react-hook-form": "^6.15.1",
     "react-ion-slider": "^1.0.9",
+    "react-modal": "^3.12.1",
     "react-router-dom": "^5.2.0",
     "react-slick": "^0.28.0",
     "react-tabs": "^3.2.0",
