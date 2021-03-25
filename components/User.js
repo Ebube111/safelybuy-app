@@ -14,7 +14,7 @@ const User = ({ userIsVisible, setUserIsVisible, userRef }) => {
   useEffect(() => {
     if (state.error) return;
     if (state.user.firstname) return;
-    fetchUser(dispatch);
+    // fetchUser(dispatch);
   }, [dispatch, state.user.firstname]);
 
   return (

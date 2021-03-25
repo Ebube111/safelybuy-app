@@ -14,16 +14,20 @@ const Products = () => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const [filterObjects, setFilterObjects] = useState({
-    category: {
-      'phone-accessories': [false, 'Phone and Accessories'],
-      'tablet-accessories': [false, 'iPad, Tablet and Accessories'],
-      'laptop-accessories': [false, 'Phone and Accessories'],
-      others: [false, 'Other Gadgets'],
-    },
-    'sub - category': {
-      phone: [false, 'Phone'],
-      accessories: [false, 'Accessories'],
-    },
+    category: router.query.category
+      ? {
+          'phone-accessories': [false, 'Phone and Accessories'],
+          'tablet-accessories': [false, 'iPad, Tablet and Accessories'],
+          'laptop-accessories': [false, 'Phone and Accessories'],
+          others: [false, 'Other Gadgets'],
+        }
+      : {},
+    'sub - category': router.query.subcategory
+      ? {
+          phone: [false, 'Phone'],
+          accessories: [false, 'Accessories'],
+        }
+      : {},
     condition: {
       new: [false, 'New'],
       used: [false, 'Used'],
@@ -56,14 +60,17 @@ const Products = () => {
       </Head>
       <div className='relative pb-48 flex flex-col min-h-screen md:pb-80'>
         <Navigation />
-        <div style={{ maxWidth: 1280, margin: '0 auto' }} className='mx-20 pt-32 md:mx-0'>
+        <div
+          style={{ maxWidth: 1280, margin: '0 auto' }}
+          className='mx-20 pt-32 md:mx-0'
+        >
           <div className='flex relative my-2'>
             <div className='w-72 md:mx-0 md:px-6 h-screen md:h-auto md:py-3 md:top-0 md:pt-36 fixed z-10 bg-white md:w-full'>
               <Back />
               <h2 className='text-4xl md:text-2xl tracking-wide flex justify-between font-bold'>
                 <span className='capitalize'>
-                  {router.query.category
-                    ? `${router.query.category.replace('-', ' ')}`
+                  {router.query.subcategory
+                    ? `${router.query.subcategory.replace(/-|_/gi, ' ')}`
                     : 'Our Products'}
                 </span>
                 <svg

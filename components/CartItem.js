@@ -86,7 +86,7 @@ const CartItem = ({ product, quantity }) => {
         fill='none'
         xmlns='http://www.w3.org/2000/svg'
         className='absolute right-0 transform translate-y-1/2'
-        style={{ bottom: '50%' }}
+        style={{ bottom: '28%' }}
       >
         <rect opacity='0.1' width='91' height='28' rx='14' fill='#EB5757' />
         <path

@@ -1,50 +1,72 @@
 import { useContext, useState } from 'react';
-import ReactModal from 'react-modal';
 import Link from 'next/link';
-import Button from '../components/Button';
-import Logo from '../components/Logo';
-import { ContextUser } from '../context';
-import User, { buttonStyles } from '../components/User';
-import { useComponentVisible } from '../hooks';
-import { Cart, HambugerSkewed, SearchIcon, Hamburger, CloseIcon } from '../svg';
+import { useRouter } from 'next/router'
+import Button from 'components/Button';
+import Logo from 'components/Logo';
+
+import { ContextUser } from 'context';
+import User, { buttonStyles } from 'components/User';
+import { useComponentVisible } from 'hooks';
+import { Cart, HambugerSkewed, SearchIcon, Hamburger, CloseIcon } from 'svg';
+import AllCategories from './allCategories';
 
 const header = ({ text, color, noSearch, notification }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
+  const router = useRouter()
+  // const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [state, dispatch] = useContext(ContextUser);
   const {
     ref: userRef,
     isComponentVisible: userIsVisible,
     setIsComponentVisible: setUserIsVisible,
   } = useComponentVisible(false);
+
+  const {
+    ref: categoryRef,
+    isComponentVisible: categoryIsVisible,
+    setIsComponentVisible: setCategoryIsVisible,
+  } = useComponentVisible(false);
+
   return (
     <div className='fixed w-full bg-white z-20 shadow-lg px-20 py-6 md:px-6 md:py-3'>
-      <ReactModal
+      {/* <ReactModal
         isOpen={isCategoryOpen}
         contentLabel='onRequestClose Example'
         onRequestClose={() => setIsCategoryOpen(false)}
         shouldCloseOnOverlayClick={true}
-        overlayClassName='fixed z-50 inset-0 bg-black bg-opacity-20'
-        className='fixed border border-black outline-none overflow-auto bg-white opacity-100'
+        overlayClassName='fixed z-50 inset-0 bg-black bg-opacity-40'
+        className=' border border-black outline-none overflow-auto bg-white opacity-100'
       >
         <p>Modal text!</p>
         <button onClick={() => setIsCategoryOpen(false)}>Close Modal</button>
-      </ReactModal>
+      </ReactModal> */}
       {/* navigation */}
-      <nav style={{ maxWidth: '1280px' }} className='container flex w-full items-center tracking-wide justify-between'>
+      <nav
+        style={{ maxWidth: '1280px' }}
+        className='container relative flex w-full items-center tracking-wide justify-between'
+      >
         <div className='flex items-center md:hidden'>
           <Logo
             color={color || 'purple'}
             text={
               text || (
                 <div
-                  onClick={() => setIsCategoryOpen(true)}
+                  onClick={(e) => {
+                    if (categoryIsVisible) setCategoryIsVisible(false);
+                    else setCategoryIsVisible(true);
+                    e.stopPropagation();
+                  }}
                   className='flex items-center cursor-pointer'
                 >
                   <HambugerSkewed />
                   <p className='capitalize font-bold tracking-widest ml-3 text-lg text-black'>
                     All Categories
                   </p>
+                  <AllCategories
+                    path={router.pathname}
+                    categoryRef={categoryRef}
+                    categoryIsVisible={categoryIsVisible}
+                  />
                 </div>
               )
             }

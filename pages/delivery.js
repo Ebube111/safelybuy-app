@@ -815,8 +815,8 @@ export default function Home() {
                   height='600'
                 >
                   <path
-                    fill-rule='evenodd'
-                    clip-rule='evenodd'
+                    fillRule='evenodd'
+                    clipRule='evenodd'
                     d='M201 0C192.716 0 186 6.71571 186 15V90H15C6.71573 90 0 96.7157 0 105V585C0 593.284 6.71571 600 15 600H201H689H693C701.284 600 708 593.284 708 585V105C708 101.062 706.482 97.4781 704 94.8018V15C704 6.71573 697.284 0 689 0H201Z'
                     fill='#BDBDBD'
                   />
