@@ -22,7 +22,7 @@ const ProductDetail = ({}) => {
   const [product] = shoppingItems.filter((e) => e.id === id);
 
   if (!product) return null;
-  const { name, src, price, rating } = product;
+  const { title, main_image, price, rating_sum } = product;
 
   return (
     <div>
@@ -40,7 +40,7 @@ const ProductDetail = ({}) => {
                 <div className='relative h-96 md:h-80 w-9/12 md:w-full'>
                   <Image
                     className='rounded-lg object-cover'
-                    src={src || '/image/yusuf.png'}
+                    src={main_image || '/image/yusuf.png'}
                     layout='fill'
                   />
                   <svg
@@ -81,11 +81,11 @@ const ProductDetail = ({}) => {
               </div>
               <div className='w-1/2 ml-6 md:mt-6 md:ml-2 md:w-full'>
                 <p className='font-medium text-gray-400'>
-                  {name.split(' ')[0]}
+                  {title.split(' ')[0]}
                 </p>
-                <h1 className='font-bold text-4xl md:text-2xl'>{name}</h1>
+                <h1 className='font-bold text-4xl md:text-2xl'>{title}</h1>
                 <span className='inline-flex items-center text-gray-500'>
-                  {new Array(Number(parseInt(rating))).fill('star').map((e) => (
+                  {new Array(Number(parseInt(rating_sum))).fill('star').map((e) => (
                     <svg
                       key={Math.random()}
                       width='16'
@@ -103,7 +103,7 @@ const ProductDetail = ({}) => {
                       />
                     </svg>
                   ))}
-                  {new Array(5 - Number(parseInt(rating)))
+                  {new Array(5 - Number(parseInt(rating_sum)))
                     .fill('star')
                     .map((e) => (
                       <svg
@@ -124,7 +124,7 @@ const ProductDetail = ({}) => {
                       </svg>
                     ))}{' '}
                   <span className='inline-block ml-3'>
-                    {rating} ({parseInt(Math.random() * 200)} reviews)
+                    {rating_sum} ({parseInt(Math.random() * 200)} reviews)
                   </span>
                 </span>
                 <div className='font-medium pt-2'>Variation: White </div>

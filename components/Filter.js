@@ -1,11 +1,25 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import Nouislider from 'nouislider-react';
 import 'nouislider/distribute/nouislider.css';
 import wNumb from 'wnumb';
 
-const Filter = ({ setFilterObjects, filterObjects }) => {
+//create your forceUpdate hook
+function useForceUpdate() {
+  const [value, setValue] = useState(0); // integer state
+  return () => setValue((value) => value + 1); // update the state to force render
+}
+
+const Filter = ({ setFilterObjects, filterObjects, category, subCategory }) => {
   const slider = useRef();
 
+  const forceUpdate = useForceUpdate();
+
+  useEffect(() => {
+    forceUpdate();
+    console.log('re-running', category, subCategory, filterObjects)
+  }, [category, subCategory]);
+
+  console.log(category, subCategory);
   return (
     <>
       <div className='bg-gray-100 h-3/5 p-8 my-8 rounded-lg filter md:hidden overflow-y-auto'>

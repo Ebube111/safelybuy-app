@@ -1,18 +1,104 @@
 import { useContext, useState } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/router';
+import Autosuggest from 'react-autosuggest';
 import Button from 'components/Button';
 import Logo from 'components/Logo';
-
 import { ContextUser } from 'context';
 import User, { buttonStyles } from 'components/User';
 import { useComponentVisible } from 'hooks';
 import { Cart, HambugerSkewed, SearchIcon, Hamburger, CloseIcon } from 'svg';
 import AllCategories from './allCategories';
+import { shoppingItems } from 'data';
 
-const header = ({ text, color, noSearch, notification }) => {
+const languages = [
+  {
+    name: 'C',
+    year: 1972,
+  },
+  {
+    name: 'C#',
+    year: 2000,
+  },
+  {
+    name: 'C++',
+    year: 1983,
+  },
+  {
+    name: 'Clojure',
+    year: 2007,
+  },
+  {
+    name: 'Elm',
+    year: 2012,
+  },
+  {
+    name: 'Go',
+    year: 2009,
+  },
+  {
+    name: 'Haskell',
+    year: 1990,
+  },
+  {
+    name: 'Java',
+    year: 1995,
+  },
+  {
+    name: 'Javascript',
+    year: 1995,
+  },
+  {
+    name: 'Perl',
+    year: 1987,
+  },
+  {
+    name: 'PHP',
+    year: 1995,
+  },
+  {
+    name: 'Python',
+    year: 1991,
+  },
+  {
+    name: 'Ruby',
+    year: 1995,
+  },
+  {
+    name: 'Scala',
+    year: 2003,
+  },
+];
+
+// Teach Autosuggest how to calculate suggestions for any given input value.
+const getSuggestions = (value) => {
+  const inputValue = value.trim().toLowerCase();
+  const inputLength = inputValue.length;
+
+  return inputLength === 0
+    ? []
+    : shoppingItems.filter((lang) =>
+        lang.title.toLowerCase().includes(inputValue)
+      );
+};
+
+// When suggestion is clicked, Autosuggest needs to populate the input
+// based on the clicked suggestion. Teach Autosuggest how to calculate the
+// input value for every given suggestion.
+const getSuggestionValue = (suggestion) => suggestion.title;
+
+// Use your imagination to render suggestions.
+const renderSuggestion = (suggestion) => (
+  <Link href={`/shopping/products/${suggestion.id}`}>
+    <div className='bg-gray-100 w-full p-4 cursor-pointer hover:bg-gray-800 hover:text-white'>{suggestion.title}</div>
+  </Link>
+);
+
+const header = ({ text, color, noSearch, notification, items }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const router = useRouter()
+  const [searchValue, setSearchValue] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+  const router = useRouter();
   // const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [state, dispatch] = useContext(ContextUser);
   const {
@@ -20,6 +106,30 @@ const header = ({ text, color, noSearch, notification }) => {
     isComponentVisible: userIsVisible,
     setIsComponentVisible: setUserIsVisible,
   } = useComponentVisible(false);
+
+  const onChange = (event, { newValue }) => {
+    setSearchValue(newValue);
+  };
+
+  // Autosuggest will call this function every time you need to update suggestions.
+  // You already implemented this logic above, so just use it.
+  const onSuggestionsFetchRequested = ({ value }) => {
+    setSuggestions(getSuggestions(value));
+  };
+
+  // Autosuggest will call this function every time you need to clear suggestions.
+  const onSuggestionsClearRequested = () => {
+    setSuggestions([]);
+  };
+
+  const inputProps = {
+    className:
+      'w-72 md:w-full bg-gray-100 focus:outline-none px-12 py-2 rounded-full',
+    type: 'search',
+    placeholder: 'Search iphones, laptops...',
+    value: searchValue,
+    onChange: onChange,
+  };
 
   const {
     ref: categoryRef,
@@ -29,18 +139,6 @@ const header = ({ text, color, noSearch, notification }) => {
 
   return (
     <div className='fixed w-full bg-white z-20 shadow-lg px-20 py-6 md:px-6 md:py-3'>
-      {/* <ReactModal
-        isOpen={isCategoryOpen}
-        contentLabel='onRequestClose Example'
-        onRequestClose={() => setIsCategoryOpen(false)}
-        shouldCloseOnOverlayClick={true}
-        overlayClassName='fixed z-50 inset-0 bg-black bg-opacity-40'
-        className=' border border-black outline-none overflow-auto bg-white opacity-100'
-      >
-        <p>Modal text!</p>
-        <button onClick={() => setIsCategoryOpen(false)}>Close Modal</button>
-      </ReactModal> */}
-      {/* navigation */}
       <nav
         style={{ maxWidth: '1280px' }}
         className='container relative flex w-full items-center tracking-wide justify-between'
@@ -73,10 +171,18 @@ const header = ({ text, color, noSearch, notification }) => {
           />
           {!noSearch && (
             <div className='relative md:hidden ml-10'>
-              <input
+              {/* <input
                 className='w-72 md:w-full bg-gray-100 focus:outline-none px-12 py-2 rounded-full'
                 type='search'
                 placeholder='Search iphones, laptops...'
+              /> */}
+              <Autosuggest
+                suggestions={suggestions}
+                onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+                onSuggestionsClearRequested={onSuggestionsClearRequested}
+                getSuggestionValue={getSuggestionValue}
+                renderSuggestion={renderSuggestion}
+                inputProps={inputProps}
               />
               <span className='absolute top-3 left-4'>
                 <SearchIcon />
@@ -128,10 +234,18 @@ const header = ({ text, color, noSearch, notification }) => {
       </nav>
       {!noSearch && (
         <div className='relative hidden md:flex ml-10 md:ml-6 md:mx-6 mt-3'>
-          <input
+          {/* <input
             className='w-72 md:w-full bg-gray-100 focus:outline-none px-12 py-2 rounded-full'
             type='search'
             placeholder='Search iphones, laptops...'
+          /> */}
+          <Autosuggest
+            suggestions={suggestions}
+            onSuggestionsFetchRequested={onSuggestionsFetchRequested}
+            onSuggestionsClearRequested={onSuggestionsClearRequested}
+            getSuggestionValue={getSuggestionValue}
+            renderSuggestion={renderSuggestion}
+            inputProps={inputProps}
           />
           <span className='absolute top-3 left-4'>
             <SearchIcon />

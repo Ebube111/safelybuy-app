@@ -14,7 +14,7 @@ const Products = () => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const [filterObjects, setFilterObjects] = useState({
-    category: router.query.category
+    category: !router.query.category
       ? {
           'phone-accessories': [false, 'Phone and Accessories'],
           'tablet-accessories': [false, 'iPad, Tablet and Accessories'],
@@ -22,7 +22,7 @@ const Products = () => {
           others: [false, 'Other Gadgets'],
         }
       : {},
-    'sub - category': router.query.subcategory
+    'sub - category': !router.query.subcategory
       ? {
           phone: [false, 'Phone'],
           accessories: [false, 'Accessories'],
@@ -94,6 +94,8 @@ const Products = () => {
               <Filter
                 filterObjects={filterObjects}
                 setFilterObjects={setFilterObjects}
+                category={router.query.category}
+                subCategory={router.query.subcategory}
               />
             </div>
             <div className='ml-80 md:pt-36 md:mx-6 md:ml-4 flex flex-wrap justify-between'>
@@ -101,10 +103,10 @@ const Products = () => {
                 <div className='mb-4 ml-4' key={e.id}>
                   <Product
                     id={e.id}
-                    img={e.src}
-                    title={e.name}
-                    rating={e.rating}
-                    price={e.price}
+                    img={e.main_image}
+                    title={e.title}
+                    rating={e.rating_sum}
+                    price={Number(e.price)}
                   />
                 </div>
               ))}

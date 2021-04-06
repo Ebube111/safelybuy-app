@@ -18,6 +18,7 @@
     "postcss": "^8.2.5",
     "react": "17.0.1",
     "react-accessible-accordion": "^3.3.4",
+    "react-autosuggest": "^10.1.0",
     "react-dom": "17.0.1",
     "react-hook-form": "^6.15.1",
     "react-ion-slider": "^1.0.9",
