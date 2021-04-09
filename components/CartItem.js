@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const CartItem = ({ product, quantity }) => {
-  const { id, name, src, price, rating } = product;
+  const { id, title, main_image, price, rating_sum } = product;
   return (
     <div className='border-b-2 border-gray-50 py-6 last:border-0 relative'>
       <div className='w-full flex items-center'>
@@ -11,17 +11,17 @@ const CartItem = ({ product, quantity }) => {
           <div className='relative cursor-pointer h-20 w-20 md:w-16 md:h-16'>
             <Image
               className='rounded-md object-cover'
-              src={src}
+              src={main_image}
               layout='fill'
             />
           </div>
         </Link>
         <div className='flex md:flex-wrap ml-5 w-full items-center'>
           <div className='w-5/12 md:w-full'>
-            <p className='font-medium md:text-xs'>{name}</p>
+            <p className='font-medium md:text-xs'>{title}</p>
             <div className='flex justify-between'>
               <span className='flex items-center rating text-xs'>
-                {new Array(Number(parseInt(rating))).fill('star').map((e) => (
+                {new Array(Number(parseInt(rating_sum))).fill('star').map((e) => (
                   <svg
                     key={Math.random()}
                     width='12'
@@ -39,7 +39,7 @@ const CartItem = ({ product, quantity }) => {
                     />
                   </svg>
                 ))}
-                {new Array(5 - Number(parseInt(rating)))
+                {new Array(5 - Number(parseInt(rating_sum)))
                   .fill('star')
                   .map((e) => (
                     <svg
@@ -59,7 +59,7 @@ const CartItem = ({ product, quantity }) => {
                       />
                     </svg>
                   ))}
-                &nbsp;{rating}
+                &nbsp;{rating_sum}
               </span>
             </div>
           </div>

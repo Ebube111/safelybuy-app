@@ -48,7 +48,7 @@ const SignUpPage = () => {
   const { addToast } = useToasts();
   const [loadingUser, setLoadingUser] = useState(false);
 
-  const { register, handleSubmit, errors } = useForm({
+  const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(signUpSchema),
   });
 
@@ -142,16 +142,14 @@ const SignUpPage = () => {
                         <input
                           type='text'
                           placeholder='First Name'
-                          name='firstname'
-                          ref={register({
+                          {...register('firstname', {
                             required: true,
                           })}
                           id='firstname'
                           required
                           className={`border ${
                             errors.firstname ? 'border-red' : 'border-black'
-                          } w-full rounded-full px-6 py-2 focus:outline-none focus:shadow-xl`}
-                        />
+                          } w-full rounded-full px-6 py-2 focus:outline-none focus:shadow-xl`} />
 
                         <span className='text-red-500'>
                           {errors.firstname && (
@@ -169,16 +167,14 @@ const SignUpPage = () => {
                         <input
                           type='lastname'
                           placeholder='Last Name'
-                          name='lastname'
-                          ref={register({
+                          {...register('lastname', {
                             required: true,
                           })}
                           id='lastname'
                           required
                           className={`border ${
                             errors.lastname ? 'border-red' : 'border-black'
-                          } w-full rounded-full px-6 py-2 focus:outline-none focus:shadow-xl`}
-                        />
+                          } w-full rounded-full px-6 py-2 focus:outline-none focus:shadow-xl`} />
                         <span className='text-red-500'>
                           {errors.lastname && (
                             <span>{errors.lastname.message}</span>
@@ -195,8 +191,7 @@ const SignUpPage = () => {
                       <input
                         type='email'
                         placeholder='user@safelybuy.com'
-                        name='email'
-                        ref={register({
+                        {...register('email', {
                           required: true,
                           validate: handleEmailValidation,
                         })}
@@ -204,8 +199,7 @@ const SignUpPage = () => {
                         required
                         className={`border ${
                           errors.email ? 'border-red' : 'border-black'
-                        } w-full rounded-full px-6 py-2 focus:outline-none focus:shadow-xl`}
-                      />
+                        } w-full rounded-full px-6 py-2 focus:outline-none focus:shadow-xl`} />
                       <span className='text-red-500'>
                         {errors.email && 'Email is not valid'}
                       </span>
@@ -219,16 +213,14 @@ const SignUpPage = () => {
                       <input
                         type='phone'
                         placeholder='0701090673*'
-                        name='phone'
-                        ref={register({
+                        {...register('phone', {
                           required: true,
                         })}
                         id='phone'
                         required
                         className={`border ${
                           errors.phone ? 'border-red' : 'border-black'
-                        } w-full rounded-full px-6 py-2 focus:outline-none focus:shadow-xl`}
-                      />
+                        } w-full rounded-full px-6 py-2 focus:outline-none focus:shadow-xl`} />
                       <span className='text-red-500'>
                         {errors.phone && <span>{errors.phone.message}</span>}
                       </span>
@@ -242,13 +234,11 @@ const SignUpPage = () => {
                       <input
                         type='password'
                         placeholder='*********'
-                        name='password'
-                        ref={register({
+                        {...register('password', {
                           required: true,
                         })}
                         id='password'
-                        className='border w-full border-black rounded-full px-6 py-2 focus:outline-none focus:shadow-xl'
-                      />
+                        className='border w-full border-black rounded-full px-6 py-2 focus:outline-none focus:shadow-xl' />
                       <span className='text-red-500'>
                         {errors.password && errors.password.message}
                       </span>
