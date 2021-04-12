@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import 'nouislider/distribute/nouislider.css';
@@ -12,13 +12,14 @@ import Product from 'components/Product';
 
 const Products = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [items, setItems] = useState(shoppingItems);
   const router = useRouter();
   const [filterObjects, setFilterObjects] = useState({
     category: !router.query.category
       ? {
           'phone-accessories': [false, 'Phone and Accessories'],
           'tablet-accessories': [false, 'iPad, Tablet and Accessories'],
-          'laptop-accessories': [false, 'Phone and Accessories'],
+          'laptop-accessories': [false, 'Laptop and Accessories'],
           others: [false, 'Other Gadgets'],
         }
       : {},
@@ -36,7 +37,7 @@ const Products = () => {
       apple: [false, 'Apple'],
       samsung: [false, 'Samsung'],
       lenovo: [false, 'Lenovo'],
-      Xaomi: [false, 'Xaomi'],
+      xaomi: [false, 'Xaomi'],
     },
     'price range': {
       min: 0,
@@ -51,6 +52,65 @@ const Products = () => {
       1: [false, '1'],
     },
   });
+
+  const getFilters = () => {
+    const obj = {};
+    // CONDITION
+    obj.condition = Object.keys(filterObjects.condition).filter(
+      (e) => filterObjects.condition[e][0] === true
+    );
+    if (!obj.condition.length)
+      obj.condition = Object.keys(filterObjects.condition);
+
+    // BRAND
+    obj.brand = Object.keys(filterObjects.brand).filter(
+      (e) => filterObjects.brand[e][0] === true
+    );
+    if (!obj.brand.length) obj.brand = Object.keys(filterObjects.brand);
+
+    // CATEGORY
+    obj.category = Object.keys(filterObjects.category).filter(
+      (e) => filterObjects.category[e][0] === true
+    );
+    if (!obj.category.length)
+      obj.category = Object.keys(filterObjects.category);
+
+    // SUB-CATEGORY
+    obj.subCategory = Object.keys(filterObjects['sub - category']).filter(
+      (e) => filterObjects['sub - category'][e][0] === true
+    );
+    if (!obj.subCategory.length)
+      obj.subCategory = Object.keys(filterObjects['sub - category']);
+
+    // RATING
+    obj.rating = Object.keys(filterObjects['product rating']).filter(
+      (e) => filterObjects['product rating'][e][0] === true
+    );
+    if (!obj.rating.length) obj.rating = 0;
+    else obj.rating = Number(obj.rating[0]);
+
+    // PRICE
+    obj.price = {
+      min: filterObjects['price range'].minValue,
+      max: filterObjects['price range'].maxValue,
+    };
+    return obj;
+  };
+
+  useEffect(() => {
+    const filters = getFilters();
+
+    setItems(
+      shoppingItems.filter(
+        (item) =>
+          filters.condition.includes(item.condition) &&
+          filters.brand.includes(item.brand.toLocaleLowerCase()) &&
+          Number(item.rating_sum) >= filters.rating &&
+          Number(item.price > Number(filters.price.min)) &&
+          Number(item.price) < Number(filters.price.max)
+      )
+    );
+  }, [filterObjects]);
 
   return (
     <div>
@@ -98,18 +158,35 @@ const Products = () => {
                 subCategory={router.query.subcategory}
               />
             </div>
-            <div className='ml-80 md:pt-36 md:mx-6 md:ml-4 flex flex-wrap justify-between'>
-              {shoppingItems.map((e) => (
-                <div className='mb-4 ml-4' key={e.id}>
+            <div className='ml-80 md:pt-36 md:mx-6 md:ml-4 flex flex-wrap justify-start'>
+              <div className='h-1 text-white invisible'>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Voluptates similique a molestiae consequatur modi quam optio.
+                Voluptas aut laboriosam pariatur! Impedit, dolores. Sunt amet
+                hic illo inventore assumenda quasi qui. Aut ea eligendi aperiam
+                voluptates quaerat id ratione nemo omnis corrupti vel nam,
+                mollitia impedit quis fugit minus rerum, enim harum distinctio
+                sunt, est quasi. Eveniet enim eaque perferendis non! Repudiandae
+                enim laboriosam harum optio nisi corrupti ipsum quo distinctio.
+                Aperiam, saepe. Distinctio, quidem qui nulla nesciunt quos,
+                autem ducimus obcaecati alias beatae, molestias laborum nostrum
+                quae perferendis excepturi vero?
+              </div>
+              {items.map((e) => (
+                <div className='mb-6 ml-8' key={e.id}>
                   <Product
                     id={e.id}
                     img={e.main_image}
                     title={e.title}
                     rating={e.rating_sum}
                     price={Number(e.price)}
+                    condition={e.condition}
                   />
                 </div>
               ))}
+              {items.length ? null : (
+                <div className=''>No Product Available</div>
+              )}
             </div>
           </div>
         </div>

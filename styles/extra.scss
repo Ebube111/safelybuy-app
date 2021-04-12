@@ -140,5 +140,5 @@
 .react-autosuggest__suggestions-container {
   position: absolute;
   width: 100%;
-  @apply w-full bg-gray-100 rounded-md max-h-96
+  @apply w-full bg-gray-100 rounded-md max-h-96 overflow-scroll
 }
