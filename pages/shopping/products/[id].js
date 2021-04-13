@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import CartContext from 'context/Shopping';
 import Navigation from 'subviews/header';
 import Footer from 'components/Footer';
 import Product from 'components/Product';
@@ -16,7 +17,9 @@ import SellerDetail from 'components/SellerDetail';
 
 const ProductDetail = ({}) => {
   const [favourite, setFavourite] = useState(false);
+  const [quantity, setQuantity] = useState(1);
   const router = useRouter();
+  const [, addItem] = useContext(CartContext);
   const { id } = router.query;
 
   const [product] = shoppingItems.filter((e) => e.id === id);
@@ -85,24 +88,26 @@ const ProductDetail = ({}) => {
                 </p>
                 <h1 className='font-bold text-4xl md:text-2xl'>{title}</h1>
                 <span className='inline-flex items-center text-gray-500'>
-                  {new Array(Number(parseInt(rating_sum))).fill('star').map((e) => (
-                    <svg
-                      key={Math.random()}
-                      width='16'
-                      height='16'
-                      viewBox='0 0 16 16'
-                      fill='none'
-                      xmlns='http://www.w3.org/2000/svg'
-                      className='inline-block'
-                    >
-                      <path
-                        fillRule='evenodd'
-                        clipRule='evenodd'
-                        d='M7.99958 12.7532L3.19559 15.2788L4.11307 9.92949L0.226562 6.14108L5.59759 5.36063L7.99958 0.493652L10.4016 5.36063L15.7726 6.14108L11.8861 9.92949L12.8036 15.2788L7.99958 12.7532Z'
-                        fill='#F2C94C'
-                      />
-                    </svg>
-                  ))}
+                  {new Array(Number(parseInt(rating_sum)))
+                    .fill('star')
+                    .map((e) => (
+                      <svg
+                        key={Math.random()}
+                        width='16'
+                        height='16'
+                        viewBox='0 0 16 16'
+                        fill='none'
+                        xmlns='http://www.w3.org/2000/svg'
+                        className='inline-block'
+                      >
+                        <path
+                          fillRule='evenodd'
+                          clipRule='evenodd'
+                          d='M7.99958 12.7532L3.19559 15.2788L4.11307 9.92949L0.226562 6.14108L5.59759 5.36063L7.99958 0.493652L10.4016 5.36063L15.7726 6.14108L11.8861 9.92949L12.8036 15.2788L7.99958 12.7532Z'
+                          fill='#F2C94C'
+                        />
+                      </svg>
+                    ))}
                   {new Array(5 - Number(parseInt(rating_sum)))
                     .fill('star')
                     .map((e) => (
@@ -138,16 +143,27 @@ const ProductDetail = ({}) => {
                         Quantity
                       </span>
                       <div className='flex justify-between items-center leading-none'>
-                        <span className='bg-purple-100 border py-1 text-purple-600 font-medium rounded-md px-2 border-puple-300'>
+                        <span
+                          onClick={() => {
+                            if (quantity > 1) setQuantity(quantity - 1);
+                          }}
+                          className='bg-purple-100 cursor-pointer border py-1 text-purple-600 font-medium rounded-md px-2 border-puple-300'
+                        >
                           -
                         </span>
-                        <span className='font-bold'>1</span>
-                        <span className='bg-purple-100 border py-1 text-purple-600 font-medium rounded-md px-2 border-puple-300'>
+                        <span className='font-bold'>{quantity}</span>
+                        <span
+                          onClick={() => setQuantity(quantity + 1)}
+                          className='bg-purple-100 cursor-pointer border py-1 text-purple-600 font-medium rounded-md px-2 border-puple-300'
+                        >
                           +
                         </span>
                       </div>
                     </div>
-                    <div className='w-48 ml-8 md:w-full md:m-auto md:mt-4'>
+                    <div
+                      onClick={() => addItem(product, quantity)}
+                      className='w-48 ml-8 md:w-full md:m-auto md:mt-4'
+                    >
                       <Button
                         full
                         primary

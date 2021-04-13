@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-const CartItem = ({ product, quantity }) => {
+const CartItem = ({ product, quantity, removeItem, setQuantity }) => {
   const { id, title, main_image, price, rating_sum } = product;
   return (
     <div className='border-b-2 border-gray-50 py-6 last:border-0 relative'>
@@ -21,24 +21,26 @@ const CartItem = ({ product, quantity }) => {
             <p className='font-medium md:text-xs'>{title}</p>
             <div className='flex justify-between'>
               <span className='flex items-center rating text-xs'>
-                {new Array(Number(parseInt(rating_sum))).fill('star').map((e) => (
-                  <svg
-                    key={Math.random()}
-                    width='12'
-                    height='12'
-                    viewBox='0 0 16 16'
-                    fill='none'
-                    xmlns='http://www.w3.org/2000/svg'
-                    className='inline-block'
-                  >
-                    <path
-                      fillRule='evenodd'
-                      clipRule='evenodd'
-                      d='M7.99958 12.7532L3.19559 15.2788L4.11307 9.92949L0.226562 6.14108L5.59759 5.36063L7.99958 0.493652L10.4016 5.36063L15.7726 6.14108L11.8861 9.92949L12.8036 15.2788L7.99958 12.7532Z'
-                      fill='#F2C94C'
-                    />
-                  </svg>
-                ))}
+                {new Array(Number(parseInt(rating_sum)))
+                  .fill('star')
+                  .map((e) => (
+                    <svg
+                      key={Math.random()}
+                      width='12'
+                      height='12'
+                      viewBox='0 0 16 16'
+                      fill='none'
+                      xmlns='http://www.w3.org/2000/svg'
+                      className='inline-block'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        clipRule='evenodd'
+                        d='M7.99958 12.7532L3.19559 15.2788L4.11307 9.92949L0.226562 6.14108L5.59759 5.36063L7.99958 0.493652L10.4016 5.36063L15.7726 6.14108L11.8861 9.92949L12.8036 15.2788L7.99958 12.7532Z'
+                        fill='#F2C94C'
+                      />
+                    </svg>
+                  ))}
                 {new Array(5 - Number(parseInt(rating_sum)))
                   .fill('star')
                   .map((e) => (
@@ -65,11 +67,20 @@ const CartItem = ({ product, quantity }) => {
           </div>
           <div className='w-2/12 md:w-full md:order-last'>
             <div className='w-24 flex m-auto md:m-0 justify-between items-center leading-none'>
-              <span className='bg-purple-100 border py-1 text-purple-600 font-medium rounded-md px-2 border-puple-300'>
+              <span
+                onClick={() => {
+                  if (quantity > 1) setQuantity(id, quantity - 1);
+                  else removeItem(id)
+                }}
+                className='bg-purple-100 border cursor-pointer py-1 text-purple-600 font-medium rounded-md px-2 border-puple-300'
+              >
                 -
               </span>
               <span className='font-bold'>{quantity}</span>
-              <span className='bg-purple-100 border py-1 text-purple-600 font-medium rounded-md px-2 border-puple-300'>
+              <span
+                onClick={() => setQuantity(id, quantity + 1)}
+                className='bg-purple-100 border cursor-pointer py-1 text-purple-600 font-medium rounded-md px-2 border-puple-300'
+              >
                 +
               </span>
             </div>
@@ -85,7 +96,8 @@ const CartItem = ({ product, quantity }) => {
         viewBox='0 0 91 28'
         fill='none'
         xmlns='http://www.w3.org/2000/svg'
-        className='absolute right-0 transform translate-y-1/2'
+        className='absolute right-0 transform translate-y-1/2 cursor-pointer'
+        onClick={() => removeItem(id)}
         style={{ bottom: '28%' }}
       >
         <rect opacity='0.1' width='91' height='28' rx='14' fill='#EB5757' />

@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Autosuggest from 'react-autosuggest';
+import CartContext from 'context/Shopping';
 import Button from 'components/Button';
 import Logo from 'components/Logo';
 import { ContextUser } from 'context';
@@ -10,7 +11,6 @@ import { useComponentVisible } from 'hooks';
 import { Cart, HambugerSkewed, SearchIcon, Hamburger, CloseIcon } from 'svg';
 import AllCategories from './allCategories';
 import { shoppingItems } from 'data';
-
 
 // Teach Autosuggest how to calculate suggestions for any given input value.
 const getSuggestions = (value) => {
@@ -32,7 +32,9 @@ const getSuggestionValue = (suggestion) => suggestion.title;
 // Use your imagination to render suggestions.
 const renderSuggestion = (suggestion) => (
   <Link href={`/shopping/products/${suggestion.id}`}>
-    <div className='bg-gray-100 w-full p-4 cursor-pointer hover:bg-gray-800 hover:text-white'>{suggestion.title}</div>
+    <div className='bg-gray-100 w-full p-4 cursor-pointer hover:bg-gray-800 hover:text-white'>
+      {suggestion.title}
+    </div>
   </Link>
 );
 
@@ -40,6 +42,7 @@ const header = ({ text, color, noSearch, notification, items }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);
+  const [cart, addItem, removeItem] = useContext(CartContext);
   const router = useRouter();
   // const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [state, dispatch] = useContext(ContextUser);
@@ -166,9 +169,9 @@ const header = ({ text, color, noSearch, notification, items }) => {
             <Link href='/shopping/cart/'>
               <div className='bg-green-500 cursor-pointer px-4 md:px-2 py-3 md:py-2 rounded-md shadow-lg relative transform hover:shadow-2xl hover:-translate-y-0.5 active:shadow:sm active:translate-y-0 focus:outline-none'>
                 <Cart />
-                <div className='absolute bg-red-500 rounded-full px-2 py-1 md:px-1 md:py-px text-xs -right-2 -top-2 text-white '>
-                  2
-                </div>
+                {cart.length ? <div className='absolute bg-red-500 rounded-full px-2 py-1 md:px-1 md:py-px text-xs -right-2 -top-2 text-white '>
+                  {cart.length}
+                </div> : null}
               </div>
             </Link>
           )}
