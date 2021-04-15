@@ -1,4 +1,4 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import Navigation from 'subviews/header';
 import Head from 'next/head';
 import Link from 'next/link';
@@ -6,7 +6,6 @@ import Footer from 'components/Footer';
 import CartContext from 'context/Shopping';
 import Back from 'components/Back';
 import { ArrowRight } from 'svg';
-import { shoppingItems } from 'data';
 import Button from 'components/Button';
 import CartItem from 'components/CartItem';
 import OrderDetails from 'subviews/OrderDetails';
