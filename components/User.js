@@ -19,7 +19,7 @@ const User = ({ userIsVisible, setUserIsVisible, userRef }) => {
 
   return (
     <div className='relative'>
-      <div className='relative px-8'>
+      <div className='relative px-4'>
         <button
           onClick={(e) => {
             if (userIsVisible) setUserIsVisible(false);

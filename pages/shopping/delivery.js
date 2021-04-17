@@ -51,11 +51,11 @@ const cart = ({ addressItems = remaining || addressItemsData }) => {
               <h4 className='my-4 text-xl font-medium'>
                 Select or add an address
               </h4>
-              <div className='flex flex-wrap justify-around mt-8 md:mt-4'>
+              <div className='flex flex-wrap mt-8 md:mt-4'>
                 <Link href='/shopping/address'>
                   <div
                     style={{ minHeight: '10rem' }}
-                    className='flex flex-col border-2 cursor-pointer border-dashed w-80 items-center justify-center rounded-xl mb-8 order-first'
+                    className='flex flex-col border-2 cursor-pointer border-dashed w-80 mx-8 md:mx-3 items-center justify-center rounded-xl mb-8 order-first'
                   >
                     <svg
                       width='55'
@@ -98,7 +98,7 @@ const cart = ({ addressItems = remaining || addressItemsData }) => {
             </div>
             <OrderDetails active='delivery' />
           </div>
-          <div className='md:hidden'>
+          {/* <div className='md:hidden'>
             <h4 className='my-4 text-xl font-medium'>Select delivery type</h4>
             <div className='flex items-center'>
               <div
@@ -112,7 +112,7 @@ const cart = ({ addressItems = remaining || addressItemsData }) => {
                 className='inline-block cursor-pointer w-5 h-5 mr-3 shadow-inner border border-gray-400 rounded-full'
               >
                 {deliveryType.fedex && (
-                  <div className='inline-block m-px w-3 h-3 shadow-inner border-2 bg-purple-500 border-purple-300 rounded-full'></div>
+                  <div className='inline-block m-px w-4 h-4 shadow-inner border-2 bg-purple-500 border-purple-300 rounded-full'></div>
                 )}
               </div>{' '}
               Delivery with Fedex
@@ -127,12 +127,12 @@ const cart = ({ addressItems = remaining || addressItemsData }) => {
                 className='ml-8 inline-block cursor-pointer w-5 h-5 mr-3 shadow-inner border border-gray-400 rounded-full'
               >
                 {deliveryType.dhl && (
-                  <div className='inline-block m-1 w-4 h-4 shadow-inner border-2 bg-purple-500 border-purple-300 rounded-full'></div>
+                  <div className='inline-block m-px w-4 h-4 shadow-inner border-2 bg-purple-500 border-purple-300 rounded-full'></div>
                 )}
               </div>{' '}
               Delivery with DHL
             </div>
-          </div>
+          </div> */}
           <div className='mt-8 mr-8 w-2/3 md:w-full flex justify-end md:justify-center leading-none'>
             <Link href='/shopping/payment'>
               <a>

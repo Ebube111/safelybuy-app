@@ -1,6 +1,20 @@
-import React from 'react';
+import { useContext, useEffect, useState } from 'react';
+import CartContext from 'context/Shopping';
 
 const OrderDetails = ({ active }) => {
+  const [cart] = useContext(CartContext);
+  const [total, setTotal] = useState(0);
+  const [delivery, setDelivery] = useState(0);
+
+  useEffect(() => {
+    setTotal(
+      cart.reduce(
+        (acc, cur) => acc + Number(cur.item.price) * Number(cur.quantity),
+        0
+      )
+    );
+  }, [cart]);
+
   return (
     <div className='w-1/3 ml-8 md:ml-0 shadow-2xl p-8 rounded-3xl min-h-80 md:w-full'>
       <div className='step-indicator flex relative'>
@@ -66,7 +80,7 @@ const OrderDetails = ({ active }) => {
             Order Total (tax incl.)
           </span>
           <span className='inline-block'>
-            &#8358;{(1050000).toLocaleString()}
+            &#8358;{(total).toLocaleString()}
           </span>
         </div>
         <div className='flex justify-between mb-3 font-medium'>
@@ -102,7 +116,7 @@ const OrderDetails = ({ active }) => {
       <footer className='border-t-2 w-full mt-8 flex pt-6 font-bold justify-between border-gray-200'>
         <span className=''>Total Fee</span>
         <div className='text-right'>
-          <span className='font-bold'>&#8358;{(1050000).toLocaleString()}</span>
+          <span className='font-bold'>&#8358;{(delivery + total).toLocaleString()}</span>
           <span className='block text-xs font-normal text-gray-400'>
             Delivery fee not included yet
           </span>

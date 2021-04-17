@@ -71,7 +71,7 @@ export default function Logo({ text, color, allowSub }) {
       <div
         className={`bg-${
           color === 'black' ? 'black' : `${color}-500`
-        } h-12 md:h-8 w-px border-0 mx-6 md:mx-3 ${
+        } h-12 md:h-8 w-px border-0 mx-4 md:mx-2 ${
           !allowSub ? 'md:hidden' : ''
         }`}
       ></div>

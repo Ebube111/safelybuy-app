@@ -12,7 +12,7 @@ const AddressItem = ({
   return (
     <div
       onClick={(e) => selectAddress(e, id)}
-      className={`relative w-80 rounded-2xl mb-8 p-3 cursor-pointer ${
+      className={`relative w-80 mx-8 md:mx-3 rounded-2xl mb-8 p-3 cursor-pointer ${
         selected ? ' border-2 border-green-500' : ''
       }`}
     >

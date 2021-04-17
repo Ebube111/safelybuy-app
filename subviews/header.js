@@ -69,7 +69,7 @@ const header = ({ text, color, noSearch, notification, items }) => {
 
   const inputProps = {
     className:
-      'w-72 md:w-full bg-gray-100 focus:outline-none px-12 py-2 rounded-full',
+      'w-64 md:w-full bg-gray-100 focus:outline-none pl-12 pr-3 py-2 rounded-full',
     type: 'search',
     placeholder: 'Search iphones, laptops...',
     value: searchValue,
@@ -85,8 +85,7 @@ const header = ({ text, color, noSearch, notification, items }) => {
   return (
     <div className='fixed w-full bg-white z-20 shadow-lg px-20 py-6 md:px-6 md:py-3'>
       <nav
-        style={{ maxWidth: '1280px' }}
-        className='container relative flex w-full items-center tracking-wide justify-between'
+        className='relative flex w-full items-center tracking-wide justify-between'
       >
         <div className='flex items-center md:hidden'>
           <Logo
@@ -115,7 +114,7 @@ const header = ({ text, color, noSearch, notification, items }) => {
             }
           />
           {!noSearch && (
-            <div className='relative md:hidden ml-10'>
+            <div className='relative md:hidden ml-4'>
               {/* <input
                 className='w-72 md:w-full bg-gray-100 focus:outline-none px-12 py-2 rounded-full'
                 type='search'
