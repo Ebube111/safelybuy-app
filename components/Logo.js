@@ -57,7 +57,7 @@ const SafelybuyLogoAlt = () => (
   </svg>
 );
 
-export default function Logo({ text, color, allowSub }) {
+export default function Logo({ text, color, allowSub, noTagLine }) {
   return (
     <div className='flex items-center'>
       <Link href='/'>
@@ -68,20 +68,24 @@ export default function Logo({ text, color, allowSub }) {
           <div className='md:hidden'>{<SafelybuyLogoAlt />}</div>
         </a>
       </Link>
-      <div
-        className={`bg-${
-          color === 'black' ? 'black' : `${color}-500`
-        } h-12 md:h-8 w-px border-0 mx-4 md:mx-2 ${
-          !allowSub ? 'md:hidden' : ''
-        }`}
-      ></div>
-      <div
-        className={`uppercase font-medium text-sm md:text-xs ${
-          !allowSub ? 'md:hidden' : ''
-        } text-${color === 'black' ? 'black' : `${color}-500`}`}
-      >
-        {text}
-      </div>
+      {!noTagLine && (
+        <>
+          <div
+            className={`bg-${
+              color === 'black' ? 'black' : `${color}-500`
+            } h-12 md:h-8 w-px border-0 mx-4 md:mx-2 ${
+              !allowSub ? 'md:hidden' : ''
+            }`}
+          ></div>
+          <div
+            className={`uppercase font-medium text-sm md:text-xs ${
+              !allowSub ? 'md:hidden' : ''
+            } text-${color === 'black' ? 'black' : `${color}-500`}`}
+          >
+            {text}
+          </div>
+        </>
+      )}
     </div>
   );
 }

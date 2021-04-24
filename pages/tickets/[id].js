@@ -14,7 +14,9 @@ import TicketCard from 'components/TicketCard';
 const TicketItem = ({ type, price }) => (
   <div className='flex justify-between w-full border-b border-purple-100 py-6'>
     <div className='flex flex-col'>
-      <span className='font-bold md:font-medium text-xl md:text-lg'>&#8358;{price.toLocaleString()}</span>
+      <span className='font-bold md:font-medium text-xl md:text-lg'>
+        &#8358;{price.toLocaleString()}
+      </span>
       <span className='text-gray-400 md:text-sm'>{type}</span>
     </div>
     <div className='w-24 flex md:m-0 justify-between items-center leading-none'>
@@ -46,8 +48,7 @@ export default function Home() {
       </Head>
       <div className='relative pb-48 flex flex-col min-h-screen md:pb-80'>
         <Navigation
-          text='Transact with no regret'
-          color='black'
+          noTagLine
           noSearch
           notification
         />
@@ -95,7 +96,11 @@ export default function Home() {
                     { type: 'VVIP', price: 75500 },
                     { type: 'Table for 20 (twenty)', price: 1000000 },
                   ].map((e) => (
-                    <TicketItem type={e.type} price={e.price} />
+                    <TicketItem
+                      type={e.type}
+                      key={Math.random()}
+                      price={e.price}
+                    />
                   ))}
                   <div className='pt-16'></div>
                   <Link href='/tickets/checkout'>
@@ -250,13 +255,13 @@ export default function Home() {
                         gradientUnits='userSpaceOnUse'
                         gradientTransform='translate(17.2669 28.8709) scale(23.1098)'
                       >
-                        <stop stop-color='#FFDD55' />
-                        <stop offset='0.328' stop-color='#FF543F' />
-                        <stop offset='0.348' stop-color='#FC5245' />
-                        <stop offset='0.504' stop-color='#E64771' />
-                        <stop offset='0.643' stop-color='#D53E91' />
-                        <stop offset='0.761' stop-color='#CC39A4' />
-                        <stop offset='0.841' stop-color='#C837AB' />
+                        <stop stopColor='#FFDD55' />
+                        <stop offset='0.328' stopColor='#FF543F' />
+                        <stop offset='0.348' stopColor='#FC5245' />
+                        <stop offset='0.504' stopColor='#E64771' />
+                        <stop offset='0.643' stopColor='#D53E91' />
+                        <stop offset='0.761' stopColor='#CC39A4' />
+                        <stop offset='0.841' stopColor='#C837AB' />
                       </radialGradient>
                       <radialGradient
                         id='paint1_radial'
@@ -266,11 +271,11 @@ export default function Home() {
                         gradientUnits='userSpaceOnUse'
                         gradientTransform='translate(13.3582 10.0869) scale(15.3449 10.2243)'
                       >
-                        <stop stop-color='#4168C9' />
+                        <stop stopColor='#4168C9' />
                         <stop
                           offset='0.999'
-                          stop-color='#4168C9'
-                          stop-opacity='0'
+                          stopColor='#4168C9'
+                          stopOpacity='0'
                         />
                       </radialGradient>
                     </defs>
@@ -309,7 +314,11 @@ export default function Home() {
                   { type: 'VVIP', price: 75500 },
                   { type: 'Table for 20 (twenty)', price: 1000000 },
                 ].map((e) => (
-                  <TicketItem type={e.type} price={e.price} />
+                  <TicketItem
+                    type={e.type}
+                    key={Math.random()}
+                    price={e.price}
+                  />
                 ))}
                 <div className='pt-16'></div>
                 <Link href='/tickets/checkout'>

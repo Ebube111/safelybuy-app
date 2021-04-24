@@ -38,7 +38,7 @@ const renderSuggestion = (suggestion) => (
   </Link>
 );
 
-const header = ({ text, color, noSearch, notification, items }) => {
+const header = ({ text, color, noSearch, notification, noTagLine }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);
@@ -89,6 +89,7 @@ const header = ({ text, color, noSearch, notification, items }) => {
       >
         <div className='flex items-center md:hidden'>
           <Logo
+            noTagLine={noTagLine}
             color={color || 'purple'}
             text={
               text || (

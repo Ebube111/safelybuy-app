@@ -38,7 +38,7 @@ const MainBanner = () => {
                 Rhema’s Beamer live-in concert tickets available now.
               </h2>
               <div className='mt-10 md:mt-2'></div>
-              <Link href='/delivery'>
+              <Link href='/tickets/4565677777654'>
                 <a className='leading-none'>
                   <Button
                     primary
