@@ -16,11 +16,11 @@ const OrderDetails = ({ active }) => {
   }, [cart]);
 
   return (
-    <div className='w-1/3 ml-8 md:ml-0 shadow-2xl p-8 rounded-3xl min-h-80 md:w-full'>
+    <div className='w-1/3 ml-8 md:ml-0 shadow-2xl p-4 rounded-3xl min-h-80 md:w-full'>
       <div className='step-indicator flex relative'>
         <div className='absolute w-full h-2 border-b-2 border-dashed top-4'></div>
         <div className='flex w-full z-10 justify-between'>
-          <div className='bg-white flex flex-col justify-center items-center py-2 px-4'>
+          <div className='bg-white flex flex-col justify-center items-center py-2 px-2'>
             <svg
               width='14'
               height='14'
@@ -37,7 +37,7 @@ const OrderDetails = ({ active }) => {
             </svg>
             Cart
           </div>
-          <div className='bg-white flex flex-col justify-center items-center py-2 px-4'>
+          <div className='bg-white flex flex-col justify-center items-center py-2 px-2'>
             <svg
               width='16'
               height='11'
@@ -54,7 +54,7 @@ const OrderDetails = ({ active }) => {
             </svg>
             Delivery
           </div>
-          <div className='bg-white flex flex-col justify-center items-center py-2 px-4'>
+          <div className='bg-white flex flex-col justify-center items-center py-2 px-2'>
             <svg
               width='14'
               height='14'

@@ -11,8 +11,9 @@ const AddressItem = ({
 }) => {
   return (
     <div
+      style={{ height: '10rem' }}
       onClick={(e) => selectAddress(e, id)}
-      className={`relative w-80 mx-8 md:mx-3 rounded-2xl mb-8 p-3 cursor-pointer ${
+      className={`relative flex items-end flex-wrap w-64 mx-4 md:mx-2 rounded-2xl mb-4 p-2 cursor-pointer ${
         selected ? ' border-2 border-green-500' : ''
       }`}
     >

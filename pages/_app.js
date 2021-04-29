@@ -2,6 +2,7 @@ import React, { useReducer } from 'react';
 import { ToastProvider } from 'react-toast-notifications';
 import { ContextUser } from '../context';
 import { CartProvider } from 'context/Shopping';
+import { AddressProvider } from 'context/Address';
 import userReducer from '../reducers/auth';
 import { auth } from '../reducers/initialState';
 import 'slick-carousel/slick/slick.css';
@@ -16,9 +17,11 @@ function MyApp({ Component, pageProps }) {
   return (
     <ToastProvider>
       <ContextUser.Provider value={[state, dispatch]}>
-        <CartProvider>
-          <Component {...pageProps} />
-        </CartProvider>
+        <AddressProvider>
+          <CartProvider>
+            <Component {...pageProps} />
+          </CartProvider>
+        </AddressProvider>
       </ContextUser.Provider>
     </ToastProvider>
   );

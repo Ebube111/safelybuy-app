@@ -63,7 +63,7 @@ export default function Logo({ text, color, allowSub, noTagLine }) {
       <Link href='/'>
         <a>
           <div className='hidden md:inline-block'>
-            {<SafelyBuyLogo scale={0.625} />}
+            {<SafelyBuyLogo scale={0.4} />}
           </div>
           <div className='md:hidden'>{<SafelybuyLogoAlt />}</div>
         </a>

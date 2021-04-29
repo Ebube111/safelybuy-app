@@ -19,7 +19,7 @@ const User = ({ userIsVisible, setUserIsVisible, userRef }) => {
 
   return (
     <div className='relative'>
-      <div className='relative px-4'>
+      <div className='relative px-2'>
         <button
           onClick={(e) => {
             if (userIsVisible) setUserIsVisible(false);
@@ -38,7 +38,7 @@ const User = ({ userIsVisible, setUserIsVisible, userRef }) => {
             </div>
           ) : (
             <>
-              <div className='inline-block bg-green-500 p-2 rounded-full'>
+              <div className='inline-block bg-green-500 p-1 rounded-full'>
                 <svg
                   width='20'
                   height='20'
@@ -54,10 +54,10 @@ const User = ({ userIsVisible, setUserIsVisible, userRef }) => {
                   />
                 </svg>
               </div>
-              <div className='ml-3 flex font-medium text-lg flex-col md:hidden'>
+              <div className='ml-2 flex font-medium text-normal flex-col md:hidden'>
                 {state.user.firstname ? (
                   <>
-                    <span className='font-medium capitalize text-lg'>
+                    <span className='font-medium capitalize text-normal'>
                       Hi, {`${state.user.firstname}`}
                     </span>
                   </>
@@ -67,8 +67,8 @@ const User = ({ userIsVisible, setUserIsVisible, userRef }) => {
               </div>
             </>
           )}
-          <div className='ml-4 flex flex-col justify-between md:hidden'>
-            <div className='mt-px'>{<ArrowDown scale={2} color='black' />}</div>
+          <div className='ml-2 flex flex-col justify-between md:hidden'>
+            <div className='mt-px'>{<ArrowDown scale={1.5} color='black' />}</div>
           </div>
         </button>
         <div ref={userRef}>

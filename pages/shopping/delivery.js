@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useToasts } from 'react-toast-notifications';
+import { useRouter } from 'next/router';
 import Navigation from 'subviews/header';
+import AddressModal from 'subviews/address';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Link from 'next/link';
 import Footer from 'components/Footer';
@@ -8,30 +12,49 @@ import { ArrowRight } from 'svg';
 import { addressItemsData } from 'data';
 import Button from 'components/Button';
 import AddressItem from 'components/AddressItem';
+import Container from 'components/Container';
 import OrderDetails from 'subviews/OrderDetails';
+import AddressContext from 'context/Address';
 
 let remaining = null;
 
-const cart = ({ addressItems = remaining || addressItemsData }) => {
+const LoginPage = dynamic(() => import('pages/login'));
+
+const Delivery = () => {
+  const { address, loading, addAddress, removeAddress } = useContext(
+    AddressContext
+  );
+  const [addressItems, setAddressItems] = useState(remaining || address);
+  const [addresModal, setAddressModal] = useState(false);
   const forceUpdate = React.useReducer(() => ({}))[1];
-  const [deliveryType, setDeliveryType] = useState({
-    fedex: false,
-    dhl: false,
-  });
-  const selectAddress = (e, id) =>
+  // const [deliveryType, setDeliveryType] = useState({
+  //   fedex: false,
+  //   dhl: false,
+  // });
+  const { addToast } = useToasts();
+  const router = useRouter();
+
+  const selectAddress = (e, id) => {
+    const clone = addressItems;
     addressItems.forEach((e, i) => {
       if (e.id === id) {
-        addressItems[i].selected = true;
-      } else addressItems[i].selected = false;
+        const newAdd = addressItems[i];
+        newAdd.selected = true;
+        clone.splice(i, 1, newAdd);
+        setAddressItems(clone);
+      } else {
+        const remAdd = addressItems[i];
+        remAdd.selected = false;
+        clone.splice(i, 1, remAdd);
+        setAddressItems(clone);
+      }
       forceUpdate();
     });
-
-  const removeAddress = (e, id) => {
-    remaining = addressItems.filter((e) => e.id !== id);
-    addressItems = remaining;
-    e.stopPropagation();
-    forceUpdate();
   };
+
+  useEffect(() => {
+    setAddressItems(address);
+  }, [address]);
 
   return (
     <div>
@@ -41,7 +64,7 @@ const cart = ({ addressItems = remaining || addressItemsData }) => {
       </Head>
       <div className='relative pb-48 flex flex-col min-h-screen md:pb-80'>
         <Navigation />
-        <div className='pt-28 my-8 mx-20 md:mx-6'>
+        <Container topPadding>
           <Back />
           <div className='flex mb-10 md:mb-4 md:flex-wrap items-start'>
             <div className='w-2/3 mr-8 md:w-full'>
@@ -51,50 +74,71 @@ const cart = ({ addressItems = remaining || addressItemsData }) => {
               <h4 className='my-4 text-xl font-medium'>
                 Select or add an address
               </h4>
+              {loading && !addresModal ? (
+                <div className='fixed z-50 top-0 left-0 h-screen w-screen flex flex-col justify-center items-center bg-gray-500 bg-opacity-70'>
+                  <span
+                    style={{
+                      borderRightWidth: '2px',
+                      borderLeftWidth: '2px',
+                      borderRightColor: 'white',
+                    }}
+                    className='animate-spin rounded-full inline-block w-6 h-6 border-purple-700'
+                  ></span>
+                </div>
+              ) : null}
               <div className='flex flex-wrap mt-8 md:mt-4'>
-                <Link href='/shopping/address'>
-                  <div
-                    style={{ minHeight: '10rem' }}
-                    className='flex flex-col border-2 cursor-pointer border-dashed w-80 mx-8 md:mx-3 items-center justify-center rounded-xl mb-8 order-first'
+                <div
+                  onClick={() => setAddressModal(true)}
+                  style={{ minHeight: '10rem' }}
+                  className='flex flex-col border-2 cursor-pointer border-dashed w-64 mx-4 md:mx-2 items-center justify-center rounded-xl mb-4 order-first hover:border-purple-300'
+                >
+                  <svg
+                    width='55'
+                    height='55'
+                    viewBox='0 0 55 55'
+                    fill='none'
+                    xmlns='http://www.w3.org/2000/svg'
+                    className='mb-3'
                   >
-                    <svg
-                      width='55'
-                      height='55'
-                      viewBox='0 0 55 55'
-                      fill='none'
-                      xmlns='http://www.w3.org/2000/svg'
-                      className='mb-3'
-                    >
-                      <circle
-                        opacity='0.1'
-                        cx='27.5'
-                        cy='27.5'
-                        r='27.5'
-                        fill='#8661FF'
-                      />
-                      <path
-                        fillRule='evenodd'
-                        clipRule='evenodd'
-                        d='M28.6029 36.8572L28 37.3836L27.3971 36.8572C22.327 32.4301 19.75 28.5645 19.75 25.1667C19.75 20.3548 23.5056 16.9167 28 16.9167C32.4944 16.9167 36.25 20.3548 36.25 25.1667C36.25 28.5645 33.673 32.4301 28.6029 36.8572ZM21.5833 25.1667C21.5833 27.7785 23.6977 31.0641 28 34.9415C32.3023 31.0641 34.4167 27.7785 34.4167 25.1667C34.4167 21.4052 31.5162 18.75 28 18.75C24.4838 18.75 21.5833 21.4052 21.5833 25.1667ZM27.0833 21.5V24.25H24.3333V26.0833H27.0833V28.8333H28.9167V26.0833H31.6667V24.25H28.9167V21.5H27.0833Z'
-                        fill='#8661FF'
-                      />
-                    </svg>
-                    Add a new address
-                  </div>
-                </Link>
+                    <circle
+                      opacity='0.1'
+                      cx='27.5'
+                      cy='27.5'
+                      r='27.5'
+                      fill='#8661FF'
+                    />
+                    <path
+                      fillRule='evenodd'
+                      clipRule='evenodd'
+                      d='M28.6029 36.8572L28 37.3836L27.3971 36.8572C22.327 32.4301 19.75 28.5645 19.75 25.1667C19.75 20.3548 23.5056 16.9167 28 16.9167C32.4944 16.9167 36.25 20.3548 36.25 25.1667C36.25 28.5645 33.673 32.4301 28.6029 36.8572ZM21.5833 25.1667C21.5833 27.7785 23.6977 31.0641 28 34.9415C32.3023 31.0641 34.4167 27.7785 34.4167 25.1667C34.4167 21.4052 31.5162 18.75 28 18.75C24.4838 18.75 21.5833 21.4052 21.5833 25.1667ZM27.0833 21.5V24.25H24.3333V26.0833H27.0833V28.8333H28.9167V26.0833H31.6667V24.25H28.9167V21.5H27.0833Z'
+                      fill='#8661FF'
+                    />
+                  </svg>
+                  Add a new address
+                </div>
                 {addressItems.map((e) => (
                   <AddressItem
                     key={Math.random()}
-                    address={e.address}
+                    address={e.street + ', ' + e.city + ', ' + e.state}
                     name={e.name}
                     phone={e.phone}
                     selected={e.selected}
                     id={e.id}
                     selectAddress={selectAddress}
                     removeAddress={removeAddress}
+                    setAddressModal={setAddressModal}
                   />
                 ))}
               </div>
+              {addresModal && (
+                <AddressModal
+                  modalOpen={addresModal}
+                  setModalOpen={setAddressModal}
+                  addAddress={addAddress}
+                  removeAddress={removeAddress}
+                  loading={loading}
+                />
+              )}
             </div>
             <OrderDetails active='delivery' />
           </div>
@@ -146,11 +190,11 @@ const cart = ({ addressItems = remaining || addressItemsData }) => {
               </a>
             </Link>
           </div>
-        </div>
+        </Container>
         <Footer />
       </div>
     </div>
   );
 };
 
-export default cart;
+export default Delivery;

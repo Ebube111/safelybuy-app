@@ -8,6 +8,7 @@ import Back from 'components/Back';
 import { ArrowRight } from 'svg';
 import Button from 'components/Button';
 import CartItem from 'components/CartItem';
+import Container from 'components/Container';
 import OrderDetails from 'subviews/OrderDetails';
 
 const cart = () => {
@@ -21,7 +22,7 @@ const cart = () => {
       </Head>
       <div className='relative pb-48 flex flex-col min-h-screen md:pb-80'>
         <Navigation />
-        <div className='pt-28 my-8 mx-20 md:mx-6'>
+        <Container topPadding>
           <Back />
           {!cart?.length ? (
             'No items in your cart'
@@ -75,7 +76,7 @@ const cart = () => {
               </div>
             </div>
           )}
-        </div>
+        </Container>
         <Footer />
       </div>
     </div>

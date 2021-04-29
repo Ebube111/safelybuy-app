@@ -29,7 +29,7 @@ export const Auth = {
 };
 
 export const axiosWithAuth = () => {
-  const token = localStorage.getItem("safely_buy_token");
+  const token =  process.browser && localStorage.getItem("safely_buy_token");
 
   return axios.create({
     headers: {
