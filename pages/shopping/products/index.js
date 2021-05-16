@@ -6,6 +6,7 @@ import Navigation from 'subviews/header';
 import Back from 'components/Back';
 import Footer from 'components/Footer';
 import Filter from 'components/Filter';
+import Container from 'components/Container';
 import FilterMobile from 'components/FilterMobile';
 import { shoppingItems } from 'data';
 import Product from 'components/Product';
@@ -119,10 +120,7 @@ const Products = () => {
       </Head>
       <div className='relative pb-48 flex flex-col min-h-screen md:pb-80'>
         <Navigation />
-        <div
-          style={{ maxWidth: 1280, margin: '0 auto' }}
-          className='mx-20 pt-32 md:mx-0'
-        >
+        <Container topPadding>
           <div className='flex relative my-2'>
             <div className='w-72 md:mx-0 md:px-6 h-screen md:h-auto md:py-3 md:top-0 md:pt-36 fixed z-10 bg-white md:w-full'>
               <Back />
@@ -189,7 +187,7 @@ const Products = () => {
               )}
             </div>
           </div>
-        </div>
+        </Container>
         <Footer />
       </div>
       <FilterMobile

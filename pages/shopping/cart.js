@@ -51,9 +51,7 @@ const cart = () => {
                         roundedLg
                         icon={<ArrowRight color='white' scale={0.9} />}
                       >
-                        <p className='font-medium text-xl'>
-                          Proceed to Delivery
-                        </p>
+                        <p>Proceed to Delivery</p>
                       </Button>
                     </a>
                   </Link>

@@ -16,10 +16,8 @@ const Filter = ({ setFilterObjects, filterObjects, category, subCategory }) => {
 
   useEffect(() => {
     forceUpdate();
-    // console.log('re-running', category, subCategory, filterObjects)
   }, [category, subCategory]);
 
-  // console.log(category, subCategory);
   return (
     <>
       <div className='bg-gray-100 h-3/5 p-8 my-8 rounded-lg filter md:hidden overflow-y-auto'>
