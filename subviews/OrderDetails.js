@@ -3,17 +3,16 @@ import CartContext from 'context/Shopping';
 import { useRouter } from 'next/router';
 import { cities } from 'data';
 
-let currentState = '';
+let sellers = [];
+let sellerObj = null;
+let delData = [];
 
 const OrderDetails = ({ active, selectedAddress, calculatePrice }) => {
   const [cart] = useContext(CartContext);
   const [total, setTotal] = useState(0);
   const [deliveryPrice, setDeliveryPrice] = useState(0);
   const router = useRouter();
-  const [sellers, setSellers] = useState([]);
-  const [sellerObj, setSellerObj] = useState(null);
   const [delPriceLoading, setDelPriceLoading] = useState(false);
-  const [delData, setDelData] = useState([]);
 
   useEffect(() => {
     setTotal(
@@ -22,32 +21,23 @@ const OrderDetails = ({ active, selectedAddress, calculatePrice }) => {
         0
       )
     );
-    setSellers(
-      cart.map((e) => {
-        return {
-          location:
-            e.item.shipping_state === 'Lagos' &&
-            selectedAddress[0]?.state === 'Lagos'
-              ? e.item.shipping_city
-              : e.item.shipping_state,
-          total_weight: Number(e.item.weight) * Number(e.quantity),
-        };
-      })
-    );
-  }, [cart, selectedAddress[0], router.pathname]);
-
-  useEffect(() => {
+    sellers = cart.map((e) => {
+      return {
+        location:
+          e.item.shipping_state === 'Lagos' &&
+          selectedAddress[0]?.state === 'Lagos'
+            ? e.item.shipping_city
+            : e.item.shipping_state,
+        total_weight: Number(e.item.weight) * Number(e.quantity),
+      };
+    });
     const obj = {};
     sellers.forEach((seller) => {
       if (obj[seller.location] !== undefined)
         obj[seller.location] += Number(seller.total_weight);
       else obj[seller.location] = Number(seller.total_weight);
     });
-
-    setSellerObj(obj);
-  }, [sellers]);
-
-  useEffect(() => {
+    sellerObj = obj;
     if (selectedAddress?.length) {
       const newArr = [];
       for (let a in sellerObj) {
@@ -62,9 +52,10 @@ const OrderDetails = ({ active, selectedAddress, calculatePrice }) => {
           weight: sellerObj[a] < 2.5 ? 2.5 : sellerObj[a] < 3.5 ? 3.5 : 5,
         });
       }
-      setDelData(newArr);
+      delData = newArr;
     }
-  }, [selectedAddress[0], sellerObj]);
+    console.log(delData)
+  }, [cart, selectedAddress[0], router.pathname]);
 
   useEffect(() => {
     (async () => {
@@ -72,17 +63,19 @@ const OrderDetails = ({ active, selectedAddress, calculatePrice }) => {
       let price = 0;
       if (delData?.length) {
         setDelPriceLoading(true);
-        for (let a of delData) {
-          const result = await calculatePrice(a);
+        let i = 0;
+        while (i < delData.length) {
+          const result = await calculatePrice(delData[i]);
+          console.log(result?.price[0]?.price, i);
           price += result?.price[0]?.price || 0;
-          console.log(a);
+          i++;
         }
         setDelPriceLoading(false);
         setDeliveryPrice(price);
         console.log('Done', delData.length);
       }
     })();
-  }, [delData]);
+  }, [selectedAddress[0]]);
 
   return (
     <div className='w-1/3 ml-8 md:ml-0 shadow-2xl p-4 rounded-3xl min-h-80 md:w-full'>
@@ -191,6 +184,7 @@ const OrderDetails = ({ active, selectedAddress, calculatePrice }) => {
               fill='#8661FF'
             />
           </svg>
+          {/* {console.log(delData)} */}
           <span className='inline-block ml-4 text-gray-400'>
             Select address first
           </span>

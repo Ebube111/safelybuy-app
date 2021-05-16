@@ -30,6 +30,7 @@ const Delivery = () => {
   const [addressItems, setAddressItems] = useState(remaining || address);
   const [addresModal, setAddressModal] = useState(false);
   const forceUpdate = React.useReducer(() => ({}))[1];
+  const [selectedAddress, setSelectedAddress] = useState([{}]);
   // const [deliveryType, setDeliveryType] = useState({
   //   fedex: false,
   //   dhl: false,
@@ -45,6 +46,7 @@ const Delivery = () => {
         newAdd.selected = true;
         clone.splice(i, 1, newAdd);
         setAddressItems(clone);
+        setSelectedAddress([newAdd]);
       } else {
         const remAdd = addressItems[i];
         remAdd.selected = false;
@@ -144,7 +146,7 @@ const Delivery = () => {
               )}
             </div>
             <OrderDetails
-              selectedAddress={address?.filter((add) => add.selected === true)}
+              selectedAddress={selectedAddress}
               active='delivery'
               calculatePrice={calculatePrice}
             />
