@@ -54,31 +54,29 @@ const OrderDetails = ({ active, selectedAddress, calculatePrice }) => {
       }
       delData = newArr;
     }
-    console.log(delData)
   }, [cart, selectedAddress[0], router.pathname]);
 
   useEffect(() => {
-    (async () => {
-      setDeliveryPrice(0);
-      let price = 0;
-      if (delData?.length) {
-        setDelPriceLoading(true);
-        let i = 0;
-        while (i < delData.length) {
-          const result = await calculatePrice(delData[i]);
-          console.log(result?.price[0]?.price, i);
-          price += result?.price[0]?.price || 0;
-          i++;
+    if (selectedAddress?.length)
+      (async () => {
+        setDeliveryPrice(0);
+        let price = 0;
+        if (delData?.length) {
+          setDelPriceLoading(true);
+          let i = 0;
+          while (i < delData.length) {
+            const result = await calculatePrice(delData[i]);
+            price += result?.price[0]?.price || 0;
+            i++;
+          }
+          setDelPriceLoading(false);
+          setDeliveryPrice(price);
         }
-        setDelPriceLoading(false);
-        setDeliveryPrice(price);
-        console.log('Done', delData.length);
-      }
-    })();
+      })();
   }, [selectedAddress[0]]);
 
   return (
-    <div className='w-1/3 ml-8 md:ml-0 shadow-2xl p-4 rounded-3xl min-h-80 md:w-full'>
+    <div className='w-5/12 ml-4 md:ml-0 shadow-2xl p-4 rounded-3xl min-h-80 md:w-full'>
       <div className='step-indicator flex relative'>
         <div className='absolute w-full h-2 border-b-2 border-dashed top-4'></div>
         <div className='flex w-full z-10 justify-between'>
@@ -116,7 +114,6 @@ const OrderDetails = ({ active, selectedAddress, calculatePrice }) => {
             </svg>
             Delivery
           </div>
-          {/* {console.log(sellerObj, sellers)} */}
           <div className='bg-white flex flex-col justify-center items-center py-2 px-2'>
             <svg
               width='14'
@@ -168,26 +165,72 @@ const OrderDetails = ({ active, selectedAddress, calculatePrice }) => {
       </div>
       <div className='delivery-summary my-6 mx-4'>
         <h3 className='text-2xl font-bold mb-8'>Delivery Summary</h3>
-        <div className='flex mb-3 items-center font-medium'>
-          <svg
-            width='50'
-            height='50'
-            viewBox='0 0 50 50'
-            fill='none'
-            xmlns='http://www.w3.org/2000/svg'
-          >
-            <rect opacity='0.1' width='50' height='50' rx='7' fill='#8661FF' />
-            <path
-              fillRule='evenodd'
-              clipRule='evenodd'
-              d='M29.382 20L31.2243 23.6847L34 25.5352V29H32.8295C32.4176 27.8348 31.3064 27 30.0002 27C28.6939 27 27.5827 27.8348 27.1709 29H22.8293C22.4175 27.8348 21.3062 27 20 27C18.6938 27 17.5825 27.8348 17.1707 29H16V20H29.382ZM34 31H32.8295C32.4176 32.1652 31.3064 33 30.0002 33C28.6939 33 27.5827 32.1652 27.1709 31H22.8293C22.4175 32.1652 21.3062 33 20 33C18.6938 33 17.5825 32.1652 17.1707 31H16C14.8954 31 14 30.1046 14 29V20C14 18.8954 14.8954 18 16 18H29.382C30.1395 18 30.832 18.428 31.1708 19.1056L32.7757 22.3153L36 24.4648V29C36 30.1046 35.1046 31 34 31ZM20.9998 30C20.9998 30.5523 20.5521 31 19.9998 31C19.4476 31 18.9998 30.5523 18.9998 30C18.9998 29.4477 19.4476 29 19.9998 29C20.5521 29 20.9998 29.4477 20.9998 30ZM31 30C31 30.5523 30.5523 31 30 31C29.4477 31 29 30.5523 29 30C29 29.4477 29.4477 29 30 29C30.5523 29 31 29.4477 31 30Z'
-              fill='#8661FF'
-            />
-          </svg>
-          {/* {console.log(delData)} */}
-          <span className='inline-block ml-4 text-gray-400'>
-            Select address first
-          </span>
+        <div>
+          {delPriceLoading ? (
+            <span
+              style={{
+                borderRightWidth: '2px',
+                borderLeftWidth: '2px',
+                borderRightColor: 'white',
+              }}
+              className='animate-spin rounded-full inline-block w-10 h-10 border-purple-700'
+            ></span>
+          ) : !deliveryPrice && !delPriceLoading ? (
+            <div className='flex mb-3 items-center font-medium'>
+              {' '}
+              <svg
+                width='50'
+                height='50'
+                viewBox='0 0 50 50'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <rect
+                  opacity='0.1'
+                  width='50'
+                  height='50'
+                  rx='7'
+                  fill='#8661FF'
+                />
+                <path
+                  fillRule='evenodd'
+                  clipRule='evenodd'
+                  d='M29.382 20L31.2243 23.6847L34 25.5352V29H32.8295C32.4176 27.8348 31.3064 27 30.0002 27C28.6939 27 27.5827 27.8348 27.1709 29H22.8293C22.4175 27.8348 21.3062 27 20 27C18.6938 27 17.5825 27.8348 17.1707 29H16V20H29.382ZM34 31H32.8295C32.4176 32.1652 31.3064 33 30.0002 33C28.6939 33 27.5827 32.1652 27.1709 31H22.8293C22.4175 32.1652 21.3062 33 20 33C18.6938 33 17.5825 32.1652 17.1707 31H16C14.8954 31 14 30.1046 14 29V20C14 18.8954 14.8954 18 16 18H29.382C30.1395 18 30.832 18.428 31.1708 19.1056L32.7757 22.3153L36 24.4648V29C36 30.1046 35.1046 31 34 31ZM20.9998 30C20.9998 30.5523 20.5521 31 19.9998 31C19.4476 31 18.9998 30.5523 18.9998 30C18.9998 29.4477 19.4476 29 19.9998 29C20.5521 29 20.9998 29.4477 20.9998 30ZM31 30C31 30.5523 30.5523 31 30 31C29.4477 31 29 30.5523 29 30C29 29.4477 29.4477 29 30 29C30.5523 29 31 29.4477 31 30Z'
+                  fill='#8661FF'
+                />
+              </svg>
+              <span className='inline-block ml-4 text-gray-400'>
+                Select address first
+              </span>
+            </div>
+          ) : (
+            <div className='flex mb-3 font-medium'>
+              <svg
+                width='62'
+                height='62'
+                viewBox='0 0 62 62'
+                fill='none'
+                xmlns='http://www.w3.org/2000/svg'
+              >
+                <rect width='62' height='62' rx='7' fill='#FFCB01' />
+                <path
+                  d='M16.6611 28L15.2695 29.8643H22.854C23.2375 29.8643 23.2327 30.0067 23.0453 30.2584C22.8549 30.5131 22.5364 30.9534 22.3423 31.2127C22.2438 31.3438 22.0659 31.5824 22.655 31.5824H25.7567L26.6759 30.3509C27.2459 29.588 26.7256 28.0009 24.6874 28.0009L16.6611 28Z'
+                  fill='#D80613'
+                />
+                <path
+                  d='M14.7051 34.0737L17.5007 30.3282H20.9697C21.3532 30.3282 21.3484 30.4716 21.1609 30.7224L20.4532 31.6729C20.3547 31.804 20.1768 32.0426 20.7659 32.0426H25.4123C25.0268 32.565 23.772 34.0737 21.5225 34.0737H14.7051ZM30.7137 32.0416L29.1978 34.0737H25.199L26.7149 32.0416H30.7137ZM36.8387 31.5814H27.0592L29.7334 28H33.7303L32.1981 30.0538H33.9818L35.5159 28H39.5128L36.8387 31.5814ZM36.4953 32.0416L34.9794 34.0737H30.9825L32.4984 32.0416H36.4953ZM9 32.8432H14.8897L14.5683 33.2741H9V32.8432ZM9 32.0416H15.4884L15.1661 32.4726H9V32.0416ZM9 33.6447H14.2919L13.9715 34.0737H9V33.6447ZM52.5585 33.2741H46.6899L47.0122 32.8432H52.5585V33.2741ZM52.5585 34.0737H46.094L46.4134 33.6447H52.5585V34.0737ZM47.6099 32.0416H52.5585V32.4735H47.2886L47.6099 32.0416ZM45.0486 28L42.3745 31.5814H38.1385L40.8145 28H45.0486ZM37.7961 32.0416C37.7961 32.0416 37.5043 32.4358 37.3618 32.6244C36.8607 33.2939 37.3035 34.0728 38.9419 34.0728H45.3614L46.8773 32.0416H37.7961Z'
+                  fill='#D80613'
+                />
+              </svg>
+              <div className='inline-block ml-4'>
+                <div>Express Delivery with DHL</div>
+                <div className='text-gray-400 font-normal text-sm'>
+                  Estimated delivery to be determined
+                </div>
+                <div> &#8358;{deliveryPrice.toLocaleString()}</div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
       <footer className='border-t-2 w-full mt-8 flex pt-6 font-bold justify-between border-gray-200'>

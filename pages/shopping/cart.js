@@ -28,7 +28,7 @@ const cart = () => {
             'No items in your cart'
           ) : (
             <div className='flex items-start mb-10 md:mb-4 md:flex-wrap'>
-              <div className='w-2/3 mr-8 md:w-full'>
+              <div className='w-7/12 mr-4 md:w-full'>
                 <h2 className='text-4xl tracking-wider font-bold md:text-2xl'>
                   Your Cart
                 </h2>

@@ -30,7 +30,7 @@ const Delivery = () => {
   const [addressItems, setAddressItems] = useState(remaining || address);
   const [addresModal, setAddressModal] = useState(false);
   const forceUpdate = React.useReducer(() => ({}))[1];
-  const [selectedAddress, setSelectedAddress] = useState([{}]);
+  const [selectedAddress, setSelectedAddress] = useState([]);
   // const [deliveryType, setDeliveryType] = useState({
   //   fedex: false,
   //   dhl: false,
@@ -186,7 +186,7 @@ const Delivery = () => {
               Delivery with DHL
             </div>
           </div> */}
-          <div className='mt-8 mr-8 w-2/3 md:w-full flex justify-end md:justify-center leading-none'>
+          <div className='mt-8 mr-4 w-7/12 md:w-full flex justify-end md:justify-center leading-none'>
             <Link href='/shopping/payment'>
               <a>
                 <Button
