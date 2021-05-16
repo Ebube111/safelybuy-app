@@ -1,12 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
 import Image from 'next/image';
-import { ContextUser } from 'context';
-import { fetchUser } from 'actions/auth';
-import { ArrowRight, AngleRight } from 'svg';
-import Navigation from 'subviews/header';
+import { AngleRight } from 'svg';
 import Button from 'components/Button';
 import Footer from 'components/Footer';
 import TicketCard from 'components/TicketCard';
@@ -31,8 +26,6 @@ const TicketItem = ({ type, price, quantity }) => (
 );
 
 export default function Home() {
-  const router = useRouter();
-  const [state, dispatch] = useContext(ContextUser);
   const [subTotal, setSubTotal] = useState(
     [
       {
@@ -45,10 +38,6 @@ export default function Home() {
   );
 
   useEffect(() => {
-    if (state.error) return;
-    if (state.user.firstname) return;
-    // fetchUser(dispatch);
-  }, [dispatch, state.user.firstname]);
   return (
     <div>
       <Head>

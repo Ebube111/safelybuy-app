@@ -1,22 +1,15 @@
-import { useContext, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { ContextUser } from 'context';
-import { fetchUser } from 'actions/auth';
 import { ArrowRight } from 'svg';
 import Navigation from 'subviews/header';
 import Footer from 'components/Footer';
 import TicketCard from 'components/TicketCard';
 
 export default function Home() {
-  const [state, dispatch] = useContext(ContextUser);
   const router = useRouter();
   const [searchValue, setSearchValue] = useState(router.query.value || '');
-  useEffect(() => {
-    if (state.error) return;
-    if (state.user.firstname) return;
-    // fetchUser(dispatch);
-  }, [dispatch, state.user.firstname]);
+
   return (
     <div>
       <Head>

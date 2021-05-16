@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ContextUser } from 'context';
-import { fetchUser } from 'actions/auth';
 import { ArrowRight } from 'svg';
 import Navigation from 'subviews/header';
 import Button from 'components/Button';
@@ -36,10 +35,6 @@ export default function Home() {
   const [state, dispatch] = useContext(ContextUser);
 
   useEffect(() => {
-    if (state.error) return;
-    if (state.user.firstname) return;
-    // fetchUser(dispatch);
-  }, [dispatch, state.user.firstname]);
   return (
     <div>
       <Head>

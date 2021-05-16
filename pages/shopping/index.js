@@ -1,8 +1,5 @@
-import { useContext, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { ContextUser } from 'context';
-import { fetchUser } from 'actions/auth';
 import Navigation from 'subviews/header';
 import Footer from 'components/Footer';
 import Product from 'components/Product';
@@ -12,13 +9,6 @@ import RecommendedSection from 'subviews/RecommendedSection';
 import MainBanner from 'subviews/MainBanner';
 
 export default function Home() {
-  const [state, dispatch] = useContext(ContextUser);
-
-  useEffect(() => {
-    if (state.error) return;
-    if (state.user.firstname) return;
-    // fetchUser(dispatch);
-  }, [dispatch, state.user.firstname]);
   return (
     <div>
       <Head>

@@ -1,8 +1,5 @@
-import { useContext, useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { ContextUser } from 'context';
-import { fetchUser } from 'actions/auth';
 import SectionalTab from 'components/SectionalTab';
 import { DeliveryIcon, Tickets, Phones, ArrowRight } from 'svg';
 import Navigation from 'subviews/header';
@@ -10,13 +7,6 @@ import Button from 'components/Button';
 import Footer from 'components/Footer';
 
 export default function Home() {
-  const [state, dispatch] = useContext(ContextUser);
-
-  useEffect(() => {
-    if (state.error) return;
-    if (state.user.firstname) return;
-    // fetchUser(dispatch);
-  }, [dispatch, state.user.firstname]);
   return (
     <div>
       <Head>

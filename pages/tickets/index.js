@@ -5,8 +5,6 @@ import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { ContextUser } from 'context';
-import { fetchUser } from 'actions/auth';
 import Navigation from 'subviews/header';
 import TicketBanner from 'subviews/TicketBanner';
 import Button from 'components/Button';
@@ -29,16 +27,9 @@ const monthNames = [
 ];
 
 export default function Tickets({ data }) {
-  const [state, dispatch] = useContext(ContextUser);
   const [searchValue, setSearchValue] = useState('');
   const router = useRouter();
 
-  useEffect(() => {
-    console.log(data);
-    if (state.error) return;
-    if (state.user.firstname) return;
-    // fetchUser(dispatch);
-  }, [dispatch, state.user.firstname, data]);
   return (
     <div>
       <Head>

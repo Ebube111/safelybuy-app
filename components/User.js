@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { ArrowDown } from '../svg';
 import { UserMenuMobile } from './UserMenuMobile';
 import { ContextUser } from '../context';
-import { fetchUser } from '../actions/auth';
 
 export const buttonStyles = (color) =>
   `hover:bg-${color}-100 transform active:shadow-sm active:bg-${color}-200 hover:scale-105 active:scale-100 hover:shadow-xl focus:outline-none`;
@@ -11,11 +10,6 @@ export const buttonStyles = (color) =>
 const User = ({ userIsVisible, setUserIsVisible, userRef }) => {
   // const history = useHistory();
   const [state, dispatch] = useContext(ContextUser);
-  useEffect(() => {
-    if (state.error) return;
-    if (state.user.firstname) return;
-    // fetchUser(dispatch);
-  }, [dispatch, state.user.firstname]);
 
   return (
     <div className='relative'>
