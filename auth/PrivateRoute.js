@@ -1,11 +1,14 @@
-import React from "react";
-import { Route, Redirect } from "react-router-dom";
-import { Auth } from ".";
+import { useRouter } from 'next/router';
+import { Auth } from 'auth';
 
-const PrivateRoute = (props) => (
-  <Route>
-    {Auth.isAuthenticated() ? props.children : <Redirect to="/login" />}
-  </Route>
-);
-
+const PrivateRoute = ({ children }) => {
+  const router = useRouter();
+  console.log(Auth.isAuthenticated());
+  if (!Auth.isAuthenticated()) {
+    if (typeof window !== 'undefined')
+      router.push('/login');
+    return <>Unauthenticated, Redirecting to Login...</>;
+  }
+  return children;
+};
 export default PrivateRoute;

@@ -30,7 +30,11 @@ const SamplePage = () => {
   const router = useRouter();
   const { addToast } = useToasts();
   const [state, dispatch] = useContext(ContextUser);
-  const { register, formState: { errors }, handleSubmit } = useForm();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm();
   const onSubmit = (data) => login(dispatch, data, router, addToast);
   const handleEmailValidation = (email) => {
     const isValid = isValidEmail(email);
@@ -97,7 +101,8 @@ const SamplePage = () => {
                         required
                         className={`border ${
                           errors.email ? 'border-red' : 'border-black'
-                        } w-full rounded-full px-6 py-2 focus:outline-none focus:shadow-xl`} />
+                        } w-full rounded-full px-6 py-2 focus:outline-none focus:shadow-xl`}
+                      />
                       <span className='text-red-500'>
                         {errors.email && 'Email is not valid'}
                       </span>
@@ -122,7 +127,8 @@ const SamplePage = () => {
                           },
                         })}
                         id='password'
-                        className='border w-full border-black rounded-full px-6 py-2 focus:outline-none focus:shadow-xl' />
+                        className='border w-full border-black rounded-full px-6 py-2 focus:outline-none focus:shadow-xl'
+                      />
                       <span className='text-red-500'>
                         {errors.password && errors.password.message}
                       </span>

@@ -3,7 +3,6 @@ import { useToasts } from 'react-toast-notifications';
 import { useRouter } from 'next/router';
 import Navigation from 'subviews/header';
 import AddressModal from 'subviews/address';
-import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import Link from 'next/link';
 import Footer from 'components/Footer';
@@ -14,10 +13,9 @@ import AddressItem from 'components/AddressItem';
 import Container from 'components/Container';
 import OrderDetails from 'subviews/OrderDetails';
 import AddressContext from 'context/Address';
+import PrivateRoute from 'auth/PrivateRoute';
 
 let remaining = null;
-
-const LoginPage = dynamic(() => import('pages/login'));
 
 const Delivery = () => {
   const {
@@ -62,7 +60,7 @@ const Delivery = () => {
   }, [address]);
 
   return (
-    <div>
+    <PrivateRoute>
       <Head>
         <title>Safelybuy - Shopping</title>
         <link rel='icon' href='/favicon.ico' />
@@ -201,7 +199,7 @@ const Delivery = () => {
         </Container>
         <Footer />
       </div>
-    </div>
+    </PrivateRoute>
   );
 };
 

@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const Auth = {
   isAuthenticated() {
-    const token = localStorage.safely_buy_token;
+    const token =  process.browser && localStorage.safely_buy_token;
     if (!token) return false;
     let decoded;
     try {

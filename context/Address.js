@@ -2,12 +2,13 @@ import { createContext, useState, useEffect } from 'react';
 import { useToasts } from 'react-toast-notifications';
 import { baseUrl } from 'api';
 import { axiosWithAuth } from 'auth';
+import { useRouter } from 'next/router';
 
 const AddressContext = createContext([]);
 
 export const AddressProvider = ({ children }) => {
   // let savedCart = process.browser && localStorage.getItem('safelybuy_cart');
-
+  const router = useRouter();
   const [address, setAddress] = useState([]);
   const [loading, setLoading] = useState(false);
   const { addToast } = useToasts();
@@ -44,9 +45,7 @@ export const AddressProvider = ({ children }) => {
     // get addresses of loggedin user
     setLoading(true);
     try {
-      await axiosWithAuth().post(
-        `${baseUrl}/api/v1/address/delete/` + id
-      );
+      await axiosWithAuth().post(`${baseUrl}/api/v1/address/delete/` + id);
       // Pass data to the page via props
       setLoading(false);
       addToast('User address removed', {
@@ -113,7 +112,9 @@ export const AddressProvider = ({ children }) => {
   useEffect(() => {
     // process.browser &&
     //   localStorage.setItem('safelybuy_cart', JSON.stringify(cart));
-    if (!address.length) getAddress();
+
+    if (!address.length && router.pathname === '/shopping/delivery')
+      getAddress();
   }, []);
 
   return (
