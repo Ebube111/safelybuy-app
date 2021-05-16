@@ -87,10 +87,6 @@ export const AddressProvider = ({ children }) => {
     } catch (error) {
       console.log('error', error.message || error.response.data);
       setLoading(false);
-      addToast('You need to login to checkout', {
-        appearance: 'error',
-        autoDismiss: true,
-      });
     }
   };
 
@@ -115,7 +111,7 @@ export const AddressProvider = ({ children }) => {
 
     if (!address.length && router.pathname === '/shopping/delivery')
       getAddress();
-  }, []);
+  }, [router.pathname]);
 
   return (
     <AddressContext.Provider

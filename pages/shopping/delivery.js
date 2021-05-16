@@ -60,7 +60,7 @@ const Delivery = () => {
   }, [address]);
 
   return (
-    <PrivateRoute>
+    <PrivateRoute message='You need to login to checkout'>
       <Head>
         <title>Safelybuy - Shopping</title>
         <link rel='icon' href='/favicon.ico' />
