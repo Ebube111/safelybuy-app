@@ -1,10 +1,19 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, memo } from 'react';
 import CartContext from 'context/Shopping';
+import { useRouter } from 'next/router';
+import { cities } from 'data';
 
-const OrderDetails = ({ active }) => {
+let currentState = '';
+
+const OrderDetails = ({ active, selectedAddress, calculatePrice }) => {
   const [cart] = useContext(CartContext);
   const [total, setTotal] = useState(0);
-  const [delivery, setDelivery] = useState(0);
+  const [deliveryPrice, setDeliveryPrice] = useState(0);
+  const router = useRouter();
+  const [sellers, setSellers] = useState([]);
+  const [sellerObj, setSellerObj] = useState(null);
+  const [delPriceLoading, setDelPriceLoading] = useState(false);
+  const [delData, setDelData] = useState([]);
 
   useEffect(() => {
     setTotal(
@@ -13,7 +22,67 @@ const OrderDetails = ({ active }) => {
         0
       )
     );
-  }, [cart]);
+    setSellers(
+      cart.map((e) => {
+        return {
+          location:
+            e.item.shipping_state === 'Lagos' &&
+            selectedAddress[0]?.state === 'Lagos'
+              ? e.item.shipping_city
+              : e.item.shipping_state,
+          total_weight: Number(e.item.weight) * Number(e.quantity),
+        };
+      })
+    );
+  }, [cart, selectedAddress[0], router.pathname]);
+
+  useEffect(() => {
+    const obj = {};
+    sellers.forEach((seller) => {
+      if (obj[seller.location] !== undefined)
+        obj[seller.location] += Number(seller.total_weight);
+      else obj[seller.location] = Number(seller.total_weight);
+    });
+
+    setSellerObj(obj);
+  }, [sellers]);
+
+  useEffect(() => {
+    if (selectedAddress?.length) {
+      const newArr = [];
+      for (let a in sellerObj) {
+        newArr.push({
+          [Object.keys(cities).includes(a) ? 'start' : 'lagos_start']: a,
+          [a === 'Lagos' || Object.keys(cities).includes(a)
+            ? 'destination'
+            : 'lagos_destination']:
+            a === 'Lagos' || Object.keys(cities).includes(a)
+              ? selectedAddress[0].state
+              : selectedAddress[0].city,
+          weight: sellerObj[a] < 2.5 ? 2.5 : sellerObj[a] < 3.5 ? 3.5 : 5,
+        });
+      }
+      setDelData(newArr);
+    }
+  }, [selectedAddress[0], sellerObj]);
+
+  useEffect(() => {
+    (async () => {
+      setDeliveryPrice(0);
+      let price = 0;
+      if (delData?.length) {
+        setDelPriceLoading(true);
+        for (let a of delData) {
+          const result = await calculatePrice(a);
+          price += result?.price[0]?.price || 0;
+          console.log(a);
+        }
+        setDelPriceLoading(false);
+        setDeliveryPrice(price);
+        console.log('Done', delData.length);
+      }
+    })();
+  }, [delData]);
 
   return (
     <div className='w-1/3 ml-8 md:ml-0 shadow-2xl p-4 rounded-3xl min-h-80 md:w-full'>
@@ -54,6 +123,7 @@ const OrderDetails = ({ active }) => {
             </svg>
             Delivery
           </div>
+          {/* {console.log(sellerObj, sellers)} */}
           <div className='bg-white flex flex-col justify-center items-center py-2 px-2'>
             <svg
               width='14'
@@ -79,15 +149,28 @@ const OrderDetails = ({ active }) => {
           <span className='text-gray-600 inline-block'>
             Order Total (tax incl.)
           </span>
-          <span className='inline-block'>
-            &#8358;{(total).toLocaleString()}
-          </span>
+          <span className='inline-block'>&#8358;{total.toLocaleString()}</span>
         </div>
         <div className='flex justify-between mb-3 font-medium'>
           <span className='text-gray-600 inline-block'>Delivery Fee</span>
-          <span className='inline-block text-gray-400'>
-            Select address first
-          </span>
+          {delPriceLoading ? (
+            <span
+              style={{
+                borderRightWidth: '2px',
+                borderLeftWidth: '2px',
+                borderRightColor: 'white',
+              }}
+              className='animate-spin rounded-full inline-block w-6 h-6 border-purple-700'
+            ></span>
+          ) : deliveryPrice ? (
+            <span className='inline-block'>
+              &#8358;{deliveryPrice.toLocaleString()}
+            </span>
+          ) : (
+            <span className='inline-block text-gray-400'>
+              Select address first
+            </span>
+          )}
         </div>
       </div>
       <div className='delivery-summary my-6 mx-4'>
@@ -116,14 +199,29 @@ const OrderDetails = ({ active }) => {
       <footer className='border-t-2 w-full mt-8 flex pt-6 font-bold justify-between border-gray-200'>
         <span className=''>Total Fee</span>
         <div className='text-right'>
-          <span className='font-bold'>&#8358;{(delivery + total).toLocaleString()}</span>
-          <span className='block text-xs font-normal text-gray-400'>
-            Delivery fee not included yet
-          </span>
+          {delPriceLoading ? (
+            <span
+              style={{
+                borderRightWidth: '2px',
+                borderLeftWidth: '2px',
+                borderRightColor: 'white',
+              }}
+              className='animate-spin rounded-full inline-block w-6 h-6 border-purple-700'
+            ></span>
+          ) : (
+            <span className='font-bold'>
+              &#8358;{(deliveryPrice + total).toLocaleString()}
+            </span>
+          )}
+          {!deliveryPrice && (
+            <span className='block text-xs font-normal text-gray-400'>
+              {delPriceLoading ? 'Loading...' : 'Delivery fee not included yet'}
+            </span>
+          )}
         </div>
       </footer>
     </div>
   );
 };
 
-export default OrderDetails;
+export default memo(OrderDetails);

@@ -59,7 +59,7 @@ const cart = () => {
                   </Link>
                 </div>
               </div>
-              <OrderDetails active='cart' />
+              <OrderDetails active='cart' selectedAddress={[]} />
               <div className='hidden mt-8 md:flex w-full leading-none'>
                 <Link href='/shopping/delivery'>
                   <a>

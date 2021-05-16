@@ -40,17 +40,14 @@ export const AddressProvider = ({ children }) => {
   };
 
   const removeAddress = async (e, id) => {
-    console.log(id)
     e.stopPropagation();
     // get addresses of loggedin user
     setLoading(true);
     try {
-      const res = await axiosWithAuth().post(
+      await axiosWithAuth().post(
         `${baseUrl}/api/v1/address/delete/` + id
       );
-      let { data } = res;
       // Pass data to the page via props
-      console.log(data);
       setLoading(false);
       addToast('User address removed', {
         appearance: 'success',
@@ -98,6 +95,21 @@ export const AddressProvider = ({ children }) => {
     }
   };
 
+  const calculatePrice = async (data) => {
+    let i = data;
+    try {
+      const res = await axiosWithAuth().post(
+        `${baseUrl}/api/v1/delivery/calculate`,
+        i
+      );
+      let { data } = res;
+      return data;
+    } catch (error) {
+      console.log('error', error.message || error.response.data, error);
+      return error;
+    }
+  };
+
   useEffect(() => {
     // process.browser &&
     //   localStorage.setItem('safelybuy_cart', JSON.stringify(cart));
@@ -106,7 +118,14 @@ export const AddressProvider = ({ children }) => {
 
   return (
     <AddressContext.Provider
-      value={{ address, addAddress, removeAddress, editAddress, loading }}
+      value={{
+        address,
+        addAddress,
+        removeAddress,
+        editAddress,
+        calculatePrice,
+        loading,
+      }}
     >
       {children}
     </AddressContext.Provider>

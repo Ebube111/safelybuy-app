@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, memo } from 'react';
 import { useToasts } from 'react-toast-notifications';
 import { useRouter } from 'next/router';
 import Navigation from 'subviews/header';
@@ -9,7 +9,6 @@ import Link from 'next/link';
 import Footer from 'components/Footer';
 import Back from 'components/Back';
 import { ArrowRight } from 'svg';
-import { addressItemsData } from 'data';
 import Button from 'components/Button';
 import AddressItem from 'components/AddressItem';
 import Container from 'components/Container';
@@ -21,9 +20,13 @@ let remaining = null;
 const LoginPage = dynamic(() => import('pages/login'));
 
 const Delivery = () => {
-  const { address, loading, addAddress, removeAddress } = useContext(
-    AddressContext
-  );
+  const {
+    address,
+    loading,
+    addAddress,
+    removeAddress,
+    calculatePrice,
+  } = useContext(AddressContext);
   const [addressItems, setAddressItems] = useState(remaining || address);
   const [addresModal, setAddressModal] = useState(false);
   const forceUpdate = React.useReducer(() => ({}))[1];
@@ -140,7 +143,11 @@ const Delivery = () => {
                 />
               )}
             </div>
-            <OrderDetails active='delivery' />
+            <OrderDetails
+              selectedAddress={address?.filter((add) => add.selected === true)}
+              active='delivery'
+              calculatePrice={calculatePrice}
+            />
           </div>
           {/* <div className='md:hidden'>
             <h4 className='my-4 text-xl font-medium'>Select delivery type</h4>
@@ -184,9 +191,8 @@ const Delivery = () => {
                   primary
                   roundedLg
                   icon={<ArrowRight color='white' scale={0.9} />}
-                >
-                  <p className='font-medium text-lg'>Proceed to Checkout</p>
-                </Button>
+                  text='Proceed to Checkout'
+                ></Button>
               </a>
             </Link>
           </div>
@@ -197,4 +203,4 @@ const Delivery = () => {
   );
 };
 
-export default Delivery;
+export default memo(Delivery);
