@@ -6,7 +6,6 @@ import { Auth } from 'auth';
 const PrivateRoute = ({ children, message }) => {
   const { addToast } = useToasts();
   const router = useRouter();
-  console.log(Auth.isAuthenticated());
 
   useEffect(() => {
     if (!Auth.isAuthenticated())

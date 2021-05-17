@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-const Product = ({ id, title, img, price, rating, condition, city }) => {
+const Product = ({ id, title, img, price, rating, condition }) => {
   return (
     <Link href={`/shopping/products/${id}`}>
       <div className='relative w-48 cursor-pointer md:w-36'>
@@ -31,7 +31,7 @@ const Product = ({ id, title, img, price, rating, condition, city }) => {
                   fill='#F2C94C'
                 />
               </svg>
-              {rating} {city} <span className='md:hidden'></span>
+              {rating} <span className='md:hidden'></span>
             </span>
           </div>
           <p className='inline-block absolute top-2 left-2 text-sm rounded-sm bg-red-600 px-4 text-white'>{condition}</p>

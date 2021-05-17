@@ -204,7 +204,6 @@ const Products = () => {
                     rating={e.rating_sum}
                     price={Number(e.price)}
                     condition={e.condition}
-                    city={e.shipping_city}
                   />
                 </div>
               ))}
