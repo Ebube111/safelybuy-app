@@ -11,17 +11,41 @@ import FilterMobile from 'components/FilterMobile';
 import { shoppingItems } from 'data';
 import Product from 'components/Product';
 
+const subcats = {
+  1: {
+    1: [false, 'Phone'],
+    2: [false, 'Accessories'],
+  },
+  2: {
+    3: [false, 'iPad'],
+    4: [false, 'Tablets'],
+    5: [false, 'Accessories'],
+  },
+  3: {
+    6: [false, 'Laptop'],
+    7: [false, 'Accessories'],
+  },
+  4: {
+    8: [false, 'Power Banks'],
+    9: [false, 'Apple Watches'],
+    10: [false, 'Speakers'],
+    11: [false, 'Headphones'],
+  },
+};
+
 const Products = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [items, setItems] = useState(shoppingItems);
+  const [subs, setSubs] = useState(subcats);
+  const [cat, setCat] = useState([]);
   const router = useRouter();
   const [filterObjects, setFilterObjects] = useState({
     category: !router.query.category
       ? {
-          'phone-accessories': [false, 'Phone and Accessories'],
-          'tablet-accessories': [false, 'iPad, Tablet and Accessories'],
-          'laptop-accessories': [false, 'Laptop and Accessories'],
-          others: [false, 'Other Gadgets'],
+          1: [false, 'Phone and Accessories'],
+          2: [false, 'iPad, Tablet and Accessories'],
+          3: [false, 'Laptop and Accessories'],
+          4: [false, 'Other Gadgets'],
         }
       : {},
     'sub - category': !router.query.subcategory
@@ -43,7 +67,7 @@ const Products = () => {
     'price range': {
       min: 0,
       max: 3000000,
-      minValue: 100000,
+      minValue: 10000,
       maxValue: 1000000,
     },
     'product rating': {
@@ -103,6 +127,8 @@ const Products = () => {
     setItems(
       shoppingItems.filter(
         (item) =>
+          filters.category.includes(item.category_id.toLocaleLowerCase()) &&
+          // filters.subCategory.includes(item.subCategory.toLocaleLowerCase()) &&
           filters.condition.includes(item.condition) &&
           filters.brand.includes(item.brand.toLocaleLowerCase()) &&
           Number(item.rating_sum) >= filters.rating &&

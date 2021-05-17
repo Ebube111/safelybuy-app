@@ -71,13 +71,13 @@ export const shoppingItems = [
     description:
       'Quis cupiditate iusto autem nobis. Ex quibusdam reiciendis aliquam tempore consequatur odit cum et. Ad facere occaecati vel. Deleniti corrupti ut harum nihil.',
     available: 5,
-    category_id: '1',
-    subcategory_id: '1',
+    category_id: '2',
+    subcategory_id: '4',
     condition: 'new',
     brand: 'Samsung',
     weight: 1,
-    // main_image:
-    //   'https://res.cloudinary.com/hack-sc/image/upload/v1579776239/xw24c9sehj0abfr8x0kd.png',
+    main_image:
+      'https://res.cloudinary.com/hack-sc/image/upload/v1579776239/xw24c9sehj0abfr8x0kd.png',
     status: 'active',
     approval_status: 'approved',
     rating_sum: 5,
@@ -133,13 +133,13 @@ export const shoppingItems = [
     description:
       'Quis cupiditate iusto autem nobis. Ex quibusdam reiciendis aliquam tempore consequatur odit cum et. Ad facere occaecati vel. Deleniti corrupti ut harum nihil.',
     available: 5,
-    category_id: '1',
-    subcategory_id: '1',
+    category_id: '4',
+    subcategory_id: '11',
     condition: 'used',
     brand: 'Apple',
     weight: 1.5,
-    // main_image:
-    //   'https://res.cloudinary.com/hack-sc/image/upload/v1579776239/xw24c9sehj0abfr8x0kd.png',
+    main_image:
+      'https://res.cloudinary.com/hack-sc/image/upload/v1579776239/xw24c9sehj0abfr8x0kd.png',
     status: 'active',
     approval_status: 'approved',
     rating_sum: 5,
@@ -236,8 +236,8 @@ export const shoppingItems = [
     description:
       'Quis cupiditate iusto autem nobis. Ex quibusdam reiciendis aliquam tempore consequatur odit cum et. Ad facere occaecati vel. Deleniti corrupti ut harum nihil.',
     available: 5,
-    category_id: '1',
-    subcategory_id: '1',
+    category_id: '2',
+    subcategory_id: '4',
     condition: 'used',
     brand: 'Samsung',
     weight: 1.3,
@@ -277,8 +277,8 @@ export const shoppingItems = [
     description:
       'Quis cupiditate iusto autem nobis. Ex quibusdam reiciendis aliquam tempore consequatur odit cum et. Ad facere occaecati vel. Deleniti corrupti ut harum nihil.',
     available: 5,
-    category_id: '1',
-    subcategory_id: '1',
+    category_id: '2',
+    subcategory_id: '3',
     condition: 'new',
     brand: 'Apple',
     weight: 1.7,
@@ -359,8 +359,8 @@ export const shoppingItems = [
     description:
       'Quis cupiditate iusto autem nobis. Ex quibusdam reiciendis aliquam tempore consequatur odit cum et. Ad facere occaecati vel. Deleniti corrupti ut harum nihil.',
     available: 5,
-    category_id: '1',
-    subcategory_id: '1',
+    category_id: '4',
+    subcategory_id: '11',
     condition: 'new',
     brand: 'Apple',
     weight: 2,
@@ -441,8 +441,8 @@ export const shoppingItems = [
     description:
       'Quis cupiditate iusto autem nobis. Ex quibusdam reiciendis aliquam tempore consequatur odit cum et. Ad facere occaecati vel. Deleniti corrupti ut harum nihil.',
     available: 5,
-    category_id: '1',
-    subcategory_id: '1',
+    category_id: '2',
+    subcategory_id: '4',
     condition: 'new',
     brand: 'Samsung',
     weight: 2.1,
@@ -472,33 +472,6 @@ export const shoppingItems = [
     updated_at: '2021-02-07T02:10:03.000000Z',
     images: [[Object], [Object]],
     id: '6373203890678978',
-  },
-];
-
-export const addressItemsData = [
-  {
-    name: 'Adegoke Aramide',
-    address:
-      '123, Shapely Grove, Emperial Courtyards, Lekki Phase 1, Lagos State.',
-    phone: '+234 8123 343 3243',
-    selected: true,
-    id: '3436728',
-  },
-  {
-    name: 'Jessica Jones',
-    address:
-      '123, Shapely Grove, Emperial Courtyards, Lekki Phase 1, Lagos State.',
-    phone: '+234 8123 343 3243',
-    selected: false,
-    id: '887946',
-  },
-  {
-    name: 'Shade Olamide',
-    address:
-      '123, Shapely Grove, Emperial Courtyards, Lekki Phase 1, Lagos State.',
-    phone: '+234 8123 343 3243',
-    selected: false,
-    id: '2334476',
   },
 ];
 
