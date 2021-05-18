@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Autosuggest from 'react-autosuggest';
@@ -47,6 +47,10 @@ const header = ({ text, color, noSearch, notification, noTagLine }) => {
   const router = useRouter();
   // const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [state, dispatch] = useContext(ContextUser);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+      setMounted(true)
+  }, [])
   const {
     ref: userRef,
     isComponentVisible: userIsVisible,
@@ -164,7 +168,7 @@ const header = ({ text, color, noSearch, notification, noTagLine }) => {
               <Link href='/shopping/cart/'>
                 <div className='bg-green-500 cursor-pointer px-3 md:px-2 py-2 md:py-2 rounded-md shadow-lg relative transform hover:shadow-2xl hover:-translate-y-0.5 active:shadow:sm active:translate-y-0 focus:outline-none'>
                   <Cart />
-                  {cart.length ? (
+                  {mounted && cart.length ? (
                     <section className='absolute bg-red-500 rounded-full px-2 py-1 md:px-1 md:py-px text-xs -right-2 -top-2 text-white'>
                       {cart.length}
                     </section>

@@ -43,6 +43,7 @@ const signUpSchema = yup.object().shape({
       'Please include at least a capital letter, a special character and a number'
     ),
 });
+
 const SignUpPage = () => {
   const history = useHistory();
   const { addToast } = useToasts();

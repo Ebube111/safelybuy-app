@@ -62,7 +62,9 @@ const User = ({ userIsVisible, setUserIsVisible, userRef }) => {
             </>
           )}
           <div className='ml-2 flex flex-col justify-between md:hidden'>
-            <div className='mt-px'>{<ArrowDown scale={1.5} color='black' />}</div>
+            <div className='mt-px'>
+              {<ArrowDown scale={1.5} color='black' />}
+            </div>
           </div>
         </button>
         <div ref={userRef}>
@@ -78,14 +80,11 @@ const User = ({ userIsVisible, setUserIsVisible, userRef }) => {
             >
               {state.user.firstname
                 ? [
-                    { url: '#', text: 'Settings' },
+                    { url: '/settings', text: 'Settings' },
                     { url: '#', text: 'Referrals' },
                     {
                       url: '/login',
                       text: 'Logout',
-                      onClick: (e) => {
-                        localStorage.removeItem('safely_buy_token');
-                      },
                       color: 'red',
                     },
                   ].map((e) => (
