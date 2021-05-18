@@ -10,6 +10,7 @@ import { useToasts } from 'react-toast-notifications';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ContextUser } from 'context';
+import { updateUser } from 'actions/auth';
 
 const isValidEmail = (email) =>
   // eslint-disable-next-line no-useless-escape
@@ -37,7 +38,7 @@ const signUpSchema = yup.object().shape({
 });
 
 export default function Account() {
-  const [{ user, loadingUser }] = useContext(ContextUser);
+  const [{ user, loadingUser }, dispatch] = useContext(ContextUser);
   const history = useHistory();
   const { addToast } = useToasts();
   // const [loadingUser, setLoadingUser] = useState(false);
@@ -46,52 +47,31 @@ export default function Account() {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm({
     resolver: yupResolver(signUpSchema),
-    // defaultValues: {
-    //   // firstname: user.firstname || '',
-    //   lastname: user.lastname || '',
-    //   email: user.email || '',
-    //   phone: user.phone || '',
-    //   gender: user.gender || '',
-    // },
   });
 
   useEffect(() => {
     // console.log(loadingUser);
+    if (user.firstname) {
+      const fields = [
+        'firstname',
+        'lastname',
+        'email',
+        'phone',
+        'gender',
+        'dob',
+      ];
+      fields.forEach((field) => setValue(field, user[field]));
+    }
     return () => {};
   }, [user]);
 
   const onSubmit = async (data) => {
-    // setLoadingUser(true);
-    // try {
-    //   const { user, message } = await requests.post('/register', {
-    //     ...data,
-    //     role: 'seller',
-    //   });
-    //   sessionStorage.setItem(
-    //     'safely_buy_pre_otp',
-    //     JSON.stringify([data.phone, user])
-    //   );
-    //   setLoadingUser(false);
-    //   return history.push('/verifyOTP');
-    // } catch (err) {
-    //   setLoadingUser(false);
-
-    //   if (err.response?.data?.error) {
-    //     return addToast(
-    //       utilities.formatErrorResponse(
-    //         Object.values(err.response?.data?.error).flat()
-    //       ),
-    //       { appearance: 'error' }
-    //     );
-    //   }
-    //   return addToast(err.message || 'Failed to sign up try again', {
-    //     appearance: 'error',
-    //   });
-    // }
     data.dob = dob;
     console.log(data);
+    updateUser(dispatch, data, addToast);
   };
 
   const handleEmailValidation = (email) => {
@@ -127,7 +107,7 @@ export default function Account() {
                 </label>
                 <div className='relative md:w-full mb-6 mt-2'>
                   <input
-                    defaultValue={user.firstname}
+                    // defaultValue={user.firstname}
                     type='text'
                     placeholder='Chibuzor'
                     {...register('firstname', {
@@ -139,11 +119,11 @@ export default function Account() {
                       errors.firstname ? 'border-red' : 'border-black'
                     } w-64 rounded-full px-6 py-2 focus:outline-none focus:shadow-xl`}
                   />
-                  <span className='text-red-500'>
+                  <div className='text-red-500'>
                     {errors.firstname && (
                       <span>{errors.firstname.message}</span>
                     )}
-                  </span>
+                  </div>
                 </div>
               </div>
 
@@ -153,7 +133,7 @@ export default function Account() {
                 </label>
                 <div className='relative md:w-full mb-6 mt-2'>
                   <input
-                    defaultValue={user.lastname}
+                    // defaultValue={user.lastname}
                     type='text'
                     placeholder='Oluwabukola'
                     {...register('lastname', {
@@ -165,9 +145,9 @@ export default function Account() {
                       errors.lastname ? 'border-red' : 'border-black'
                     } w-64 rounded-full px-6 py-2 focus:outline-none focus:shadow-xl`}
                   />
-                  <span className='text-red-500'>
+                  <div className='text-red-500'>
                     {errors.lastname && <span>{errors.lastname.message}</span>}
-                  </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -178,7 +158,7 @@ export default function Account() {
                 </label>
                 <div className='relative md:w-full mb-6 mt-2'>
                   <input
-                    defaultValue={user.email}
+                    // defaultValue={user.email}
                     type='email'
                     placeholder='user@safelybuy.com'
                     {...register('email', {
@@ -191,9 +171,9 @@ export default function Account() {
                       errors.email ? 'border-red' : 'border-black'
                     } w-64 rounded-full px-6 py-2 focus:outline-none focus:shadow-xl`}
                   />
-                  <span className='text-red-500'>
+                  <div className='text-red-500'>
                     {errors.email && 'Email is not valid'}
-                  </span>
+                  </div>
                 </div>
               </div>
               <div className='text-left '>
@@ -202,7 +182,7 @@ export default function Account() {
                 </label>
                 <div className='relative md:w-full mb-6 mt-2'>
                   <input
-                    defaultValue={user.phone}
+                    // defaultValue={user.phone}
                     type='phone'
                     placeholder='070109067**'
                     {...register('phone', {
@@ -214,9 +194,9 @@ export default function Account() {
                       errors.phone ? 'border-red' : 'border-black'
                     } w-64 rounded-full px-6 py-2 focus:outline-none focus:shadow-xl`}
                   />
-                  <span className='text-red-500'>
+                  <div className='text-red-500'>
                     {errors.phone && <span>{errors.phone.message}</span>}
-                  </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -227,7 +207,7 @@ export default function Account() {
                 </label>
                 <div className='relative md:w-full mb-6 mt-2'>
                   <select
-                    value={user.gender}
+                    // value={user.gender}
                     className='capitalize border w-full border-black rounded-full px-6 py-2 focus:outline-none focus:shadow-xl'
                     name='gender'
                     id='gender'

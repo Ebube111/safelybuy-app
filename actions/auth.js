@@ -1,9 +1,10 @@
-import { signIn, getUser } from '../api/auth';
+import { signIn, getUser, updateProfile } from '../api/auth';
 
 export const LOGIN = 'LOGIN';
 export const LOADING = 'LOADING';
 export const ERROR = 'ERROR';
 export const GET_USER = 'GET_USER';
+export const UPDATE_USER = 'UPDATE_USER';
 
 export const action = (type, payload) => ({
   type,
@@ -52,5 +53,32 @@ export const fetchUser = (dispatch) => {
         dispatch(action(ERROR, err.message));
       }
     }
+  );
+};
+
+export const updateUser = (dispatch, data, toast) => {
+  dispatch(action(LOADING));
+  updateProfile(
+    (res) => {
+      dispatch(action(UPDATE_USER, res.data));
+      fetchUser(dispatch)
+      toast('User profile updated', {
+        appearance: 'success',
+        autoDismiss: true,
+      });
+    },
+    (err) => {
+      if (err.response) {
+        dispatch(action(ERROR, err.response.data.message));
+        toast(err.response.data.message, {
+          appearance: 'error',
+          autoDismiss: true,
+        });
+      } else {
+        dispatch(action(ERROR, err.message));
+        toast(err.message, { appearance: 'error', autoDismiss: true });
+      }
+    },
+    data
   );
 };
