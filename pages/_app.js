@@ -3,6 +3,7 @@ import { ToastProvider } from 'react-toast-notifications';
 import { ContextUser } from 'context';
 import { CartProvider } from 'context/Shopping';
 import { AddressProvider } from 'context/Address';
+import { OrdersProvider } from 'context/Orders';
 import userReducer from 'reducers/auth';
 import { auth } from 'reducers/initialState';
 import { fetchUser } from 'actions/auth';
@@ -25,9 +26,11 @@ function MyApp({ Component, pageProps }) {
     <ToastProvider>
       <ContextUser.Provider value={[state, dispatch]}>
         <AddressProvider>
-          <CartProvider>
-            <Component {...pageProps} />
-          </CartProvider>
+          <OrdersProvider>
+            <CartProvider>
+              <Component {...pageProps} />
+            </CartProvider>
+          </OrdersProvider>
         </AddressProvider>
       </ContextUser.Provider>
     </ToastProvider>

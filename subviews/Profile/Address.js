@@ -3,7 +3,6 @@ import Button from 'components/Button';
 import AddressContext from 'context/Address';
 import AddressModal from 'subviews/address';
 import AddressItem from './AddressItem';
-import { useToasts } from 'react-toast-notifications';
 
 let remaining = null;
 
