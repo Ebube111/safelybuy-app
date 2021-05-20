@@ -11,6 +11,7 @@ import Wishlist from 'subviews/Profile/Wishlist';
 import Messaging from 'subviews/Profile/Messaging';
 import Address from 'subviews/Profile/Address';
 import Password from 'subviews/Profile/Password';
+import PrivateRoute from 'auth/PrivateRoute';
 
 const SettingsLink = ({ name, url, svg, children, logout, section }) => (
   <Link
@@ -49,12 +50,12 @@ export default function Settings() {
   const router = useRouter();
   const { section } = router.query;
   return (
-    <div>
+    <PrivateRoute message='Login to access settings'>
       <Head>
         <title>Safelybuy - Settings</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <div className='relative pb-48 flex flex-col min-h-screen md:pb-72'>
+      <section className='relative pb-48 flex flex-col min-h-screen md:pb-72'>
         <Navigation />
         <Container zIndex topPadding>
           <h2 className='text-4xl text-center tracking-wider font-bold md:text-2xl'>
@@ -223,7 +224,7 @@ export default function Settings() {
                 Logout
               </SettingsLink>
             </div>
-            <div className='details'>
+            <div className='details w-full'>
               {section === undefined ? (
                 <div>
                   <Account />
@@ -259,7 +260,7 @@ export default function Settings() {
           </div>
         </Container>
         <Footer />
-      </div>
-    </div>
+      </section>
+    </PrivateRoute>
   );
 }

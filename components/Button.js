@@ -21,8 +21,9 @@ const Button = ({
   xSmall,
   preTagText,
   submit,
+  onClick
 }) => (
-  <div className={`relative inline-block ${full ? `w-full` : ""} transform hover:shadow-2xl hover:-translate-y-0.5 active:shadow:sm active:translate-y-0`}>
+  <div onClick={onClick} className={`relative inline-block ${full ? `w-full` : ""} transform hover:shadow-2xl hover:-translate-y-0.5 active:shadow:sm active:translate-y-0`}>
     {preTagText && (
       <div
         className={`absolute top-2 rounded-full left-4 px-2 text-white text-xs py-1 ${

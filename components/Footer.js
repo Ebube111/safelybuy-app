@@ -6,7 +6,7 @@ import Container from './Container';
 
 export default function Footer({ admin }) {
   return (
-    <footer className='bg-gray-100 border-t border-gray-200 py-8 w-full z-40 absolute bottom-0'>
+    <footer className='bg-gray-100 border-t border-gray-200 py-8 w-full z-10 absolute bottom-0'>
       <Container>
         <div className='flex flex-wrap items-center'>
           <div className='flex w-5/12 lg:w-6/12 md:w-full justify-start md:justify-center md:transform md:scale-75 md:pb-4'>

@@ -1,7 +1,8 @@
 const colors = require('tailwindcss/colors');
 
 module.exports = {
-  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+  purge: ['**/*.{js,jsx,ts,tsx}'],
+  // purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   presets: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
@@ -781,7 +782,7 @@ module.exports = {
       margin: ['first', 'last'],
       textAlign: ['last'],
       padding: ['first', 'last'],
-      borderWidth: ['first', 'last'],
+      borderWidth: ['first', 'last', 'odd', 'even'],
     },
     accessibility: ['responsive', 'focus-within', 'focus'],
     alignContent: ['responsive'],

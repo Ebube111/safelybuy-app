@@ -29,6 +29,12 @@ export default function userReducer(state, action) {
         loadingUser: false,
         error: '',
       };
+    case type.UPDATE_PASSWORD:
+      return {
+        ...state,
+        loadingUser: false,
+        error: '',
+      };
     case type.ERROR:
       return {
         ...state,

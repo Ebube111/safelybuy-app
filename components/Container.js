@@ -10,7 +10,7 @@ const Container = ({ children, topPadding, zIndex }) => {
         topPadding && !zIndex
           ? 'pt-32 px-4 w-full mx-auto my-0'
           : zIndex
-          ? 'pt-32 px-4 w-full mx-auto my-0 z-50'
+          ? 'pt-32 px-4 w-full mx-auto my-0 z-20'
           : 'w-full px-4 mx-auto my-0'
       }
     >

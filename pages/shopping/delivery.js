@@ -24,11 +24,13 @@ const Delivery = () => {
     addAddress,
     removeAddress,
     calculatePrice,
+    editAddress,
   } = useContext(AddressContext);
   const [addressItems, setAddressItems] = useState(remaining || address);
-  const [addresModal, setAddressModal] = useState(false);
+  const [addresModal, setAddressModal] = useState([false, '']);
+  const [selectedAddress, setSelectedAddress] = useState(null);
   const forceUpdate = React.useReducer(() => ({}))[1];
-  const [selectedAddress, setSelectedAddress] = useState([]);
+  const [selectedAddress2, setSelectedAddress2] = useState([]);
   // const [deliveryType, setDeliveryType] = useState({
   //   fedex: false,
   //   dhl: false,
@@ -91,7 +93,7 @@ const Delivery = () => {
               ) : null}
               <div className='flex flex-wrap mt-8 md:mt-4'>
                 <div
-                  onClick={() => setAddressModal(true)}
+                  onClick={() => setAddressModal([true, 'create'])}
                   style={{ minHeight: '10rem' }}
                   className='flex flex-col border-2 cursor-pointer border-dashed w-64 mx-4 md:mx-2 items-center justify-center rounded-xl mb-4 order-first hover:border-purple-300'
                 >
@@ -130,21 +132,25 @@ const Delivery = () => {
                     selectAddress={selectAddress}
                     removeAddress={removeAddress}
                     setAddressModal={setAddressModal}
+                    e_address={e}
+                    setSelectedAddress={setSelectedAddress2}
                   />
                 ))}
               </div>
-              {addresModal && (
+              {addresModal[0] && (
                 <AddressModal
                   modalOpen={addresModal}
                   setModalOpen={setAddressModal}
                   addAddress={addAddress}
                   removeAddress={removeAddress}
                   loading={loading}
+                  existing={selectedAddress2}
+                  editAddress={editAddress}
                 />
               )}
             </div>
             <OrderDetails
-              selectedAddress={selectedAddress}
+              selectedAddress={selectedAddress || []}
               active='delivery'
               calculatePrice={calculatePrice}
             />

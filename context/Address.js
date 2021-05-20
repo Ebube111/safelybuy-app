@@ -63,15 +63,31 @@ export const AddressProvider = ({ children }) => {
     }
   };
 
-  const editAddress = (id, data) => {
-    // const found = cart.findIndex((e) => id === e.item.id);
-    // if (found !== -1) {
-    //   const newItem = cart[found];
-    //   newItem.quantity = quantity;
-    //   const newCart = [...cart];
-    //   newCart.splice(found, 1, newItem);
-    //   setCart(newCart);
-    // }
+  const editAddress = async (id, data, modal) => {
+    let i = data;
+    setLoading(true);
+    try {
+      const res = await axiosWithAuth().post(
+        `${baseUrl}/api/v1/address/update/${id}`,
+        i
+      );
+      let { data } = res;
+      // Pass data to the page via props
+      console.log(data);
+      setLoading(false);
+      addToast('User address updated', {
+        appearance: 'success',
+        autoDismiss: true,
+      });
+      getAddress(modal);
+    } catch (error) {
+      console.log('error', error.message || error.response.data, error);
+      setLoading(false);
+      addToast('Error updating user address', {
+        appearance: 'error',
+        autoDismiss: true,
+      });
+    }
   };
 
   const getAddress = async (modal) => {
@@ -83,7 +99,7 @@ export const AddressProvider = ({ children }) => {
       // Pass data to the page via props
       setLoading(false);
       setAddress(data.data);
-      if (modal) modal(false);
+      if (modal) modal([false, '']);
     } catch (error) {
       console.log('error', error.message || error.response.data);
       setLoading(false);
@@ -109,7 +125,10 @@ export const AddressProvider = ({ children }) => {
     // process.browser &&
     //   localStorage.setItem('safelybuy_cart', JSON.stringify(cart));
 
-    if (!address.length && router.pathname === '/shopping/delivery')
+    if (
+      !address.length &&
+      (router.pathname === '/shopping/delivery' || router.pathname === '/settings')
+    )
       getAddress();
   }, [router.pathname]);
 

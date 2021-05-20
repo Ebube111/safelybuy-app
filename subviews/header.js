@@ -49,8 +49,9 @@ const header = ({ text, color, noSearch, notification, noTagLine }) => {
   const [state, dispatch] = useContext(ContextUser);
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
-      setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
+  
   const {
     ref: userRef,
     isComponentVisible: userIsVisible,
@@ -88,7 +89,7 @@ const header = ({ text, color, noSearch, notification, noTagLine }) => {
   } = useComponentVisible(false);
 
   return (
-    <div className='fixed w-full bg-white z-20 shadow-lg py-2 md:py-1'>
+    <div className='fixed w-full bg-white z-30 shadow-lg py-2 md:py-1'>
       <Container>
         <nav className='relative flex w-full items-center tracking-wide justify-between'>
           <div className='flex items-center md:hidden'>

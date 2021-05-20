@@ -25,9 +25,16 @@ const addressSchema = yup.object().shape({
   city: yup.string().required(),
 });
 
-const AddressModal = ({ modalOpen, setModalOpen, addAddress, loading }) => {
+const AddressModal = ({
+  modalOpen,
+  setModalOpen,
+  addAddress,
+  loading,
+  existing,
+  editAddress,
+}) => {
   const { addToast } = useToasts();
-  const [makeDefault, setMakeDefault] = useState(false);
+  const [makeDefault, setMakeDefault] = useState(existing?.default || false);
   const [selectedState, setSelectedState] = useState('');
   // const [selectedTown, setSelectedTown] = useState('');
   const [states] = useState(Object.keys(cities).sort());
@@ -36,18 +43,30 @@ const AddressModal = ({ modalOpen, setModalOpen, addAddress, loading }) => {
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
   } = useForm({
     resolver: yupResolver(addressSchema),
   });
   if (typeof window !== 'undefined') {
     Modal.setAppElement('body');
   }
-  const [loadingAddress, setLoadingAddress] = useState(false);
   const onSubmit = async (data) => {
     data.default = makeDefault;
     data.country = 'Nigeria';
-    addAddress(data, setModalOpen);
+    if (modalOpen[1] === 'create') addAddress(data, setModalOpen);
+    else if (modalOpen[1] === 'edit') {
+      editAddress(existing.id, data, setModalOpen);
+    }
   };
+
+  useEffect(() => {
+    if (existing && modalOpen[1] === 'edit') {
+      setValue('street', existing.street);
+      setValue('state', existing.state);
+      setSelectedState(existing.state);
+      setTowns(cities[existing.state].sort());
+    }
+  }, []);
 
   useEffect(() => {
     if (selectedState) setTowns(cities[selectedState].sort());
@@ -56,9 +75,9 @@ const AddressModal = ({ modalOpen, setModalOpen, addAddress, loading }) => {
   return (
     <div>
       <Modal
-        isOpen={modalOpen}
+        isOpen={modalOpen[0]}
         contentLabel='Address Modal'
-        onRequestClose={() => setModalOpen(false)}
+        onRequestClose={() => setModalOpen([false, ''])}
         shouldCloseOnOverlayClick={true}
         style={{
           content: {
@@ -73,7 +92,7 @@ const AddressModal = ({ modalOpen, setModalOpen, addAddress, loading }) => {
           <div className='flex justify-between w-full pb-4 items-start'>
             <h3 className='text-xl font-bold'>Add a New Address</h3>
             <span
-              onClick={() => setModalOpen(false)}
+              onClick={() => setModalOpen([false, ''])}
               className='inline-block cursor-pointer rounded-full bg-red-500 p-3'
             >
               <CloseIcon color='white' />
@@ -84,7 +103,7 @@ const AddressModal = ({ modalOpen, setModalOpen, addAddress, loading }) => {
               onSubmit={handleSubmit(onSubmit)}
               className='flex my-6 flex-col w-full md:max-w-7xl md:px-8'
             >
-              {loadingAddress && (
+              {loading && (
                 <div className={`animate-pulse`}>
                   <div className='flex flex-col'>
                     <div className='h-6 my-2 bg-gray-200 rounded w-1/4'></div>
@@ -96,7 +115,7 @@ const AddressModal = ({ modalOpen, setModalOpen, addAddress, loading }) => {
                   </div>
                 </div>
               )}
-              {!loadingAddress && (
+              {!loading && (
                 <>
                   <div className='flex w-full flex-wrap justify-start'>
                     {/* <div className='text-left md:mr-0 w-full'>
@@ -209,6 +228,11 @@ const AddressModal = ({ modalOpen, setModalOpen, addAddress, loading }) => {
                           {...register('city', {
                             required: true,
                           })}
+                          defaultValue={
+                            existing && modalOpen[1] === 'edit'
+                              ? existing.city
+                              : ''
+                          }
                         >
                           <option value=''>Select City</option>
                           {towns.map((e) => (

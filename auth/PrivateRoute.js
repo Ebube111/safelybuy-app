@@ -20,7 +20,7 @@ const PrivateRoute = ({ children, message }) => {
     if (typeof window !== 'undefined') {
       router.push('/login');
     }
-    return <>Unauthenticated, Redirecting to Login...</>;
+    return <div>Unauthenticated, Redirecting to Login...</div>;
   }
   return children;
 };

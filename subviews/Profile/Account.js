@@ -3,9 +3,6 @@ import { useForm } from 'react-hook-form';
 import { ArrowRight } from 'svg';
 import DatePicker from 'react-date-picker/dist/entry.nostyle';
 import Button from 'components/Button';
-import { useHistory } from 'react-router-dom';
-import utilities from 'utilities';
-import { requests } from 'utilities/requests';
 import { useToasts } from 'react-toast-notifications';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -39,7 +36,6 @@ const signUpSchema = yup.object().shape({
 
 export default function Account() {
   const [{ user, loadingUser }, dispatch] = useContext(ContextUser);
-  const history = useHistory();
   const { addToast } = useToasts();
   // const [loadingUser, setLoadingUser] = useState(false);
   const [dob, setDob] = useState(!user.dob ? '' : new Date(user.dob));
@@ -64,13 +60,13 @@ export default function Account() {
         'dob',
       ];
       fields.forEach((field) => setValue(field, user[field]));
+      setDob(new Date(user.dob));
     }
     return () => {};
   }, [user]);
 
   const onSubmit = async (data) => {
     data.dob = dob;
-    console.log(data);
     updateUser(dispatch, data, addToast);
   };
 
@@ -87,16 +83,6 @@ export default function Account() {
           onSubmit={handleSubmit(onSubmit)}
           className='flex mt-8 flex-col md:px-8'
         >
-          {loadingUser && (
-            <span
-              style={{
-                borderRightWidth: '2px',
-                borderLeftWidth: '2px',
-                borderRightColor: 'white',
-              }}
-              className='animate-spin rounded-full inline-block w-6 h-6 border-purple-700'
-            ></span>
-          )}
           {/* {!loadingUser && ( */}
           <>
             {' '}
@@ -237,17 +223,28 @@ export default function Account() {
               </div>
             </div>
             <div className='my-3'>
-              <Button
-                primary
-                roundedMd
-                icon={
-                  <div className='animate-bounceSide'>
-                    <ArrowRight color='white' />
-                  </div>
-                }
-                text='Save Changes'
-                submit
-              />
+              {loadingUser ? (
+                <span
+                  style={{
+                    borderRightWidth: '2px',
+                    borderLeftWidth: '2px',
+                    borderRightColor: 'white',
+                  }}
+                  className='animate-spin rounded-full inline-block w-6 h-6 border-purple-700'
+                ></span>
+              ) : (
+                <Button
+                  primary
+                  roundedMd
+                  icon={
+                    <div className='animate-bounceSide'>
+                      <ArrowRight color='white' />
+                    </div>
+                  }
+                  text='Save Changes'
+                  submit
+                />
+              )}
             </div>
           </>
           {/* )} */}
