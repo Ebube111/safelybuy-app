@@ -30,7 +30,7 @@ const SamplePage = () => {
   return (
     <div className='p-6'>
       <h3 className='text-xl font-bold'>Change Password</h3>
-      <div className='flex justify-center'>
+      <div className='flex justify-start'>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className='flex mt-8 flex-col md:px-8'
