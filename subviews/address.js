@@ -269,7 +269,11 @@ const AddressModal = ({
                           <ArrowRight color='white' />
                         </div>
                       }
-                      text='Add Address'
+                      text={
+                        modalOpen[1] === 'edit'
+                          ? 'Update Address'
+                          : 'Add Address'
+                      }
                       submit
                     />
                   </div>

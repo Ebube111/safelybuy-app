@@ -79,7 +79,7 @@ const Delivery = () => {
               <h4 className='my-4 text-xl font-medium'>
                 Select or add an address
               </h4>
-              {loading && !addresModal ? (
+              {loading && !addresModal[0] ? (
                 <div className='fixed z-50 top-0 left-0 h-screen w-screen flex flex-col justify-center items-center bg-gray-500 bg-opacity-70'>
                   <span
                     style={{

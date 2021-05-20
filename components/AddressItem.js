@@ -50,6 +50,11 @@ const AddressItem = ({
           viewBox='0 0 99 28'
           fill='none'
           xmlns='http://www.w3.org/2000/svg'
+          onClick={(e) => {
+            e.stopPropagation();
+            setSelectedAddress(e_address);
+            setAddressModal([true, 'edit']);
+          }}
         >
           <rect opacity='0.1' width='99' height='28' rx='14' fill='#27AE60' />
           <path
@@ -72,12 +77,6 @@ const AddressItem = ({
           fill='none'
           xmlns='http://www.w3.org/2000/svg'
           className='absolute top-4 right-4'
-          onClick={(e) => {
-            e.stopPropagation();
-            setSelectedAddress(e_address);
-            console.log('yyyy')
-            setAddressModal([true, 'edit']);
-          }}
         >
           <circle cx='10' cy='10' r='10' fill='#27AE60' />
           <path
