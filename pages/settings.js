@@ -224,7 +224,7 @@ export default function Settings() {
                 Logout
               </SettingsLink>
             </div>
-            <div className='details w-full'>
+            <div className='details w-full relative mr-6'>
               {section === undefined ? (
                 <div>
                   <Account />

@@ -3,7 +3,15 @@ import { ArrowRight } from 'svg';
 import Image from 'next/image';
 import moment from 'moment';
 
-export default function Order({ name, status, date, orderNumber, image }) {
+export default function Order({
+  name,
+  status,
+  date,
+  orderNumber,
+  image,
+  order,
+  setSelectedOrder,
+}) {
   if (!name) return null;
   return (
     <div className='flex py-4 border-b'>
@@ -32,6 +40,7 @@ export default function Order({ name, status, date, orderNumber, image }) {
           <Button
             primary
             roundedMd
+            onClick={() => setSelectedOrder(order)}
             icon={
               <div className='animate-bounceSide'>
                 <ArrowRight color='white' />

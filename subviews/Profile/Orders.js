@@ -4,35 +4,49 @@ import OrderDetail from './OrderDetail';
 import Order from './Order';
 
 export default function Orders() {
-  const { getOrders, orders } = useContext(OrdersContext);
-  const [selectedOrder, setselectedOrder] = useState(null);
+  const { getOrders, orders, loading } = useContext(OrdersContext);
+  const [selectedOrder, setSelectedOrder] = useState(null);
 
   useEffect(() => {
     if (!orders.length) getOrders();
   }, []);
 
-  console.log(orders);
+  if (loading)
+    return (
+      <span
+        style={{
+          borderRightWidth: '2px',
+          borderLeftWidth: '2px',
+          borderRightColor: 'white',
+        }}
+        className='animate-spin rounded-full inline-block w-6 h-6 border-purple-700'
+      ></span>
+    );
 
   return (
-    <div className='p-6'>
-      <h3 className='text-xl font-bold'>Available Orders</h3>
-      <div className=''>
-        {selectedOrder ? (
-          <OrderDetail details={selectedOrder} />
-        ) : (
-          orders.map((e) => (
+    <div className='px-6'>
+      {selectedOrder ? (
+        <OrderDetail
+          details={selectedOrder}
+          setSelectedOrder={setSelectedOrder}
+        />
+      ) : (
+        <div className='py-6'>
+          <h3 className='text-xl font-bold'>Available Orders</h3>
+          {orders.map((e) => (
             <Order
+              key={Math.random()}
               name={e.order_details[0]?.item?.title}
               image={e.order_details[0]?.item?.main_image}
               status={e.status}
               date={e.created_at}
               orderNumber={e.order_number}
-              setselectedOrder={setselectedOrder}
+              setSelectedOrder={setSelectedOrder}
               order={e}
             />
-          ))
-        )}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
