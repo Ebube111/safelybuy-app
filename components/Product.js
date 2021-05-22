@@ -7,7 +7,11 @@ const Product = ({ id, title, img, price, rating, condition }) => {
     <Link href={`/shopping/products/${id}`}>
       <div className='relative w-48 cursor-pointer md:w-36'>
         <div className='relative h-48 w-48 md:w-36 md:h-36'>
-          <Image className='rounded-lg object-cover' src={img} layout='fill' />
+          <Image
+            className='rounded-lg object-cover'
+            src={img || '/img/no-image.png'}
+            layout='fill'
+          />
         </div>
         <div className='py-4 px-3'>
           <p className='font-medium md:text-xs'>{title}</p>
@@ -34,7 +38,9 @@ const Product = ({ id, title, img, price, rating, condition }) => {
               {rating} <span className='md:hidden'></span>
             </span>
           </div>
-          <p className='inline-block absolute top-2 left-2 text-sm rounded-sm bg-red-600 px-4 text-white'>{condition}</p>
+          <p className='inline-block absolute top-2 left-2 text-sm rounded-sm bg-red-600 px-4 text-white'>
+            {condition}
+          </p>
         </div>
       </div>
     </Link>

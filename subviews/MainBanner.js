@@ -1,5 +1,6 @@
 import React from 'react';
 import Slider from 'react-slick';
+import Image from 'next/image';
 import TitleTab from '../components/TitleTab';
 
 const settings = {
@@ -12,31 +13,33 @@ const settings = {
   pauseOnHover: true,
 };
 
-const MainBanner = () => {
+const MainBanner = ({ main }) => {
   return (
     <div id='main-banner' className='mx-20 flex flex-wrap md:mx-6 md:pt-32'>
       <div className='banner h-96 md:h-48 w-7/12 md:my-8 md:w-full'>
         <Slider {...settings}>
-          <div className='h-96 md:h-48 w-full bg-purple-500 rounded-2xl md:rounded-lg'>
-            <div className='flex h-96 md:h-48 w-full items-center justify-center'>
-              <h1 className='m-auto text-4xl text-white font-bold'>Banner 1</h1>
+          {main.map((e) => (
+            <div
+              key={Math.random()}
+              className='h-96 relative md:h-48 w-full bg-purple-500 rounded-2xl md:rounded-lg'
+            >
+              <Image
+                className='rounded-2xl md:rounded-lg object-cover'
+                src={e.image}
+                layout='fill'
+              />
+              {/* <h1
+                style={{
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                }}
+                className='absolute m-auto text-4xl text-white font-bold'
+              >
+                {e.text}
+              </h1> */}
             </div>
-          </div>
-          <div className='h-96 md:h-48 w-full bg-blue-500 rounded-2xl md:rounded-lg'>
-            <div className='flex h-96 md:h-48 w-full items-center justify-center'>
-              <h1 className='m-auto text-4xl text-white font-bold'>Banner 2</h1>
-            </div>
-          </div>
-          <div className='h-96 md:h-48 w-full bg-yellow-500 rounded-2xl md:rounded-lg'>
-            <div className='flex h-96 md:h-48 w-full items-center justify-center'>
-              <h1 className='m-auto text-4xl text-white font-bold'>Banner 3</h1>
-            </div>
-          </div>
-          <div className='flex h-96 md:h-48 w-full bg-green-500 rounded-2xl md:rounded-lg'>
-            <div className='flex h-96 md:h-48 w-full items-center justify-center'>
-              <h1 className='m-auto text-4xl text-white font-bold'>Banner 4</h1>
-            </div>
-          </div>
+          ))}
         </Slider>
       </div>
       <div className='categories mt-16 md:h-auto flex flex-col justify-between w-5/12 md:w-full px-6'>

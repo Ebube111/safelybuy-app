@@ -2,13 +2,14 @@ import React from 'react';
 import Slider from 'react-slick';
 import Image from 'next/image';
 import { AngleRight } from '../svg';
+import Link from 'next/link';
 
 const settings = {
   dots: true,
   infinite: true,
   slidesToShow: 6,
   autoplay: true,
-  slidesToScroll: 3,
+  slidesToScroll: 2,
   swipeToSlide: true,
   speed: 2000,
   autoplaySpeed: 3000,
@@ -77,33 +78,28 @@ function PrevArrow(props) {
   );
 }
 
-const RecommendedSection = () => {
+const RecommendedSection = ({ recommended }) => {
   return (
     <div className='recommended-carousels mx-10 md:mx-0'>
       <Slider {...settings}>
-        {[
-          { src: '/images/airpod.png', name: 'Airpods' },
-          { src: '/images/android.png', name: 'Phones' },
-          { src: '/images/iwatch.png', name: 'Apple Watches' },
-          { src: '/images/iphone11.png', name: 'Apple Phones' },
-          { src: '/images/ps5.png', name: 'PlayStations' },
-          { src: '/images/xbox.png', name: 'X-boxes' },
-          { src: '/images/samsung.png', name: 'Samsung Phones' },
-          { src: '/images/laptop.png', name: 'Laptops' },
-          { src: '/images/iphone.png', name: 'iPhones' },
-        ].map((e) => (
-          <div key={Math.random()} className='h-48 md:h-24'>
-            <div className='h-40 md:h-20 m-auto relative w-36 md:w-24 rounded-lg bg-gray-100'>
-              <Image
-                className='rounded-lg object-cover'
-                src={e.src}
-                layout='fill'
-              />
+        {recommended.map((e) => (
+          <Link
+            key={Math.random()}
+            href={'/shopping/products?search=' + e.query_string}
+          >
+            <div className='cursor-pointer h-48 md:h-24'>
+              <div className='h-40 md:h-20 m-auto relative w-36 md:w-24 rounded-lg'>
+                <Image
+                  className='rounded-lg object-cover'
+                  src={e.image_url || '/img/no-image.png'}
+                  layout='fill'
+                />
+              </div>
+              <p className='font-medium md:font-normal mt-2 md:mt-1 text-center md:text-xs'>
+                {e.name}
+              </p>
             </div>
-            <p className='font-medium md:font-normal mt-2 md:mt-1 text-center md:text-xs'>
-              {e.name}
-            </p>
-          </div>
+          </Link>
         ))}
       </Slider>
     </div>

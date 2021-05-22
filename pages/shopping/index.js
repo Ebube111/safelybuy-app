@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import Link from 'next/link';
+import Image from 'next/image';
 import Navigation from 'subviews/header';
 import Footer from 'components/Footer';
 import Product from 'components/Product';
@@ -7,8 +8,9 @@ import SectionalTab from 'components/SectionalTab';
 import { DeliveryIcon, Tickets, Phones } from 'svg';
 import RecommendedSection from 'subviews/RecommendedSection';
 import MainBanner from 'subviews/MainBanner';
+import { baseUrl } from 'api';
 
-export default function Home() {
+export default function Shopping({ items, main, second, third, recommended }) {
   return (
     <div>
       <Head>
@@ -24,7 +26,7 @@ export default function Home() {
             <span className='font-bold'>Safelybuy</span>
             <sup className='inline-block text-base font-bold -top-6'>TM</sup>
           </h1>
-          <MainBanner />
+          <MainBanner main={main} />
           {/* section tabs  */}
           <div className='flex my-20 md:my-8 mx-20 justify-around flex-wrap md:mx-6'>
             <SectionalTab
@@ -51,15 +53,35 @@ export default function Home() {
             <h3 className='text-2xl mb-8 font-bold md:mx-6'>
               Recommended Picks
             </h3>
-            <RecommendedSection />
+            <RecommendedSection recommended={recommended} />
           </div>
           {/* banners  */}
           <div className='bg-gray-100 md:bg-white p-2 flex h-80 md:h-28 m-20 md:my-8 rounded-md md:mx-6'>
-            <div className='h-full text-3xl md:text-lg font-bold flex justify-center md:text-white items-center w-1/2 bg-violet-400 rounded-md ml-1'>
-              Banner 2
+            <div className='h-full relative flex justify-center items-center w-1/2 bg-violet-400 rounded-md ml-1'>
+              {second.image ? (
+                <Image
+                  className='rounded-md object-cover'
+                  src={second.image}
+                  layout='fill'
+                />
+              ) : (
+                <h2 className='text-3xl md:text-lg font-bold  md:text-white'>
+                  {second.text}
+                </h2>
+              )}
             </div>
-            <div className='h-full text-3xl md:text-lg font-bold flex justify-center md:text-white items-center w-1/2 bg-violet-400 rounded-md ml-1'>
-              Banner 3
+            <div className='h-full flex justify-center items-center w-1/2 bg-violet-400 rounded-md ml-1'>
+              {third.image ? (
+                <Image
+                  className='rounded-md object-cover'
+                  src={third.image}
+                  layout='fill'
+                />
+              ) : (
+                <h2 className='text-3xl md:text-lg font-bold  md:text-white'>
+                  {third.text}
+                </h2>
+              )}
             </div>
           </div>
           {/* our products */}
@@ -70,43 +92,13 @@ export default function Home() {
               </Link>
             </h2>
             <div className='flex flex-wrap justify-between md:justify-around'>
-              {[
-                {
-                  src: '/images/samsung-tab.png',
-                  name: 'Samsung Galaxy Tab A 10.1',
-                  rating: 3.5,
-                  price: 63000,
-                },
-                {
-                  src: '/images/iPad.png',
-                  name: 'Apple iPad Air 2 - 128GB - Cellular + Wifi Gray',
-                  rating: 4.7,
-                  price: 187000,
-                },
-                {
-                  src: '/images/iphone-x.png',
-                  name: 'iPhone XMax - 128GB',
-                  rating: 4.5,
-                  price: 350000,
-                },
-                {
-                  src: '/images/airpod2.png',
-                  name: 'Apple Earpod 5.0',
-                  rating: 4.5,
-                  price: 119000,
-                },
-                {
-                  src: '/images/android2.png',
-                  name: 'Xaomi Pocophone f1 - 8GB RAM 128GB ROM',
-                  rating: 3.8,
-                  price: 129000,
-                },
-              ].map((e) => (
+              {items.map((e) => (
                 <Product
+                  id={e.id}
                   key={Math.random()}
-                  img={e.src}
-                  title={e.name}
-                  rating={e.rating}
+                  img={e.main_image}
+                  title={e.title}
+                  rating={e.rating_num}
                   price={e.price}
                 />
               ))}
@@ -117,4 +109,21 @@ export default function Home() {
       </div>
     </div>
   );
+}
+
+export async function getStaticProps() {
+  const res = await fetch(baseUrl + '/api/v1/shopping');
+  const data = await res.json();
+
+  const { items, main, second, third, recommended } = data;
+
+  return {
+    props: {
+      items,
+      main,
+      second,
+      third,
+      recommended,
+    },
+  };
 }
