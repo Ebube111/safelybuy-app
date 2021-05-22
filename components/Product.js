@@ -38,7 +38,13 @@ const Product = ({ id, title, img, price, rating, condition }) => {
               {rating} <span className='md:hidden'></span>
             </span>
           </div>
-          <p className='inline-block absolute top-2 left-2 text-sm rounded-sm bg-red-600 px-4 text-white'>
+          <p
+            className={
+              condition !== 'new'
+                ? 'inline-block absolute top-2 w-8 h-8 left-2 text-sm rounded-full px-1 pt-1 text-white bg-green-600'
+                : 'inline-block absolute top-2 w-8 h-8 left-2 text-sm rounded-full px-1 pt-1 text-white bg-red-600'
+            }
+          >
             {condition}
           </p>
         </div>

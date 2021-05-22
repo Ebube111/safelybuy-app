@@ -14,7 +14,7 @@ import { shoppingItems } from 'data';
 import Container from 'components/Container';
 
 // Teach Autosuggest how to calculate suggestions for any given input value.
-const getSuggestions = (value) => {
+const getSuggestions = (value, shoppingItems) => {
   const inputValue = value.trim().toLowerCase();
   const inputLength = inputValue.length;
 
@@ -39,11 +39,18 @@ const renderSuggestion = (suggestion) => (
   </Link>
 );
 
-const header = ({ text, color, noSearch, notification, noTagLine }) => {
+const header = ({
+  text,
+  color,
+  noSearch,
+  notification,
+  noTagLine,
+  shoppingItems,
+}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchValue, setSearchValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);
-  const [cart, addItem, removeItem] = useContext(CartContext);
+  const [cart] = useContext(CartContext);
   const router = useRouter();
   // const [isCategoryOpen, setIsCategoryOpen] = useState(false);
   const [state, dispatch] = useContext(ContextUser);
@@ -51,7 +58,7 @@ const header = ({ text, color, noSearch, notification, noTagLine }) => {
   useEffect(() => {
     setMounted(true);
   }, []);
-  
+
   const {
     ref: userRef,
     isComponentVisible: userIsVisible,
@@ -65,7 +72,7 @@ const header = ({ text, color, noSearch, notification, noTagLine }) => {
   // Autosuggest will call this function every time you need to update suggestions.
   // You already implemented this logic above, so just use it.
   const onSuggestionsFetchRequested = ({ value }) => {
-    setSuggestions(getSuggestions(value));
+    setSuggestions(getSuggestions(value, shoppingItems));
   };
 
   // Autosuggest will call this function every time you need to clear suggestions.

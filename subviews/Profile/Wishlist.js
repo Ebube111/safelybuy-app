@@ -48,7 +48,7 @@ export default function Wishlist() {
             title={e.title}
             rating={e.rating_sum}
             price={Number(e.price)}
-            condition={e.condition}
+            condition={e.item_condition}
             remove={removeItemFromList}
             item={e}
             addToCart={addItem}

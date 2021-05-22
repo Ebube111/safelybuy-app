@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useEffect, useState, memo } from 'react';
 import Nouislider from 'nouislider-react';
 import 'nouislider/distribute/nouislider.css';
 import wNumb from 'wnumb';
@@ -211,4 +211,4 @@ const Filter = ({ setFilterObjects, filterObjects, category, subCategory }) => {
   );
 };
 
-export default Filter;
+export default memo(Filter);

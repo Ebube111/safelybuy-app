@@ -8,8 +8,8 @@ import Footer from 'components/Footer';
 import Filter from 'components/Filter';
 import Container from 'components/Container';
 import FilterMobile from 'components/FilterMobile';
-import { shoppingItems } from 'data';
 import Product from 'components/Product';
+import { baseUrl } from 'api';
 
 const subcats = {
   1: {
@@ -33,7 +33,7 @@ const subcats = {
   },
 };
 
-const Products = () => {
+const Products = ({ shoppingItems }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [items, setItems] = useState(shoppingItems);
   const [subs, setSubs] = useState(subcats);
@@ -129,7 +129,7 @@ const Products = () => {
         (item) =>
           filters.category.includes(item.category_id.toLocaleLowerCase()) &&
           // filters.subCategory.includes(item.subCategory.toLocaleLowerCase()) &&
-          filters.condition.includes(item.condition) &&
+          filters.condition.includes(item.item_condition) &&
           filters.brand.includes(item.brand.toLocaleLowerCase()) &&
           Number(item.rating_sum) >= filters.rating &&
           Number(item.price > Number(filters.price.min)) &&
@@ -145,7 +145,7 @@ const Products = () => {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <div className='relative pb-48 flex flex-col min-h-screen md:pb-80'>
-        <Navigation />
+        <Navigation shoppingItems={items} />
         <Container topPadding>
           <div className='flex relative my-2'>
             <div className='w-72 md:mx-0 md:px-6 h-screen md:h-auto md:py-3 md:top-0 md:pt-36 fixed z-10 bg-white md:w-full'>
@@ -203,7 +203,7 @@ const Products = () => {
                     title={e.title}
                     rating={e.rating_sum}
                     price={Number(e.price)}
-                    condition={e.condition}
+                    condition={e.item_condition}
                   />
                 </div>
               ))}
@@ -226,3 +226,20 @@ const Products = () => {
 };
 
 export default Products;
+
+export async function getStaticProps() {
+  const res = await fetch(baseUrl + '/api/v1/shopping/items');
+  const data = await res.json();
+
+  const { items } = data;
+
+  const shoppingItems = items.filter(
+    (item) => item.approval_status === 'approved'
+  );
+
+  return {
+    props: {
+      shoppingItems,
+    },
+  };
+}
