@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useContext } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
@@ -7,7 +7,6 @@ import Navigation from 'subviews/header';
 import Footer from 'components/Footer';
 import Product from 'components/Product';
 import Back from 'components/Back';
-import { shoppingItems } from 'data';
 import { Facebook, Twitter } from 'svg';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import Head from 'next/head';
@@ -15,16 +14,31 @@ import Button from 'components/Button';
 import Comment from 'components/Comment';
 import SellerDetail from 'components/SellerDetail';
 import Container from 'components/Container';
+import { baseUrl } from 'api';
 
-const ProductDetail = ({}) => {
+const ProductDetail = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
-  const router = useRouter();
+  const [images, setImages] = useState([
+    product.main_image,
+    ...product.images.map((e) => e.image_url),
+  ]);
+  const [currentMainImage, setCurrentMainImage] = useState(images[0]);
   const [, addItem, , , list, addItemToList, removeItemFromList] = useContext(
     CartContext
   );
-  const { id } = router.query;
 
-  const [product] = shoppingItems.filter((e) => e.id === id);
+  const nextImage = () => {
+    setCurrentMainImage(images[1]);
+    setImages([...images.slice(1, images.length), images[0]]);
+  };
+
+  const prevImage = () => {
+    setCurrentMainImage(images[images.length - 1]);
+    setImages([
+      images[images.length - 1],
+      ...images.slice(0, images.length - 1),
+    ]);
+  };
 
   if (!product) return null;
   const { title, main_image, price, rating_sum } = product;
@@ -44,13 +58,12 @@ const ProductDetail = ({}) => {
               <div className='relative h-96 md:h-80 w-9/12 md:w-full'>
                 <Image
                   className='rounded-lg object-cover'
-                  src={main_image || '/image/yusuf.png'}
+                  src={currentMainImage || '/image/yusuf.png'}
                   layout='fill'
                 />
                 <svg
                   className='absolute cursor-pointer top-6 right-6'
                   onClick={() => {
-                    console.log(list);
                     const found = list.findIndex((e) => product.id === e.id);
                     if (found !== -1) removeItemFromList(product.id);
                     else addItemToList(product);
@@ -76,20 +89,38 @@ const ProductDetail = ({}) => {
                 </svg>
               </div>
               <div className='flex w-3/12 md:hidden flex-col h-96 overflow-auto ml-4'>
-                <div className='flex w-20 m-auto justify-between items-center leading-none'>
-                  <span className='bg-purple-100 border py-1 text-purple-600 font-medium rounded-md px-2 border-puple-300'>
-                    &lt;
-                  </span>
-                  <span className='bg-purple-100 border py-1 text-purple-600 font-medium rounded-md px-2 border-puple-300'>
-                    &gt;
-                  </span>
-                </div>
-                <div className='flex-auto mt-1 mx-6'>
-                  <div className='w-full my-2 aspect-w-1 aspect-h-1 h-8 bg-gray-200 rounded-lg'></div>
-                  <div className='w-full my-2 aspect-w-1 aspect-h-1 h-8 bg-gray-200 rounded-lg'></div>
-                  <div className='w-full my-2 aspect-w-1 aspect-h-1 h-8 bg-gray-200 rounded-lg'></div>
-                  <div className='w-full my-2 aspect-w-1 aspect-h-1 h-8 bg-gray-200 rounded-lg'></div>
-                </div>
+                {product.images.length ? (
+                  <>
+                    <div className='flex w-20 m-auto justify-between items-center leading-none'>
+                      <span
+                        onClick={prevImage}
+                        className='bg-purple-100 cursor-pointer border py-1 text-purple-600 font-medium rounded-md px-2 border-puple-300'
+                      >
+                        &lt;
+                      </span>
+                      <span
+                        onClick={nextImage}
+                        className='bg-purple-100 border py-1 text-purple-600 font-medium rounded-md px-2 cursor-pointer border-puple-300'
+                      >
+                        &gt;
+                      </span>
+                    </div>
+                    <div className='flex-auto mt-1 mx-6'>
+                      {images.slice(1).map((e) => (
+                        <div
+                          key={Math.random()}
+                          className='w-full relative my-2 aspect-w-1 aspect-h-1 h-8 bg-gray-200 rounded-lg'
+                        >
+                          <Image
+                            className='rounded-lg object-cover'
+                            src={e || '/image/yusuf.png'}
+                            layout='fill'
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </>
+                ) : null}
               </div>
             </div>
             <div className='w-1/2 ml-6 md:mt-6 md:ml-2 md:w-full'>
@@ -142,7 +173,7 @@ const ProductDetail = ({}) => {
               </span>
               <div className='font-medium pt-2'>Variation: White </div>
               <div className='text-3xl mt-3 md:mt-1 mb-6 md:mb-3 font-bold text-purple-500 md:text-lg'>
-                &#8358;{price.toLocaleString()}
+                &#8358;{Number(price).toLocaleString()}
               </div>
               <div className='flex flex-col items-start'>
                 <div className='flex mb-12 md:mb-6 items-end flex-wrap md:w-full'>
@@ -394,3 +425,30 @@ const ProductDetail = ({}) => {
 };
 
 export default ProductDetail;
+
+export async function getStaticPaths() {
+  const res = await fetch(baseUrl + '/api/v1/shopping/items');
+  const data = await res.json();
+
+  const { items } = data;
+
+  const shoppingItems = items.filter(
+    (item) => item.approval_status === 'approved'
+  );
+
+  const paths = shoppingItems.map((item) => ({
+    params: { id: String(item.id) },
+  }));
+  return { paths, fallback: false };
+}
+
+// This also gets called at build time
+export async function getStaticProps({ params }) {
+  // params contains the post `id`.
+  // If the route is like /posts/1, then params.id is 1
+  const res = await fetch(`${baseUrl}/api/v1/shopping/product/${params.id}`);
+  const { item } = await res.json();
+
+  // Pass post data to the page via props
+  return { props: { product: item } };
+}
