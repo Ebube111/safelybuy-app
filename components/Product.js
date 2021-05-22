@@ -41,7 +41,7 @@ const Product = ({ id, title, img, price, rating, condition }) => {
           <p
             className={
               condition !== 'new'
-                ? 'inline-block absolute top-2 w-8 h-8 left-2 text-sm rounded-full px-1 pt-1 text-white bg-green-600'
+                ? 'inline-block absolute top-2 w-10 h-10 left-2 text-sm rounded-full px-2 pt-2 text-white bg-green-600'
                 : 'inline-block absolute top-2 w-8 h-8 left-2 text-sm rounded-full px-1 pt-1 text-white bg-red-600'
             }
           >
