@@ -17,10 +17,11 @@ import SellerDetail from 'components/SellerDetail';
 import Container from 'components/Container';
 
 const ProductDetail = ({}) => {
-  const [favourite, setFavourite] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const router = useRouter();
-  const [, addItem] = useContext(CartContext);
+  const [, addItem, , , list, addItemToList, removeItemFromList] = useContext(
+    CartContext
+  );
   const { id } = router.query;
 
   const [product] = shoppingItems.filter((e) => e.id === id);
@@ -48,7 +49,12 @@ const ProductDetail = ({}) => {
                 />
                 <svg
                   className='absolute cursor-pointer top-6 right-6'
-                  onClick={() => setFavourite(!favourite)}
+                  onClick={() => {
+                    console.log(list);
+                    const found = list.findIndex((e) => product.id === e.id);
+                    if (found !== -1) removeItemFromList(product.id);
+                    else addItemToList(product);
+                  }}
                   width='40'
                   height='40'
                   viewBox='0 0 40 40'
@@ -60,7 +66,11 @@ const ProductDetail = ({}) => {
                     fillRule='evenodd'
                     clipRule='evenodd'
                     d='M20.9195 12.2467C21.811 11.8104 22.5886 11.6667 23.795 11.6667C26.8823 11.6795 29.1673 14.2832 29.1673 17.5999C29.1673 20.1315 27.7558 22.5769 25.1266 24.9416C23.7466 26.1828 21.9845 27.4111 20.7226 28.0646L20.0007 28.4384L19.2787 28.0646C18.0168 27.4111 16.2547 26.1828 14.8747 24.9416C12.2455 22.5769 10.834 20.1315 10.834 17.5999C10.834 14.2477 13.0977 11.6667 16.2128 11.6667C17.3759 11.6667 18.1934 11.824 19.1022 12.2735C19.4185 12.4299 19.7158 12.6156 19.9923 12.8298C20.2799 12.6028 20.5895 12.4083 20.9195 12.2467Z'
-                    fill={`${favourite ? 'red' : 'white'}`}
+                    fill={`${
+                      list.findIndex((e) => product.id === e.id) !== -1
+                        ? 'red'
+                        : 'white'
+                    }`}
                     stroke='red'
                   />
                 </svg>

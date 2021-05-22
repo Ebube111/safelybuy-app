@@ -1,14 +1,10 @@
 import { useContext, useEffect } from 'react';
-import OrdersContext from 'context/Orders';
+import CartContext from 'context/Shopping';
 import Order from './Order';
 import WishlistItem from './WishlistItem';
-import { shoppingItems } from 'data';
-
-let wishlist = shoppingItems;
-wishlist.length = 3;
 
 export default function Wishlist() {
-  const { getOrders, orders, loading } = useContext(OrdersContext);
+  const [, addItem, , , list, , removeItemFromList] = useContext(CartContext);
 
   // useEffect(() => {
   //   if (!orders.length) getOrders();
@@ -26,7 +22,7 @@ export default function Wishlist() {
   //     ></span>
   //   );
 
-  console.log(wishlist);
+  console.log(list);
 
   return (
     <div className='px-6'>
@@ -43,14 +39,19 @@ export default function Wishlist() {
             order={e}
           />
         ))} */}
-        {wishlist.map((e) => (
+        {!list.length && <div className=''>No Item in Wishlist</div>}
+        {list.map((e) => (
           <WishlistItem
             id={e.id}
+            key={e.id}
             img={e.main_image}
             title={e.title}
             rating={e.rating_sum}
             price={Number(e.price)}
             condition={e.condition}
+            remove={removeItemFromList}
+            item={e}
+            addToCart={addItem}
           />
         ))}
       </div>

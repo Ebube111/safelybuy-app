@@ -6,7 +6,12 @@ export const CartProvider = ({ children }) => {
   let savedCart = process.browser && localStorage.getItem('safelybuy_cart');
   if (savedCart) savedCart = JSON.parse(savedCart);
   else savedCart = [];
+  let savedList = process.browser && localStorage.getItem('safelybuy_list');
+  if (savedList) savedList = JSON.parse(savedList);
+  else savedList = [];
+
   const [cart, setCart] = useState(savedCart);
+  const [list, setList] = useState(savedList);
 
   const addItem = (item, quantity) => {
     // if item exists, add to its quantity
@@ -20,8 +25,18 @@ export const CartProvider = ({ children }) => {
     } else setCart(cart.concat([{ item, quantity }]));
   };
 
+  const addItemToList = (item) => {
+    const found = list.findIndex((e) => item.id === e.id);
+    if (found !== -1) return;
+    setList(list.concat([item]));
+  };
+
   const removeItem = (id) => {
     setCart(cart.filter((e) => e.item.id !== id));
+  };
+
+  const removeItemFromList = (id) => {
+    setList(list.filter((e) => e.id !== id));
   };
 
   const setQuantity = (id, quantity) => {
@@ -38,10 +53,22 @@ export const CartProvider = ({ children }) => {
   useEffect(() => {
     process.browser &&
       localStorage.setItem('safelybuy_cart', JSON.stringify(cart));
-  }, [cart]);
+    process.browser &&
+      localStorage.setItem('safelybuy_list', JSON.stringify(list));
+  }, [cart, list]);
 
   return (
-    <CartContext.Provider value={[cart, addItem, removeItem, setQuantity]}>
+    <CartContext.Provider
+      value={[
+        cart,
+        addItem,
+        removeItem,
+        setQuantity,
+        list,
+        addItemToList,
+        removeItemFromList,
+      ]}
+    >
       {children}
     </CartContext.Provider>
   );
