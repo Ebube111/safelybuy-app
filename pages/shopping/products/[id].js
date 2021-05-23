@@ -41,8 +41,29 @@ const ProductDetail = ({ product }) => {
   };
 
   if (!product) return null;
-  const { title, main_image, price, rating_sum } = product;
-
+  const {
+    title,
+    rating_num,
+    internal_memory,
+    brand,
+    price,
+    rating_sum,
+    ram_size,
+    display,
+    front_camera,
+    rear_camera,
+    operating_system,
+    colour,
+    battery,
+    cpu_speed,
+    specifications,
+    network,
+    processor,
+    weight,
+    reviews,
+    seller
+  } = product;
+  console.log(product);
   return (
     <div>
       <Head>
@@ -124,7 +145,7 @@ const ProductDetail = ({ product }) => {
               </div>
             </div>
             <div className='w-1/2 ml-6 md:mt-6 md:ml-2 md:w-full'>
-              <p className='font-medium text-gray-400'>{title.split(' ')[0]}</p>
+              <p className='font-medium text-gray-400'>{brand}</p>
               <h1 className='font-bold text-4xl md:text-2xl'>{title}</h1>
               <span className='inline-flex items-center text-gray-500'>
                 {new Array(Number(parseInt(rating_sum)))
@@ -168,10 +189,12 @@ const ProductDetail = ({ product }) => {
                     </svg>
                   ))}{' '}
                 <span className='inline-block ml-3'>
-                  {rating_sum} ({parseInt(Math.random() * 200)} reviews)
+                  {rating_sum} ({rating_num} reviews)
                 </span>
               </span>
-              <div className='font-medium pt-2'>Variation: White </div>
+              <div className='font-medium pt-2'>
+                Variation: <span className='capitalize'>{colour}</span>{' '}
+              </div>
               <div className='text-3xl mt-3 md:mt-1 mb-6 md:mb-3 font-bold text-purple-500 md:text-lg'>
                 &#8358;{Number(price).toLocaleString()}
               </div>
@@ -214,6 +237,7 @@ const ProductDetail = ({ product }) => {
                           viewBox='0 0 14 14'
                           fill='none'
                           xmlns='http://www.w3.org/2000/svg'
+                          className='absolute top-1 right-1'
                         >
                           <path
                             fillRule='evenodd'
@@ -234,8 +258,22 @@ const ProductDetail = ({ product }) => {
                       Share Product
                     </span>
                     <div className='flex justify-between items-center leading-none'>
-                      {<Facebook />}
-                      {<Twitter />}
+                      {typeof window !== 'undefined' && location ? (
+                        <a
+                          target='_blank'
+                          href={`https://www.facebook.com/sharer/sharer.php?u=${location.href}`}
+                        >
+                          <Facebook />
+                        </a>
+                      ) : null}
+                      {typeof window !== 'undefined' && location ? (
+                        <a
+                          target='_blank'
+                          href={`https://twitter.com/intent/tweet?text=Checkout%20this%20${title}%20on%20Safelybuy&url=${location?.href}`}
+                        >
+                          <Twitter />
+                        </a>
+                      ) : null}
                     </div>
                   </div>
                   <div className='flex w-48 ml-8 md:w-full md:m-auto md:mt-4'>
@@ -285,82 +323,45 @@ const ProductDetail = ({ product }) => {
                             Key Features
                           </h2>
                           <ul className='list-disc pl-4 text-gray-700 pt-1 pb-6 border-b border-gray-200'>
-                            <li>Memory: (4GB ROM, 128GB RAM)</li>
                             <li>
-                              Display: 6.5 Inches Super Retina OLED capacitive
-                              touchscreen, 16M colors
+                              Memory:{' '}
+                              <span className='uppercase'>
+                                ({internal_memory} ROM, {ram_size} RAM)
+                              </span>
                             </li>
-                            <li>Camera: 7MP (selfie), 12MP (rear)</li>
-                            <li>OS: iOS 12, upgradable to iOS 13.6.1</li>
-                            <li>Chipset: Apple A12 Bionic (7 nm)</li>
-                            <li>Face Unlock</li>
-                          </ul>
-                        </div>
-                        <div className=''>
-                          <h2 className='font-medium text-xl pt-3'>Camera</h2>
-                          <ul className='list-disc pl-4 text-gray-700 pt-1 pb-6 border-b border-gray-200'>
-                            <li>Memory: (4GB ROM, 128GB RAM)</li>
-                            <li>Camera: 7MP (selfie), 12MP (rear)</li>
-                            <li>OS: iOS 12, upgradable to iOS 13.6.1</li>
-                            <li>Face Unlock</li>
-                          </ul>
-                        </div>
-                        <div className=''>
-                          <h2 className='font-medium text-xl pt-3'>Display</h2>
-                          <ul className='list-disc pl-4 text-gray-700 pt-1 pb-6'>
-                            <li>Lorem ipsum dolor sit amet.</li>
+                            <li>Display: {display}</li>
                             <li>
-                              Lorem ipsum dolor sit amet, consectetur
-                              adipisicing.
+                              Camera: {front_camera} (selfie), {rear_camera}{' '}
+                              (rear)
                             </li>
-                            <li>Lorem ipsum dolor sit amet consectetur.</li>
-                            <li>Face Unlock</li>
+                            <li>Network: {network}</li>
+                            <li>OS: {operating_system}</li>
+                            <li>Battery: {battery}</li>
+                            <li>CPU Speed: {cpu_speed}</li>
+                            <li>Processor: {processor}</li>
+                            <li>Weight: {weight}</li>
+                            <li>Other Specifications: {specifications}</li>
                           </ul>
                         </div>
                       </div>
                     </div>
                   </TabPanel>
                   <TabPanel>
-                    {[
-                      {
-                        rating: 4,
-                        title: 'Awesome Phone',
-                        body:
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
-                        date: Date.now(),
-                        name: 'Jessica Jones',
-                      },
-                      {
-                        rating: 2,
-                        title: 'Awesome Phone',
-                        body:
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
-                        date: Date.now(),
-                        name: 'Jessica Jones',
-                      },
-                      {
-                        rating: 3,
-                        title: 'Awesome Phone',
-                        body:
-                          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. ',
-                        date: Date.now(),
-                        name: 'Jessica Jones',
-                      },
-                    ].map((e) => (
+                    {reviews.map((e) => (
                       <Comment
                         key={Math.random()}
                         rating={e.rating}
                         title={e.title}
-                        date={e.date}
-                        body={e.body}
-                        name={e.name}
+                        date={e.created_at}
+                        body={e.review}
+                        name={e.reviewer}
                       />
                     ))}
                   </TabPanel>
                   <TabPanel>
                     <SellerDetail
-                      name='Chesco Phones LTD'
-                      image='/images/seller.jpeg'
+                      name={seller.business_name}
+                      image='/images/seller_icon.png'
                       percentReview={86}
                     />
                   </TabPanel>
@@ -368,7 +369,7 @@ const ProductDetail = ({ product }) => {
               </div>
             </div>
           </div>
-          <div className='mb-10 md:mt-8'>
+          {/* <div className='mb-10 md:mt-8'>
             <h2 className='text-3xl md:text-2xl mb-8 font-bold'>
               <Link href='/shopping/products'>
                 <a>More Like This</a>
@@ -416,7 +417,7 @@ const ProductDetail = ({ product }) => {
                 />
               ))}
             </div>
-          </div>
+          </div> */}
         </Container>
         <Footer />
       </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import moment from 'moment';
 
 const Comment = ({ rating, title, body, date, name }) => {
   return (
@@ -42,13 +42,10 @@ const Comment = ({ rating, title, body, date, name }) => {
       </div>
       <h3 className='text-lg font-medium py-2'>{title}</h3>
       <p className='pb-2'>{body}</p>
-      <div className='flex text-sm'>
+      <div className='flex items-center text-sm'>
         {/* <p className="text-gray-400">{(date).toISOString()}</p> */}
-        <p className='text-gray-400'>
-          {new Intl.DateTimeFormat('en-GB').format(date).replace(/\//g, ' - ')}{' '}
-          *
-        </p>
-        <p className='ml-2 font-medium'>{name}</p>
+        <p className='text-gray-400'>{moment(date).format('DD - MM - YYYY')}*</p>
+        <p className='ml-2 font-medium text-base'>{name}</p>
       </div>
     </div>
   );
