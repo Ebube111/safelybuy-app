@@ -23,14 +23,13 @@ const Delivery = () => {
     loading,
     addAddress,
     removeAddress,
-    calculatePrice,
     editAddress,
-    selectedAddress,
     setSelectedAddress,
+    deliveryPrice,
+    selectedAddress,
   } = useContext(AddressContext);
   const [addressItems, setAddressItems] = useState(remaining || address);
   const [addresModal, setAddressModal] = useState([false, '']);
-  // const [selectedAddress, setSelectedAddress] = useState(null);
   const forceUpdate = React.useReducer(() => ({}))[1];
   const [selectedAddress2, setSelectedAddress2] = useState([]);
   // const [deliveryType, setDeliveryType] = useState({
@@ -188,14 +187,15 @@ const Delivery = () => {
               Delivery with DHL
             </div>
           </div> */}
-          <div className='mt-8 mr-4 w-7/12 md:w-full flex justify-end md:justify-center leading-none'>
+          <div className='mt-8 mr-4 w-7/12 md:w-full flex justify-end md:justify-center'>
             <Link href='/shopping/payment'>
               <a>
                 <Button
-                  primary
+                  primary={selectedAddress.length && deliveryPrice}
+                  disabled={!(selectedAddress.length && deliveryPrice)}
                   roundedLg
                   icon={<ArrowRight color='white' scale={0.9} />}
-                  text='Proceed to Checkout'
+                  text='Proceed to Payment'
                 ></Button>
               </a>
             </Link>

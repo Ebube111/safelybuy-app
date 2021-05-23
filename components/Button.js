@@ -42,7 +42,7 @@ const Button = ({
       } ${rounded ? `rounded` : ""} ${roundedMd ? `rounded-md` : ""} ${
         roundedLg ? `rounded-lg` : ""
       } ${roundedFull ? `rounded-full` : ""} ${
-        disabled ? `text-white bg-gray cursor-not-allowed` : ""
+        disabled ? `text-white bg-gray-400 px-6 py-2 cursor-not-allowed` : ""
       } ${
         primaryOutline
           ? `border-2 text-green-500 bg-white px-6 py-2  border-green-500 hover:shadow-lg active:shadow:sm`

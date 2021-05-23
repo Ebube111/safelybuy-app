@@ -10,12 +10,13 @@ let delData = [];
 
 const OrderDetails = ({ active }) => {
   const [cart] = useContext(CartContext);
-  const [total, setTotal] = useState(0);
   const {
     calculatePrice,
     selectedAddress,
     deliveryPrice,
     setDeliveryPrice,
+    total,
+    setTotal,
   } = useContext(AddressContext);
   // const [deliveryPrice, setDeliveryPrice] = useState(0);
   const router = useRouter();

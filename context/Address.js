@@ -13,6 +13,7 @@ export const AddressProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState([]);
   const [deliveryPrice, setDeliveryPrice] = useState(0);
+  const [total, setTotal] = useState(0);
   const { addToast } = useToasts();
 
   const addAddress = async (data, modal) => {
@@ -146,6 +147,8 @@ export const AddressProvider = ({ children }) => {
         setSelectedAddress,
         deliveryPrice,
         setDeliveryPrice,
+        total,
+        setTotal,
       }}
     >
       {children}
