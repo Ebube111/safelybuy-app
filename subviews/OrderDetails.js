@@ -76,7 +76,7 @@ const OrderDetails = ({ active, selectedAddress, calculatePrice }) => {
   }, [selectedAddress[0]]);
 
   return (
-    <div className='w-5/12 ml-4 md:ml-0 shadow-2xl p-4 rounded-3xl min-h-80 md:w-full'>
+    <div className='sticky top-32 w-5/12 ml-4 md:ml-0 shadow-2xl p-4 rounded-3xl min-h-80 md:w-full'>
       <div className='step-indicator flex relative'>
         <div className='absolute w-full h-2 border-b-2 border-dashed top-4'></div>
         <div className='flex w-full z-10 justify-between'>

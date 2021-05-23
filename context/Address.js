@@ -23,7 +23,6 @@ export const AddressProvider = ({ children }) => {
       );
       let { data } = res;
       // Pass data to the page via props
-      console.log(data);
       setLoading(false);
       addToast('User address created', {
         appearance: 'success',
@@ -73,7 +72,6 @@ export const AddressProvider = ({ children }) => {
       );
       let { data } = res;
       // Pass data to the page via props
-      console.log(data);
       setLoading(false);
       addToast('User address updated', {
         appearance: 'success',

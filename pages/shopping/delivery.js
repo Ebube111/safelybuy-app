@@ -67,7 +67,7 @@ const Delivery = () => {
         <title>Safelybuy - Shopping</title>
         <link rel='icon' href='/favicon.ico' />
       </Head>
-      <div className='relative pb-48 flex flex-col min-h-screen md:pb-80'>
+      <section className='relative pb-48 flex flex-col min-h-screen md:pb-80'>
         <Navigation />
         <Container topPadding>
           <Back />
@@ -204,7 +204,7 @@ const Delivery = () => {
           </div>
         </Container>
         <Footer />
-      </div>
+      </section>
     </PrivateRoute>
   );
 };

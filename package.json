@@ -23,6 +23,7 @@
     "react-hook-form": "^7.0.5",
     "react-ion-slider": "^1.0.9",
     "react-modal": "^3.12.1",
+    "react-paystack": "^3.0.3",
     "react-router-dom": "^5.2.0",
     "react-slick": "^0.28.0",
     "react-tabs": "^3.2.0",

@@ -22,8 +22,6 @@ export default function Wishlist() {
   //     ></span>
   //   );
 
-  console.log(list);
-
   return (
     <div className='px-6'>
       <div className='py-6'>
