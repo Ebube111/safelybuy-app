@@ -57,7 +57,7 @@ const cart = () => {
                   </Link>
                 </div>
               </div>
-              <OrderDetails active='cart' selectedAddress={[]} />
+              <OrderDetails active='cart' />
               <div className='hidden mt-8 md:flex w-full leading-none'>
                 <Link href='/shopping/delivery'>
                   <a>

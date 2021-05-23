@@ -25,10 +25,12 @@ const Delivery = () => {
     removeAddress,
     calculatePrice,
     editAddress,
+    selectedAddress,
+    setSelectedAddress,
   } = useContext(AddressContext);
   const [addressItems, setAddressItems] = useState(remaining || address);
   const [addresModal, setAddressModal] = useState([false, '']);
-  const [selectedAddress, setSelectedAddress] = useState(null);
+  // const [selectedAddress, setSelectedAddress] = useState(null);
   const forceUpdate = React.useReducer(() => ({}))[1];
   const [selectedAddress2, setSelectedAddress2] = useState([]);
   // const [deliveryType, setDeliveryType] = useState({
@@ -149,11 +151,7 @@ const Delivery = () => {
                 />
               )}
             </div>
-            <OrderDetails
-              selectedAddress={selectedAddress || []}
-              active='delivery'
-              calculatePrice={calculatePrice}
-            />
+            <OrderDetails active='delivery' />
           </div>
           {/* <div className='md:hidden'>
             <h4 className='my-4 text-xl font-medium'>Select delivery type</h4>

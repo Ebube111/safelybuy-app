@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState, memo } from 'react';
 import CartContext from 'context/Shopping';
+import AddressContext from 'context/Address';
 import { useRouter } from 'next/router';
 import { cities } from 'data';
 
@@ -7,10 +8,16 @@ let sellers = [];
 let sellerObj = null;
 let delData = [];
 
-const OrderDetails = ({ active, selectedAddress, calculatePrice }) => {
+const OrderDetails = ({ active }) => {
   const [cart] = useContext(CartContext);
   const [total, setTotal] = useState(0);
-  const [deliveryPrice, setDeliveryPrice] = useState(0);
+  const {
+    calculatePrice,
+    selectedAddress,
+    deliveryPrice,
+    setDeliveryPrice,
+  } = useContext(AddressContext);
+  // const [deliveryPrice, setDeliveryPrice] = useState(0);
   const router = useRouter();
   const [delPriceLoading, setDelPriceLoading] = useState(false);
 
@@ -54,7 +61,7 @@ const OrderDetails = ({ active, selectedAddress, calculatePrice }) => {
       }
       delData = newArr;
     }
-  }, [cart, selectedAddress[0], router.pathname]);
+  }, [cart, selectedAddress[0]]);
 
   useEffect(() => {
     if (selectedAddress?.length)
