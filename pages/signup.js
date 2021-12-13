@@ -53,6 +53,8 @@ const SignUpPage = () => {
     resolver: yupResolver(signUpSchema),
   });
 
+  // const referral = window.location.search ? window.location.search : "JAX6hO61"
+
   useEffect(() => {
     sessionStorage.removeItem('safely_buy_pre_otp');
     return () => {};
@@ -63,14 +65,14 @@ const SignUpPage = () => {
     try {
       const { user, message } = await requests.post('/register', {
         ...data,
-        role: 'seller',
+          referral_code: window.location.search ? window.location.search : null
       });
       sessionStorage.setItem(
         'safely_buy_pre_otp',
         JSON.stringify([data.phone, user])
       );
       setLoadingUser(false);
-      return history.push('/verifyOTP');
+      return history.push('/');
     } catch (err) {
       setLoadingUser(false);
 
@@ -226,6 +228,12 @@ const SignUpPage = () => {
                         {errors.phone && <span>{errors.phone.message}</span>}
                       </span>
                     </div>
+                  </div>
+                  <div className="hidden">
+                    <input 
+                      type="text"
+                      {...register('referral_code')}
+                    />
                   </div>
                   <div className='text-left'>
                     <label className='text-sm my-2' htmlFor='password'>

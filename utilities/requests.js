@@ -1,7 +1,7 @@
 import axios from 'axios';
 import jwtDecode from 'jwt-decode';
 
-const baseURL = 'https://safelybuy-api.herokuapp.com/api/v1';
+const baseURL = 'https://api.safelybuy.com/api/v1/';
 
 export const LOGIN = 'LOGIN';
 export const LOADING = 'LOADING';
